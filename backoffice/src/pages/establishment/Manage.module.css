@@ -1,0 +1,12 @@
+.establishmentName {
+  font-weight: lighter;
+  font-size: 2.5em;
+}
+.links a{
+  color: #fff;
+  font-family: 'Drunk Tank';
+  font-size: 1.3em;
+}
+.links a.active {
+  color: #ffa100;
+}

@@ -1,0 +1,18 @@
+.Menubar {
+  font-family: 'Drunk Tank';
+}
+.links a {
+  font-size: 20pt;
+  padding: 8px;
+  transition: 125ms linear;
+}
+.links a.linkActive {
+  color: white;
+  text-shadow: 0 0 1px black, 0 2px 2px black, 2px 2px 2px black, -2px 2px 2px black;
+}
+.establishmentName {
+  font-weight: lighter;
+  font-size: 2.5em;
+  color: white;
+  text-shadow: 0 0 1px black, 0 2px 2px black, 2px 2px 2px black, -2px 2px 2px black;
+}

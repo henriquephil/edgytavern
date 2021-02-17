@@ -1,0 +1,8 @@
+.RecentOrdersContainer {
+  flex-basis: 34%;
+}
+@media screen and (max-width: 768px) {
+  .RecentOrdersContainer {
+    flex-basis: 40%;
+  }
+}

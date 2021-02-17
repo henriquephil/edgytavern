@@ -1,0 +1,11 @@
+.header {
+  font-weight: bold;
+  padding: 8px 0;
+}
+.itens {
+  font-size: 0.8em;
+  padding: 4px;
+}
+.itens > * {
+  padding: 4px 0;
+}
