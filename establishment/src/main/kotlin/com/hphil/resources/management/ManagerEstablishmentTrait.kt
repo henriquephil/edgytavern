@@ -1,4 +1,4 @@
-package com.hphil.resources
+package com.hphil.resources.management
 
 import com.hphil.domain.Establishment
 import com.hphil.repository.EstablishmentRepository

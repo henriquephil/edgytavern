@@ -1,9 +1,9 @@
 package com.hphil.repository
 
-import com.hphil.domain.Seat
+import com.hphil.domain.Spot
 import io.quarkus.hibernate.orm.panache.PanacheRepository
 import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
-class SeatRepository: PanacheRepository<Seat> {
+class SpotRepository: PanacheRepository<Spot> {
 }

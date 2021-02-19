@@ -6,7 +6,7 @@ import javax.persistence.Id
 import javax.persistence.ManyToOne
 
 @Entity
-open class Seat(
+open class Spot(
         @ManyToOne
         open val establishment: Establishment = Establishment(),
         open var name: String = "") {

@@ -1,4 +1,4 @@
-package com.hphil.resources
+package com.hphil.resources.management
 
 import com.hphil.domain.Category
 import com.hphil.repository.CategoryRepository
@@ -12,7 +12,7 @@ import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.SecurityContext
 
-@Path("/establishment/categories")
+@Path("/management/categories")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Authenticated
