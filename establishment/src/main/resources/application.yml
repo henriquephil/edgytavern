@@ -1,18 +1,17 @@
 quarkus:
   http:
-    port: 8082
+    port: 8081
   datasource:
     db-kind: postgresql
     username: postgres
     password: postgres
     jdbc:
-      url: jdbc:postgresql://localhost:5432/bar
+      url: jdbc:postgresql://localhost:5432/establishment
   hibernate-orm:
     database:
       generation: update # drop-and-create
     log:
       sql: true
-
   oidc:
     auth-server-url: http://localhost:8001/auth/realms/bar
     client-id: backend
@@ -20,13 +19,6 @@ quarkus:
       secret: b7ac1366-c7e0-4125-87a0-758345aaa447
     tls:
       verification: none
-
   keycloak:
     policy-enforcer:
       enable: true
-
-
-com:
-  hphil:
-    client:
-      AccountClient/mp-rest/url: http://localhost:8081

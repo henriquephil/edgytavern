@@ -1,10 +1,10 @@
 import { Box, Flex } from "@chakra-ui/react"
 
-function Seats() {
+function Spots() {
   return (
     <Box>
-      Seats
+      Spots
     </Box>);
 }
 
-export default Seats;
+export default Spots;

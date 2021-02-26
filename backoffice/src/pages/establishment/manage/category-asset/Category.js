@@ -19,7 +19,7 @@ function Category({ category }) {
   const loadAssets = () => {
     setLoading(true);
     setAssets([]);
-    axios.get('/api/establishment/assets', { params: { categoryId: category.id } })
+    axios.get('/api/establishment/management/assets', { params: { categoryId: category.id } })
       .then(response => setAssets(response.data.assets))
       .finally(() => setLoading(false));
   }

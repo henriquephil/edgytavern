@@ -1,8 +1,8 @@
-.SeatBills {
+.SpotBills {
   grid-template-columns: repeat(3, 1fr);
 }
 @media screen and (max-width: 768px) {
-  .SeatBills {
+  .SpotBills {
     grid-template-columns: repeat(2, 1fr);
   }
 }

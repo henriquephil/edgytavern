@@ -42,7 +42,7 @@ function Modal() {
         <input ref={firstTabIdx} onKeyDown={e => blockTabShift(e)} className={style.hiddenTabInput}></input>
           <Box maxH="100vh" maxW="768px">
             <CutBorder borderAt='top'>
-              <Box p="4px" borderTop="3px solid #ffa100" background="#222">
+              <Box background="#222">
                 {modalContent}
               </Box>
             </CutBorder>

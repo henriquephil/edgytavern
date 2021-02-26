@@ -6,9 +6,11 @@ import com.hphil.domain.OrderItem
 import com.hphil.domain.OrderItemStatus
 import com.hphil.repository.BillRepository
 import com.hphil.repository.OrderItemRepository
+import org.eclipse.microprofile.rest.client.inject.RestClient
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import javax.annotation.security.RolesAllowed
+import javax.enterprise.inject.Default
 import javax.inject.Inject
 import javax.transaction.Transactional
 import javax.ws.rs.*
@@ -40,6 +42,8 @@ class ManagerResource {
     lateinit var orderItemRepository: OrderItemRepository
 
     @Inject
+    @field: Default
+    @RestClient
     lateinit var managementEstablishmentClient: ManagementEstablishmentClient
 
     @GET

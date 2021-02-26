@@ -8,5 +8,5 @@ import javax.enterprise.context.ApplicationScoped
 @ApplicationScoped
 class BillRepository: PanacheRepository<Bill> {
     fun findOpen(userUid: String): Optional<Bill> = find("user_uid = ?1 and open = true", userUid).firstResultOptional<Bill>()
-    fun openBillsAt(establishmentHashId: String) = list("establishment_hash = ?1 and open = true", establishmentHashId)
+    fun openBillsAt(establishmentHashId: String): MutableList<Bill> = list("establishment_hash = ?1 and open = true", establishmentHashId)
 }

@@ -21,13 +21,9 @@ class EstablishmentsResource {
     lateinit var hashids: Hashids
 
     @GET
-    fun getEstablishments(@Context ctx: SecurityContext,
-                               @PathParam("establishmentHash") establishmentHash: String): EstablishmentResponse? {
-        val establishmentId = hashids.decode(establishmentHash)[0]
-        return establishmentRepository.find("id = ?1 and active = true", establishmentId)
-                .firstResultOptional<Establishment>()
-                .map { EstablishmentResponse(it) }
-                .orElse(null)
+    fun getEstablishments(@QueryParam("active") active: Boolean): List<EstablishmentResponse> {
+        return establishmentRepository.list("active = ?1", active)
+                .map { EstablishmentResponse(hashids.encode(it.id!!), it.name) }
     }
 
     @GET
@@ -37,11 +33,9 @@ class EstablishmentsResource {
         val establishmentId = hashids.decode(establishmentHash)[0]
         return establishmentRepository.find("id = ?1 and active = true", establishmentId)
                 .firstResultOptional<Establishment>()
-                .map { EstablishmentResponse(it) }
+                .map { EstablishmentResponse(hashids.encode(it.id!!), it.name) }
                 .orElse(null)
     }
 
-    class EstablishmentResponse(val name: String) {
-        constructor(establishment: Establishment) : this(establishment.name)
-    }
+    class EstablishmentResponse(val hashId: String, val name: String)
 }

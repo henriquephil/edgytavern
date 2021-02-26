@@ -5,13 +5,13 @@ function OrderStatus(props) {
   return (
     <Box w="100%" p="4px" opacity={props.delivered ? '0.5' : '1'}>
       <CutBorder borderAt='left'>
-        <Flex direction="column" w="100%" borderLeft="3px solid #ffa100" paddingLeft="8px" background="#333" color="#fff">
+        <Flex direction="column" w="100%" paddingLeft="8px" background="#333" color="#fff">
           <Flex w="100%" justify="space-between" p="4px">
             <span>asset</span>
             <span>qtd</span>
           </Flex>
           <Flex w="100%" justify="space-between" p="4px">
-            <span>seat</span>
+            <span>spot</span>
             <span>status</span>
             <span>time</span>
           </Flex>

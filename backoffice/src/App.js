@@ -10,7 +10,7 @@ function App() {
   const [ error, setError ] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/establishment')
+    axios.get('/api/establishment/management')
       .then(res => {
         setEstablishment(res.data);
         setNotFound(!res.data);

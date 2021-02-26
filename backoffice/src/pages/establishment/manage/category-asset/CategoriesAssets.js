@@ -15,7 +15,7 @@ function CategoriesAssets() {
 
   const loadCategories = () => {
     setLoading(true);
-    axios.get('/api/establishment/categories')
+    axios.get('/api/establishment/management/categories')
       .then(response => {
         setCategories(response.data.categories);
       })
@@ -26,7 +26,7 @@ function CategoriesAssets() {
 
   const addCategory = category => {
     if (category.name) {
-      axios.post('/api/establishment/categories', category)
+      axios.post('/api/establishment/management/categories', category)
         .then(res => loadCategories());
     }
   }

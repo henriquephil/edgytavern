@@ -17,7 +17,7 @@ function CategoryAsset({asset, onCategoryEdited}) {
     <Box p="4px">
       <CutBorder borderAt='left'>
         <Flex>
-          <Box flexBasis="auto" flexGrow="1" p="4px" borderLeft="3px solid #ffa100" background="#333" color="#fff"
+          <Box flexBasis="auto" flexGrow="1" p="4px" background="#333" color="#fff"
               style={{opacity: asset.active ? 1 : 0.5}}>
             <Flex align="baseline" onClick={() => setExpanded(!expanded)}>
               <Box fontSize="1.1em" p="4px 8px">{asset.name}</Box>

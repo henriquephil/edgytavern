@@ -6,9 +6,11 @@ import com.hphil.repository.BillRepository
 import com.hphil.repository.OrderRepository
 import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal
 import io.quarkus.security.Authenticated
+import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.hashids.Hashids
 import java.math.BigDecimal
 import javax.annotation.security.RolesAllowed
+import javax.enterprise.inject.Default
 import javax.inject.Inject
 import javax.transaction.Transactional
 import javax.ws.rs.*
@@ -43,6 +45,8 @@ class CustomerResource {
     lateinit var hashids: Hashids
 
     @Inject
+    @field: Default
+    @RestClient
     lateinit var establishmentClient: EstablishmentClient
 
     @POST
