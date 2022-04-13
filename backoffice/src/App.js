@@ -13,11 +13,9 @@ function App() {
   let establishment = useSelector(state => state.establishment);
 
   if (establishment.loading) return 'Loading';
-  if (establishment.error) return  `Axios Error: ${establishment.error.message}`;
-  if (establishment.data) 
-    return <Establishment/>
-  else
-    return <CreateEstablishment/>;
+  if (establishment.error) return `Axios Error: ${establishment.error.message}`;
+  if (establishment.data) return <Establishment/>;
+  return <CreateEstablishment/>;
 }
 
 export default App;

@@ -30,8 +30,8 @@ function EditAssetModal({asset}) {
     if (body.name && body.categoryId && body.price) {
       setSaveLoading(true);
       // const promise = asset.id ? 
-        // axios.put(`/api/establishment/management/assets/${asset.id}`, body) :
-        // axios.post('/api/establishment/management/assets', body);
+        // axios.put(`/api/establishment/managed/assets/${asset.id}`, body) :
+        // axios.post('/api/establishment/managed/assets', body);
       // promise
       //   .then(() => closeModal(true))
       //   .finally(() => setSaveLoading(false));

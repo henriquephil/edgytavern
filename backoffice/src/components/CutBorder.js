@@ -1,7 +1,7 @@
 // borderAt required: [top, right, bottom, left]
 function CutBorder({children, borderAt, bg, borderWidth}) {
   bg = bg || "#333"
-  borderWidth = borderWidth || '3px';
+  borderWidth = borderWidth || '1px';
 
   const style = { 'background-color': bg, 'border': '0px solid #ffA100' };
   style[`border-${borderAt}-width`] = borderWidth;

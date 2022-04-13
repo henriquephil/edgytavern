@@ -15,7 +15,7 @@ function Category({ category }) {
   const loadAssets = () => {
     setLoading(true);
     setAssets([]);
-    api.get('management/assets', { params: { categoryId: category.id } })
+    api.get('/managed/assets', { params: { categoryId: category.id } })
       .then(response => setAssets(response.data.assets))
       .finally(() => setLoading(false));
   }

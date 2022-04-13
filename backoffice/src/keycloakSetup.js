@@ -4,7 +4,7 @@ import { setRequestInterceptor } from './api';
 export async function initKeycloak() {
   const keycloak = Keycloak('/keycloak.json');
   if (!keycloak) {
-    console.log('keycloak file not found')
+    console.error('keycloak file not found')
     return;
   }
   
@@ -13,22 +13,18 @@ export async function initKeycloak() {
   // keycloak.init({onLoad: 'login-required', flow: 'implicit'})
   if (authenticated) {       
     const userInfo = await keycloak.loadUserInfo();
-    console.log(userInfo);
   } else {
     // redirect?
   }
   // .catch(() => console.log("navigate('/')"));
   
   const authTokenHeaderInterceptor = (config) => {
-    console.log(config);
     if (keycloak) {
-      keycloak.updateToken(60 * 5)
-        .then(refreshed => {
-          console.log('headers', config.headers);
-          return Promise.resolve(config);
-        })
+      keycloak.updateToken(60 * 5);
+        // .then(refreshed => {
+        //   return Promise.resolve(config);
+        // })
     }
-    console.log('config.headers.Authorization', `Bearer ${keycloak.token}`);
     config.headers.Authorization = `Bearer ${keycloak.token}`;
     return config;
   }

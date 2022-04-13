@@ -14,7 +14,7 @@ function CreateEstablishment() {
     //   .then(res => {
     //     // history.push('/dashboard')
     //   })
-    api.post('/management', { name })
+    api.post('/managed', { name })
         .then(res => {
           console.log(res);
 

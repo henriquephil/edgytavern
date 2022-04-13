@@ -1,9 +1,8 @@
 import { api } from '../api';
 
-export function loadingEstablishment(establishment) {
+export function loadingEstablishment() {
   return {
-    type: 'establishment.set',
-    payload: establishment
+    type: 'establishment.loading'
   };
 }
 
@@ -22,8 +21,8 @@ export function errorLoadingEstablishment(err) {
 }
 
 export async function fetchEstablishment(dispatch, getState) {
-  dispatch(setEstablishment());
-  api.get('/management')
+  dispatch(loadingEstablishment());
+  api.get('/managed')
     .then(res => {
       dispatch(setEstablishment(res.data));
     })
@@ -31,7 +30,7 @@ export async function fetchEstablishment(dispatch, getState) {
       dispatch(errorLoadingEstablishment(err || { message: 'error loading establishment' }));
     })
   // try {
-  //   const { data } = await api.get('/management')
+  //   const { data } = await api.get('/managed')
   //   dispatch(setEstablishment(data));
   // } catch (err) {
   //   dispatch(errorLoadingEstablishment(err));
