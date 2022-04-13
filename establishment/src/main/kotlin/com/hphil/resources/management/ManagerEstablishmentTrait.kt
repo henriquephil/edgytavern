@@ -15,8 +15,6 @@ interface ManagerEstablishmentTrait {
 
     fun validateManager(establishment: Establishment, ctx: SecurityContext) {
         val sub = (ctx.userPrincipal as OidcJwtCallerPrincipal).subject
-        println(sub)
-        println(establishment.managerUid)
         if (establishment.managerUid != sub) {
             error("User has no authority over this establishment");
         }

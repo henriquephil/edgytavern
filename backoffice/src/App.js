@@ -1,27 +1,23 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import CreateEstablishment from './pages/CreateEstablishment';
 import Establishment from './pages/Establishment';
-import AxiosContext from './api/AxiosContext';
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchEstablishment } from './state/actions';
 
-function App() {
-  const axios = useContext(AxiosContext)
-  const [ establishment, setEstablishment ] = useState(null);
-  const [ notFound, setNotFound ] = useState(null);
-  const [ error, setError ] = useState(null);
-
+function App() {  
+  const dispatch = useDispatch()
+  
   useEffect(() => {
-    axios.get('/api/establishment/management')
-      .then(res => {
-        setEstablishment(res.data);
-        setNotFound(!res.data);
-      }).catch(err => {
-        setError(err)
-      });
-  }, ['axios']);
-  if (establishment) return <Establishment establishment={establishment} />;
-  if (error) return  `Axios Error: ${error.message}`
-  if (notFound) return <CreateEstablishment />;
-  return 'Loading';
+    dispatch(fetchEstablishment);
+  }, [])
+  let establishment = useSelector(state => state.establishment);
+
+  if (establishment.loading) return 'Loading';
+  if (establishment.error) return  `Axios Error: ${establishment.error.message}`;
+  if (establishment.data) 
+    return <Establishment/>
+  else
+    return <CreateEstablishment/>;
 }
 
 export default App;

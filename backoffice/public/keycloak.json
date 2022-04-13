@@ -1,8 +1,8 @@
 {
-  "realm": "bar",
+  "realm": "edgy",
   "auth-server-url": "http://localhost:8001/auth/",
   "ssl-required": "external",
-  "resource": "client-auth",
+  "resource": "frontend",
   "public-client": true,
   "verify-token-audience": true,
   "use-resource-role-mappings": true,

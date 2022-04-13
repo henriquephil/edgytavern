@@ -1,7 +1,18 @@
-.SpotBills {
-  grid-template-columns: repeat(3, 1fr);
+.SpotBills { /* 1900 = 400 + 5 * 300 */
+  grid-template-columns: repeat(5, 1fr);
 }
-@media screen and (max-width: 768px) {
+/* see Dashboard.module.css to adjust */
+@media screen and (max-width: 1580px) { /* 380 + 300 * 4 */
+  .SpotBills {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (max-width: 1260px) { /* 360 + 300 * 3 */
+  .SpotBills {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 940px) { /* 340 + 300 * 2 */
   .SpotBills {
     grid-template-columns: repeat(2, 1fr);
   }

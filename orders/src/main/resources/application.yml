@@ -13,10 +13,10 @@ quarkus:
     log:
       sql: true
   oidc:
-    auth-server-url: http://localhost:8001/auth/realms/bar
+    auth-server-url: http://localhost:8001/auth/realms/edgy
     client-id: backend
     credentials:
-      secret: b7ac1366-c7e0-4125-87a0-758345aaa447
+      secret: ed992a9c-331c-4ac6-82fc-4f06bdee95ea
     tls:
       verification: none
   keycloak:

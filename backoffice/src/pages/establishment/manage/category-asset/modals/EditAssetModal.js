@@ -2,7 +2,7 @@ import { AddIcon, DeleteIcon, EditIcon, HamburgerIcon, LockIcon, UnlockIcon } fr
 import { Box, Button, Checkbox, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useList } from "react-use";
-import AxiosContext from "../../../../../api/AxiosContext";
+// import AxiosContext from "../../../../../api/AxiosContext";
 import { ModalContext } from "../../../../../components/modal/ModalContext";
 
 function EditAssetModal({asset}) {
@@ -18,7 +18,7 @@ function EditAssetModal({asset}) {
   const [ additionals, additionalsActions ] = useList(asset.additionals);
   const [ additionalName, setadditionalName ] = useState('');
   const [ additionalPrice, setAdditionalPrice ] = useState('');
-  const axios = useContext(AxiosContext);
+  // const axios = useContext(AxiosContext);
   const { closeModal } = useContext(ModalContext)
 
   const [ saveLoading, setSaveLoading ] = useState(false);
@@ -29,12 +29,12 @@ function EditAssetModal({asset}) {
     };
     if (body.name && body.categoryId && body.price) {
       setSaveLoading(true);
-      const promise = asset.id ? 
-        axios.put(`/api/management/establishment/assets/${asset.id}`, body) :
-        axios.post('/api/management/establishment/assets', body);
-      promise
-        .then(() => closeModal(true))
-        .finally(() => setSaveLoading(false));
+      // const promise = asset.id ? 
+        // axios.put(`/api/establishment/management/assets/${asset.id}`, body) :
+        // axios.post('/api/establishment/management/assets', body);
+      // promise
+      //   .then(() => closeModal(true))
+      //   .finally(() => setSaveLoading(false));
     }
   }
 

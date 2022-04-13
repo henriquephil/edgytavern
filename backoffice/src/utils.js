@@ -1,11 +1,9 @@
-import Axios from 'axios';
-
 var dateRegExMs = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.{1}\d{1,7}-\d{2}:\d{2}$/;
 var dateRegExZ = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.{1}\d{1,7}Z$/;
 var dateRegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})$/;
 var dateRegExShort = /^(\d{4})-(\d{2})-(\d{2})$/;
 
-function tryMatchDate(dateString) {
+export function tryMatchDate(dateString) {
   if (dateString.length === 19) {
     return dateString.match(dateRegEx);
   }
@@ -21,7 +19,7 @@ function tryMatchDate(dateString) {
   return false;
 };
 
-function convertDateStringsToDates(input) {
+export function convertDateStringsToDates(input) {
   if (typeof input !== "object")
     return input;
   for (var key in input) {
@@ -39,34 +37,3 @@ function convertDateStringsToDates(input) {
   }
   return null;
 }
-
-const requestFulfilledInterceptor = function(request) {
-  return request;
-}
-const requestErrorInterceptor = function(error) {
-  return Promise.reject(error);
-}
-const responseFulfilledInterceptor = function(request) {
-  return request;
-}
-const responseErrorInterceptor = function(error) {
-  // TODO Feedback
-  console.log(error.message, error.response);
-  return Promise.reject(error);
-};
-
-function create({ reqFulfilled = requestFulfilledInterceptor, reqError = requestErrorInterceptor, respFulfilled = responseFulfilledInterceptor, respError = responseErrorInterceptor }) {
-  const axiosInstance = Axios.create({
-      baseURL: process.env.REACT_APP_BACKEND,
-      transformResponse: Axios.defaults.transformResponse.concat((data) => {
-          convertDateStringsToDates(data);
-          return data;
-      })
-  });
-  axiosInstance.interceptors.request.use(reqFulfilled, reqError);
-  axiosInstance.interceptors.response.use(respFulfilled, respError)
-
-  return axiosInstance
-}
-
-export default create;

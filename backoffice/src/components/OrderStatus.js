@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import CutBorder from "../../../components/CutBorder";
+import CutBorder from "./CutBorder";
 
 function OrderStatus(props) {
   return (

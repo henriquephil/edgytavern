@@ -1,0 +1,20 @@
+.Add {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: green;
+  color: white;
+  font-weight: 900;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 40px;
+}
+.Add > span {
+  transform: translateY(-4px);
+  pointer-events: none;
+}

@@ -3,27 +3,23 @@ import CategoryAsset from "./CategoryAsset";
 import style from './Category.module.css';
 import EditAssetModal from "./modals/EditAssetModal";
 import { useContext, useEffect, useState } from "react";
-import AxiosContext from "../../../../api/AxiosContext";
 import { ModalContext } from "../../../../components/modal/ModalContext";
+import { api } from '../../../../api';
 
 function Category({ category }) {
   const [loading, setLoading] = useState(true);
   const [assets, setAssets] = useState([]);
-  const axios = useContext(AxiosContext);
-  const { openModal } = useContext(ModalContext)
   
-  const onCloseEditAsset = closed => {
-    console.log('closed: ', closed);
-  }
+  const { openModal } = useContext(ModalContext)
 
   const loadAssets = () => {
     setLoading(true);
     setAssets([]);
-    axios.get('/api/establishment/management/assets', { params: { categoryId: category.id } })
+    api.get('management/assets', { params: { categoryId: category.id } })
       .then(response => setAssets(response.data.assets))
       .finally(() => setLoading(false));
   }
-
+  
   useEffect(() => loadAssets(), []);
 
   return (
@@ -32,7 +28,7 @@ function Category({ category }) {
         <Box flexBasis="auto" flexGrow="1" fontSize="1.7em" className={style.categoryName}>
           {category.name}
         </Box>
-        <Button variant="ghost" onClick={() => openModal(<EditAssetModal asset={{ category }}/>, { onClose: onCloseEditAsset })}>
+        <Button variant="ghost" onClick={() => openModal(<EditAssetModal asset={{ category }}/>, { onClose: loadAssets })}>
           New asset
         </Button>
       </Flex>

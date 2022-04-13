@@ -26,8 +26,9 @@ class EstablishmentResource: ManagerEstablishmentTrait {
     @POST
     @Transactional
     fun create(@Context ctx: SecurityContext, request: CreateEstablishmentRequest) {
+        assert(request.name.isNotEmpty()) { "Name not set" }
         val user = (ctx.userPrincipal as OidcJwtCallerPrincipal).subject
-        establishmentRepository.find("manager", user).firstResultOptional<Establishment>()
+        establishmentRepository.find("managerUid", user).firstResultOptional<Establishment>()
                 .ifPresent { error("User already has an establishment") }
         establishmentRepository.persist(Establishment(request.name, user))
     }

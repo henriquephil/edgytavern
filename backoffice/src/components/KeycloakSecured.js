@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import Keycloak from 'keycloak-js';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axiosInstanceBuilder from '../api/AxiosInstanceBuilder';
-import AxiosContext from '../api/AxiosContext';
+// import AxiosContext from '../api/AxiosContext';
+import { setRequestInterceptor } from '../api';
 
 function KeycloakSecured({ children }) {
   const [keycloak, setKeycloak] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const keycloak = Keycloak('/keycloak.json');
@@ -18,21 +19,20 @@ function KeycloakSecured({ children }) {
         .then(authenticated => {
           setKeycloak(keycloak);
           setAuthenticated(authenticated);
-        }).catch(() => history.push('/'))
+        }).catch(() => navigate('/'))
   }, []);
   
   const reqFulfilled = (config) => {
-    return keycloak.updateToken(60 * 5)
-      .then(refreshed => {
-        // if (config.path.beginsWith("/api")) {
+    if (keycloak)
+      return keycloak.updateToken(60 * 5)
+        .then(refreshed => {
           config.headers.Authorization = `Bearer ${keycloak.token}`;
-        // }
-        return Promise.resolve(config);
-      })
-      // .catch(() => history.push('/'));
+          return Promise.resolve(config);
+        })
   }
 
   const axiosInstance = axiosInstanceBuilder({reqFulfilled})
+  setRequestInterceptor(reqFulfilled)
 
   if (keycloak) {
     if (authenticated)

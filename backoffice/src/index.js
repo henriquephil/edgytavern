@@ -1,10 +1,14 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import KeycloakSecured from './components/KeycloakSecured';
 import reportWebVitals from './reportWebVitals';
-import { extendTheme } from "@chakra-ui/react"
+import { extendTheme } from "@chakra-ui/react";
+import { Provider } from 'react-redux';
+import store from './state/store';
+import { BrowserRouter } from 'react-router-dom';
+import { initKeycloak } from './keycloakSetup';
+
 
 const theme = extendTheme({
   colors: {
@@ -32,17 +36,24 @@ const theme = extendTheme({
     xl: "5px",
   }
 })
-ReactDOM.render(
-  <React.StrictMode>
-    <KeycloakSecured>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
-    </KeycloakSecured>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+initKeycloak().then(() => {
+  createRoot(document.getElementById('root'))
+  .render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <BrowserRouter>
+          <ChakraProvider theme={theme}>
+            <App />
+          </ChakraProvider>
+        </BrowserRouter>
+      </Provider>
+    </React.StrictMode>
+  );
+});

@@ -58,7 +58,6 @@ input.subtle {
   color: #f0f0f0;
   background: #333;
   border: none;
-  border-radius: 2px;
   padding: 8px;
   width: 100%;
   transition: 125ms linear;

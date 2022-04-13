@@ -1,21 +1,16 @@
 import { Box } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import AxiosContext from "../../../../api/AxiosContext";
+import { useEffect, useState } from "react";
+import { api } from "../../../../api";
 import AddCategory from "./AddCategory";
 import Category from "./Category";
-
-function randomString() {
-  return Math.random().toString(36).substring(7);
-}
 
 function CategoriesAssets() {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
-  const axios = useContext(AxiosContext);
 
   const loadCategories = () => {
     setLoading(true);
-    axios.get('/api/establishment/management/categories')
+    api.get('/management/categories')
       .then(response => {
         setCategories(response.data.categories);
       })
@@ -26,7 +21,7 @@ function CategoriesAssets() {
 
   const addCategory = category => {
     if (category.name) {
-      axios.post('/api/establishment/management/categories', category)
+      api.post('/management/categories', category)
         .then(res => loadCategories());
     }
   }

@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react"
-import OrderStatus from "./OrderStatus";
+import OrderStatus from "../../../components/OrderStatus";
 
 function RecentOrders() {
 
