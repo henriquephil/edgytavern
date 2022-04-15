@@ -1,6 +1,9 @@
 quarkus:
   http:
     port: 8082
+    cors:
+      ~: true
+      methods: GET,PUT,POST
   datasource:
     db-kind: postgresql
     username: postgres
@@ -22,14 +25,3 @@ quarkus:
   keycloak:
     policy-enforcer:
       enable: true
-org:
-  eclipse:
-    microprofile:
-      rest:
-        client:
-          propagateHeaders: Authorization
-com:
-  hphil:
-    client:
-      EstablishmentClient/mp-rest/url: http://localhost:8081
-      ManagementEstablishmentClient/mp-rest/url: http://localhost:8081

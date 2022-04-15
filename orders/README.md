@@ -1,4 +1,4 @@
-# orders project
+# orders Project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -11,21 +11,25 @@ You can run your application in dev mode that enables live coding using:
 ./mvnw compile quarkus:dev
 ```
 
+> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+
 ## Packaging and running the application
 
 The application can be packaged using:
 ```shell script
 ./mvnw package
 ```
-It produces the `orders-1.0.0-SNAPSHOT-runner.jar` file in the `/target` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
+It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
+Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+
+The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
 
 If you want to build an _über-jar_, execute the following command:
 ```shell script
 ./mvnw package -Dquarkus.package.type=uber-jar
 ```
 
-The application is now runnable using `java -jar target/orders-1.0.0-SNAPSHOT-runner.jar`.
+The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
 ## Creating a native executable
 
@@ -41,18 +45,11 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 
 You can then execute your native executable with: `./target/orders-1.0.0-SNAPSHOT-runner`
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
+If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
 
-# Config example
+## Related Guides
 
-<p>This example displays mach speed in your favourite unit, depending on the specified Quarkus configuration.</p>
-<p>The Quarkus configuration is located in: <code>src/main/resources/application.yml</code></p>
-<p><b>Supersonic!</b></p>
-Guide: https://quarkus.io/guides/config#yaml
-
-# RESTEasy JSON serialisation using Jackson
-
-<p>This example demonstrate RESTEasy JSON serialisation by letting you list, add and remove quark types from a list.</p>
-<p><b>Quarked!</b></p>
-
-Guide: https://quarkus.io/guides/rest-json
+- Keycloak Authorization ([guide](https://quarkus.io/guides/security-keycloak-authorization)): Policy enforcer using Keycloak-managed permissions to control access to protected resources
+- Kotlin ([guide](https://quarkus.io/guides/kotlin)): Write your services in Kotlin
+- YAML Configuration ([guide](https://quarkus.io/guides/config#yaml)): Use YAML to configure your Quarkus application
+- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern

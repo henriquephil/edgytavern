@@ -50,8 +50,8 @@ class EstablishmentResource: ManagedEstablishmentTrait {
         establishment.name = request.name
         establishment.active = request.active
     }
-
-    class CreateEstablishmentRequest(val name: String)
-    class UpdateEstablishmentRequest(val name: String, val active: Boolean)
-    class EstablishmentResponse(val hashId: String, val name: String, val active: Boolean)
 }
+
+class CreateEstablishmentRequest(val name: String)
+class UpdateEstablishmentRequest(val name: String, val active: Boolean)
+class EstablishmentResponse(val hashId: String, val name: String, val active: Boolean)
