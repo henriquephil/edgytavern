@@ -10,8 +10,8 @@ function SpotBill({spotBill}) {
           <Box flexGrow="1">{spotBill.spot.name}</Box>
           <Box flexBasis="50px">{spotBill.bills.reduce((acc, cur) => acc + cur.total, 0)}</Box>
         </Flex>
-        {spotBill.bills.map(b => 
-          <Flex p="2px 0 2px 8px">
+        {spotBill.bills.map((b, idx) => 
+          <Flex key={idx} p="2px 0 2px 8px">
             <Box flexGrow="1">{b.customerName}</Box>
             <Box flexBasis="50px">{b.total}</Box>
           </Flex>

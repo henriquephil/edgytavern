@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/cli": "^8.0.2",
+    "@aws-amplify/ui-react": "^2.15.4",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11.9.0",
@@ -14,6 +16,7 @@
     "@types/node": "^17.0.23",
     "@types/react": "^18.0.3",
     "@types/react-dom": "^18.0.0",
+    "aws-amplify": "^4.3.20",
     "axios": "^0.26.1",
     "framer-motion": "^6.2.10",
     "jwt-decode": "^3.1.2",

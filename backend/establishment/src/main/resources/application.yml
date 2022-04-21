@@ -1,0 +1,25 @@
+server:
+  port : 8081
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/establishment?createDatabaseIfNotExist=true&useSSL=false
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+security:
+  oauth2:
+    resource:
+      userInfoUri: https://hphil-test1.auth.eu-east-1.amazoncognito.com/oauth2/userInfo
+      tokenInfoUri: https://hphil-test1.auth.eu-east-1.amazoncognito.com/oauth2/token
+      jwk:
+        keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_PJPaKcCHC/.well-known/jwks.json
+    client:
+      clientId: 56p5jhi10a0bfluuftc1c78l7e
+app:
+  baseUrl: http://localhost:8081
+  hash:
+    salt: bacalhau

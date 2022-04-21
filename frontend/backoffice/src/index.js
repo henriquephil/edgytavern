@@ -7,8 +7,8 @@ import { extendTheme } from "@chakra-ui/react";
 import { Provider } from 'react-redux';
 import store from './state/store';
 import { BrowserRouter } from 'react-router-dom';
-import { initKeycloak } from './keycloakSetup';
-
+import SecurityService from './services/SecurityService';
+import configureCognito from './services/SecurityCognito';
 
 const theme = extendTheme({
   background: "#222222",
@@ -45,8 +45,9 @@ const theme = extendTheme({
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-initKeycloak().then(userInfo => {
-  store.dispatch({ type: 'user', payload: userInfo })
+configureCognito();
+
+// SecurityService.initKeycloak().then(() => {
   createRoot(document.getElementById('root')).render(
     <React.StrictMode>
       <Provider store={store}>
@@ -58,4 +59,4 @@ initKeycloak().then(userInfo => {
       </Provider>
     </React.StrictMode>
   );
-});
+// });

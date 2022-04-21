@@ -1,32 +1,8 @@
 import Keycloak from 'keycloak-js';
-// import { Endpoints, Request } from '../request/Requests';
 
 const keycloak = new Keycloak('/keycloak.json');
 
-const initKeycloak = (onSuccessCallback, onFailureCallback) => {
-    let success = false;
-
-    setTimeout(() => {
-      if(!success){
-          onFailureCallback();
-      }
-    }, 3000);
-    keycloak.init({
-        // onLoad: 'check-sso',
-        // silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
-        // pkceMethod: 'S256',
-        onLoad: 'login-required'
-    }).then(isAuthenticated => {
-        success = true;
-        if(isAuthenticated) {
-            onSuccessCallback();
-        } else {
-            login({
-                redirectUri: window.location.href
-            });
-        }
-    });
-}
+const isAuthenticated = () => keycloak.authenticated;
 
 const login = keycloak.login;
 
@@ -36,13 +12,11 @@ const register = keycloak.register;
 
 const getToken = () => keycloak.token;
 
-const updateToken = (successCallback) => {
-    return keycloak.updateToken(7200)
-        .then(successCallback())
-        .catch(login({
-            redirectUri: "/keycloak"
-        }));
+const updateToken = () => {
+    return keycloak.updateToken(7200);
 }
+
+const getUserInfo = keycloak.loadUserInfo;
 
 const getUsername = () => keycloak.idTokenParsed ? keycloak.idTokenParsed.preferred_username : '';
 
@@ -53,17 +27,42 @@ const getRole = () => keycloak.tokenParsed ? keycloak.tokenParsed.realm_access.r
 //     Request.get(username, Endpoints.Users.getByUsername);
 // }
 
-const service = {
+export async function initKeycloak() {
+    let success = false;
+    setTimeout(() => {
+      if (!success){
+        throw "keycloak timeout"
+      }
+    }, 3000);
+
+    const isAuthenticated = await keycloak.init({
+        // onLoad: 'check-sso',
+        // silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
+        // pkceMethod: 'S256',
+        onLoad: 'login-required'
+    })
+    success = true;
+    
+    if(!isAuthenticated) {
+        // login({
+        //     redirectUri: window.location.href
+        // });
+        throw "not authenticated"
+    }
+}
+
+const SecurityService = {
   initKeycloak,
+  isAuthenticated,
   login,
   register,
   logout,
   getToken,
   updateToken,
   getUsername,
-  keycloak,
   // getUserData,
   getRole,
+  getUserInfo
 };
 
-export default service;
+export default SecurityService;

@@ -3,6 +3,9 @@ import CreateEstablishment from './pages/CreateEstablishment';
 import Establishment from './pages/Establishment';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEstablishment } from './state/actions';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+
+import { Auth } from 'aws-amplify';
 
 function App() {  
   const dispatch = useDispatch()
@@ -18,4 +21,4 @@ function App() {
   return <CreateEstablishment/>;
 }
 
-export default App;
+export default withAuthenticator(App);

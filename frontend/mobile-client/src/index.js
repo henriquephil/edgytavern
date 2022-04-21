@@ -2,34 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { store } from './state';
+import { createRoot } from 'react-dom/client';
+import store from './state/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import SecurityService from './services/SecurityService'
+import SecurityService from './services/SecurityService';
+import { BrowserRouter } from 'react-router-dom';
 
-const render = () => {
-  ReactDOM.render(
+SecurityService.initKeycloak().then(() => {
+  createRoot(document.getElementById('root')).render(
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
   );
+})
+.catch(err => {
+  createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+      <div><h1 className="TextCenter">Error communicating with Keycloak OAuth2 client</h1></div>
+    </React.StrictMode>
+  );
+});
 
-  // Request.configureAxiosDefault();
-};
-
-const renderError = () => ReactDOM.render(
-  <React.StrictMode>
-    <div><h1 className="TextCenter">Error communicating with Keycloak OAuth2 client</h1></div>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-SecurityService.initKeycloak(render, renderError);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

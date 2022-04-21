@@ -2,7 +2,7 @@ import { AddIcon, DeleteIcon, EditIcon, HamburgerIcon, LockIcon, UnlockIcon } fr
 import { Box, Button, Checkbox, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useList } from "react-use";
-import { api } from '../../../../../api';
+import { establishmentApi } from '../../../../../services/api';
 import { ModalContext } from "../../../../../components/modal/ModalContext";
 
 // TODO break into components
@@ -30,8 +30,8 @@ function EditAssetModal({asset}) {
     if (body.name && body.categoryId && body.price) {
       setSaveLoading(true);
       const promise = asset.id ? 
-        api.put(`/managed/assets/${asset.id}`, body) :
-        api.post('/managed/assets', body);
+        establishmentApi.put(`/managed/assets/${asset.id}`, body) :
+        establishmentApi.post('/managed/assets', body);
       promise
         .then(() => closeModal(true))
         .finally(() => setSaveLoading(false));

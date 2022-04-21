@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
-import { api } from "../../../../api";
+import { establishmentApi } from "../../../../services/api";
 import { groupByReducer } from "../../../../utils";
 import SpotGroup from './SpotGroup';
 import AddSpotGroup from './AddSpotGroup';
@@ -11,7 +11,7 @@ function Spots() {
 
   const loadSpots = () => {
     setLoading(true);
-    api.get('/managed/spots')
+    establishmentApi.get('/managed/spots')
       .then(({ data }) => {
         setSpots(data.spots.reduce(groupByReducer('group'), {}));
       })
@@ -32,7 +32,7 @@ function Spots() {
 
   const addSpot = (group, name) => {
     if (group && name) {
-      api.post('/managed/spots', { group, name })
+      establishmentApi.post('/managed/spots', { group, name })
         .then(() => loadSpots());
     }
   }

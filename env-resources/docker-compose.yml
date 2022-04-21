@@ -30,5 +30,21 @@ services:
       - postgres
   kafka:
     image: wurstmeister/kafka
+    restart: always
     environment:
       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: boot
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8027:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: boot
+      ME_CONFIG_MONGODB_URL: mongodb://root:boot@mongo:27017/

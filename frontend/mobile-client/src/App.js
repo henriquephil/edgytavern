@@ -1,16 +1,18 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 import Authenticated from "./pages/Authenticated";
+import SecurityService from "./services/SecurityService";
 
 function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={Authenticated} />
-        {/* <Redirect to="/" /> */}
-      </Routes>
-    </div>
-  );
+  if (SecurityService.isAuthenticated()) {
+    return <Authenticated/>
+  } else {
+    return (
+      <div className="App">
+        Not authenticated
+      </div>
+    );
+  }
 }
 
 export default App;

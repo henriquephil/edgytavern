@@ -12,7 +12,7 @@ function SpotGroup({ groupName, spots, addSpot }) {
       <Box flexBasis="auto" flexGrow="1" fontSize="1.7em" p="8px 32px" className={style.categoryName}>
         {groupName}
       </Box>
-      <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" autoColumns="dense" gap="2">
+      <Grid templateColumns="repeat(auto-fill, minmax(150px, 1fr))" autoColumns="dense" gap="2">
         {spots.map(spot => 
           <CutBorder borderAt='left'>
             <Flex flexDirection="column">
