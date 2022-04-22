@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom"
 import topbar from '../assets/topbar.png'
 import style from './Menubar.module.css'
 import { useSelector } from 'react-redux'
-import SecurityService from '../services/SecurityService'
 
 import { Auth } from 'aws-amplify';
 

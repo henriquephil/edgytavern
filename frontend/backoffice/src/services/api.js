@@ -1,6 +1,5 @@
 import Axios from 'axios';
 import { convertDateStringsToDates } from '../utils';
-import SecurityService from './SecurityService';
 import { Auth } from 'aws-amplify';
 
 function apiBuilder(baseURL) {

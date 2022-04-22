@@ -7,7 +7,6 @@ import { extendTheme } from "@chakra-ui/react";
 import { Provider } from 'react-redux';
 import store from './state/store';
 import { BrowserRouter } from 'react-router-dom';
-import SecurityService from './services/SecurityService';
 import configureCognito from './services/SecurityCognito';
 
 const theme = extendTheme({
@@ -47,16 +46,14 @@ reportWebVitals();
 
 configureCognito();
 
-// SecurityService.initKeycloak().then(() => {
-  createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <ChakraProvider theme={theme}>
-            <App />
-          </ChakraProvider>
-        </BrowserRouter>
-      </Provider>
-    </React.StrictMode>
-  );
-// });
+createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>
+);\
