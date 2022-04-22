@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/cli": "^8.0.2",
     "@aws-amplify/ui-react": "^2.15.4",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
@@ -20,7 +19,6 @@
     "axios": "^0.26.1",
     "framer-motion": "^6.2.10",
     "jwt-decode": "^3.1.2",
-    "keycloak-js": "^17.0.1",
     "react": "^18.0.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^18.0.0",
@@ -32,6 +30,9 @@
     "redux-thunk": "^2.4.1",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@aws-amplify/cli": "^8.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
