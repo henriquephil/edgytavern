@@ -3,7 +3,6 @@ package com.hphil.tavern.establishment.controller
 import com.hphil.tavern.establishment.domain.Establishment
 import com.hphil.tavern.establishment.repository.EstablishmentRepository
 import org.hashids.Hashids
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
 import javax.transaction.Transactional
@@ -24,10 +23,10 @@ class ManagedEstablishment(
     }
 
     @GetMapping
-    fun getManagedEstablishment(establishment: Establishment): EstablishmentResponse? {
-        return EstablishmentResponse(hashids.encode(establishment.id!!), establishment.name, establishment.active)
-//        return establishmentRepository.findByOwnerUsername(principal.name)
-//            ?.let { EstablishmentResponse(hashids.encode(it.id!!), it.name, it.active) }
+    fun getManagedEstablishment(principal: Principal): EstablishmentResponse? {
+//        return EstablishmentResponse(hashids.encode(establishment.id!!), establishment.name, establishment.active)
+        return establishmentRepository.findByOwnerUsername(principal.name)
+            ?.let { EstablishmentResponse(hashids.encode(it.id!!), it.name, it.active) }
     }
 
     @PutMapping

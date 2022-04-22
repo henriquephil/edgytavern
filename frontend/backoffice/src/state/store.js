@@ -29,7 +29,7 @@ const mockedBills = _.range(Math.floor(Math.random() * 20) + 15)
 const establishmentState = {
   data:null,
   error: null,
-  loading: true
+  loading: false
 };
 function establishmentReducer(state = establishmentState, action){
   switch (action.type) {
@@ -64,21 +64,9 @@ function openBillsReducer(state = mockedBills, action){
     }
 }
 
-
-function userReducer(state = null, action){
-  switch (action.type) {
-      case 'user':
-        console.log(action.payload);
-        return action.payload;
-      default:
-        return state;
-    }
-}
-
 const store = createStore(combineReducers({
   establishment: establishmentReducer,
-  openBills: openBillsReducer,
-  user: userReducer
+  openBills: openBillsReducer
 }), applyMiddleware(thunk));
 
 export default store;

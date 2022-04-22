@@ -1,9 +1,6 @@
-package com.hphil.tavern.resources.manager
+package com.hphil.tavern.establishment.controller
 
-import com.hphil.tavern.establishment.controller.EstablishmentLoader
-import com.hphil.tavern.establishment.controller.ManagedEstablishmentTrait
 import com.hphil.tavern.establishment.domain.Category
-import com.hphil.tavern.establishment.domain.Establishment
 import com.hphil.tavern.establishment.repository.CategoryRepository
 import com.hphil.tavern.establishment.repository.EstablishmentRepository
 import org.springframework.transaction.annotation.Transactional

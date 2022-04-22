@@ -21,7 +21,7 @@ class ManagedSpotsController(
 ) : ManagedEstablishmentTrait {
 
     @Value("\${app.baseUrl}")
-    private val url = "http://localhost:3000";
+    private val url = "http://localhost:3000"
 
     @PostMapping
     @Transactional

@@ -1,6 +1,5 @@
 package com.hphil.tavern.establishment.domain
 
-import com.hphil.tavern.establishment.domain.Establishment
 import javax.persistence.*
 
 @Entity

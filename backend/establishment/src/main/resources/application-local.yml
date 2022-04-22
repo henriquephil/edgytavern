@@ -1,8 +1,8 @@
 server:
-  port : 5000
+  port : 8081
 spring:
   datasource:
-    url: jdbc:postgresql://tavern-db.cpaphihk7gxr.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=establishment
+    url: jdbc:postgresql://localhost:5432/establishment
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
@@ -18,6 +18,6 @@ security:
     client:
       clientId: 1vu93pn10f4g0ntaqq8111n9ue
 app:
-  baseUrl: https://master.dmmolrtqzj6oc.amplifyapp.com/
+  baseUrl: http://localhost:3000
   hash:
     salt: bacalhau

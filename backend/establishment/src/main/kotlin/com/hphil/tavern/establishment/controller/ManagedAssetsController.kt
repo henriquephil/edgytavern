@@ -14,7 +14,6 @@ import java.math.BigDecimal
 import java.security.Principal
 import javax.websocket.server.PathParam
 
-
 @RestController
 @RequestMapping("/managed/assets")
 class ManagedAssetsController(
