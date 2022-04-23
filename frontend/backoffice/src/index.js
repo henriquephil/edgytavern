@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import store from './state/store';
 import { BrowserRouter } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
-import awsConfig from './aws-exports';
+import awsmobile from './aws-exports';
 
 const theme = extendTheme({
   background: "#222222",
@@ -45,7 +45,7 @@ const theme = extendTheme({
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-Amplify.configure(awsConfig);
+Amplify.configure(awsmobile);
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>

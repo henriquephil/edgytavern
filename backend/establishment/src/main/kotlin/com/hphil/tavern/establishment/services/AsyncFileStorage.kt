@@ -13,6 +13,6 @@ class AsyncFileStorage(val qrCodeWriter: QRCodeWriter) {
 
     /*TODO suspend*/ fun generateAndStoreQrCodeImage(content: String, imgName: String) {
         val qrCode = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, 125, 125)
-        ImageIO.write(MatrixToImageWriter.toBufferedImage(qrCode), "png", File("qrcode/$imgName.png"))
+        ImageIO.write(MatrixToImageWriter.toBufferedImage(qrCode), "png", File("qrcode\\$imgName.png"))
     }
 }
