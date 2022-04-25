@@ -4,6 +4,8 @@ import com.hphil.tavern.establishment.domain.Spot
 import com.hphil.tavern.establishment.repository.EstablishmentRepository
 import com.hphil.tavern.establishment.repository.SpotRepository
 import com.hphil.tavern.establishment.services.AsyncFileStorage
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.hashids.Hashids
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.transaction.annotation.Transactional
@@ -34,12 +36,13 @@ class ManagedSpotsController(
         spotImage(spotRepository.saveAndFlush(spot))
     }
 
-    private fun spotImage(spot: Spot) {
+    private fun spotImage(spot: Spot) = runBlocking {
         val establishmentHash = hashIds.encode(spot.establishment.id!!)
         val spotHash = hashIds.encode(spot.id!!)
         spot.qrCode = "$establishmentHash.$spotHash"
-
-        asyncFileStorage.generateAndStoreQrCodeImage("$url/e=$establishmentHash&s=$spotHash", spot.qrCode!!)
+        launch {
+            asyncFileStorage.generateAndStoreQrCodeImage("$url/e=$establishmentHash&s=$spotHash", spot.qrCode!!)
+        }
     }
 
     @GetMapping

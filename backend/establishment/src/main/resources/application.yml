@@ -17,7 +17,10 @@ security:
         keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Mm5r3kTus/.well-known/jwks.json
     client:
       clientId: 1vu93pn10f4g0ntaqq8111n9ue
+aws:
+  accessKey: ${AWS_ACCESS_KEY}
+  secretKey: ${AWS_SECRET_KEY}
 app:
   baseUrl: https://master.dmmolrtqzj6oc.amplifyapp.com/
   hash:
-    salt: bacalhau
+    salt: salty

@@ -10,11 +10,6 @@
       "StackName": "amplify-amplifydccefb621f394-staging-125545",
       "StackId": "arn:aws:cloudformation:us-east-1:512389401965:stack/amplify-amplifydccefb621f394-staging-125545/8690ac50-c23b-11ec-8aa9-12782a485781",
       "AmplifyAppId": "dmmolrtqzj6oc"
-    },
-    "categories": {
-      "auth": {
-        "edgytavernfrontendbackoffice": {}
-      }
     }
   }
 }
