@@ -14,9 +14,9 @@ security:
   oauth2:
     resource:
       jwk:
-        keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Mm5r3kTus/.well-known/jwks.json
+        keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_GHe36mnNB/.well-known/jwks.json
     client:
-      clientId: 1vu93pn10f4g0ntaqq8111n9ue
+      clientId: 4j0f1t1banedq1jk43nhit3sou
 aws:
   accessKey: ${AWS_ACCESS_KEY}
   secretKey: ${AWS_SECRET_KEY}
