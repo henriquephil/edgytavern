@@ -14,9 +14,9 @@ security:
   oauth2:
     resource:
       jwk:
-        keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_4hAX9LmA1/.well-known/jwks.json
+        keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dCI229nTx/.well-known/jwks.json
     client:
-      clientId: 3rfjceio3kjpuf5jii4tihvelu
+      clientId: t3mpo80ueani42ktgf2o2crj
 app:
   baseUrl: http://localhost:3000
   hash:

@@ -34,7 +34,11 @@ const establishmentState = {
 function establishmentReducer(state = establishmentState, action){
   switch (action.type) {
     case 'establishment.loading':
-      return establishmentState;
+      return {
+        data:null,
+        error: null,
+        loading: true
+      };
     case 'establishment.set':
       return {
         data: action.payload,

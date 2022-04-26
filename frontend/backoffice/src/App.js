@@ -4,6 +4,7 @@ import Establishment from './pages/Establishment';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEstablishment } from './state/actions';
 import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 function App() {  
   let establishment = useSelector(state => state.establishment);

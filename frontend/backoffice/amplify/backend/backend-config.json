@@ -1,6 +1,6 @@
 {
   "auth": {
-    "frontendbackoffice": {
+    "backofficeb6283b47": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -10,7 +10,10 @@
         "usernameAttributes": [
           "EMAIL"
         ],
-        "signupAttributes": [],
+        "signupAttributes": [
+          "EMAIL",
+          "NAME"
+        ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
@@ -23,6 +26,12 @@
           "EMAIL"
         ]
       }
+    }
+  },
+  "hosting": {
+    "S3AndCloudFront": {
+      "service": "S3AndCloudFront",
+      "providerPlugin": "awscloudformation"
     }
   }
 }
