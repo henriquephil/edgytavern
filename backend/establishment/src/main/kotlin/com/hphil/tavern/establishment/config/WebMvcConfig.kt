@@ -1,6 +1,6 @@
 package com.hphil.tavern.establishment.config
 
-import com.hphil.tavern.establishment.controller.EstablishmentLoader
+import com.hphil.tavern.establishment.controller.managed.EstablishmentLoader
 import com.hphil.tavern.establishment.repository.EstablishmentRepository
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver

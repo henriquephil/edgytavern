@@ -1,0 +1,1 @@
+export { default as awsmobile } from './src/aws-exports'

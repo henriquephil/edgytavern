@@ -18,6 +18,6 @@ security:
     client:
       clientId: t3mpo80ueani42ktgf2o2crj
 app:
-  baseUrl: http://localhost:3000
+  backofficeUrl: http://localhost:3000
   hash:
-    salt: bacalhau
+    salt: salty

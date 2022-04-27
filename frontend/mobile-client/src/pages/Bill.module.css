@@ -1,0 +1,18 @@
+.Bill {
+  padding: 8px 0;
+}
+.BillCard {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+}
+.BillGrid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  font-size: 0.8em;
+  padding: 4px;
+}
+.BillGrid > * {
+  padding: 4px 0;
+}

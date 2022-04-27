@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { convertDateStringsToDates } from '../utils';
-import SecurityService from './SecurityService';
+import { Auth } from 'aws-amplify';
 
 function apiBuilder(baseURL) {
   const api = Axios.create({
@@ -17,12 +17,14 @@ function apiBuilder(baseURL) {
   };
 
   api.interceptors.request.use(config => {
-    return SecurityService.updateToken()
-    .then(() => {
-      config.headers.Authorization = `Bearer ${SecurityService.getToken()}`;
+    return Auth.currentSession().then(res=>{
+      config.headers.Authorization = `Bearer ${res.getAccessToken().getJwtToken()}`
       return config;
-    });
-  }, err => Promise.reject(err));
+    })
+  }, err => {
+    console.log(err);
+    Promise.reject(err);
+  });
 
   api.interceptors.response.use(null, responseErrorInterceptor);
     

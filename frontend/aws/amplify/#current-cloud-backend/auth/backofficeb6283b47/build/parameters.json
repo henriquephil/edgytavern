@@ -1,0 +1,66 @@
+{
+  "identityPoolName": "backofficeb6283b47_identitypool_b6283b47",
+  "allowUnauthenticatedIdentities": false,
+  "resourceNameTruncated": "backofb6283b47",
+  "userPoolName": "backofficeb6283b47_userpool_b6283b47",
+  "autoVerifiedAttributes": [
+    "email"
+  ],
+  "mfaConfiguration": "OFF",
+  "mfaTypes": [
+    "SMS Text Message"
+  ],
+  "smsAuthenticationMessage": "Your authentication code is {####}",
+  "smsVerificationMessage": "Your verification code is {####}",
+  "emailVerificationSubject": "Your verification code",
+  "emailVerificationMessage": "Your verification code is {####}",
+  "defaultPasswordPolicy": false,
+  "passwordPolicyMinLength": 8,
+  "passwordPolicyCharacters": [],
+  "requiredAttributes": [
+    "email",
+    "name"
+  ],
+  "aliasAttributes": [],
+  "userpoolClientGenerateSecret": false,
+  "userpoolClientRefreshTokenValidity": 30,
+  "userpoolClientWriteAttributes": [
+    "email"
+  ],
+  "userpoolClientReadAttributes": [
+    "email"
+  ],
+  "userpoolClientLambdaRole": "backofb6283b47_userpoolclient_lambda_role",
+  "userpoolClientSetAttributes": false,
+  "sharedId": "b6283b47",
+  "resourceName": "backofficeb6283b47",
+  "authSelections": "identityPoolAndUserPool",
+  "useDefault": "defaultSocial",
+  "hostedUI": true,
+  "usernameAttributes": [
+    "email"
+  ],
+  "triggers": "{}",
+  "hostedUIDomainName": "backofficeb6283b47-b6283b47",
+  "authProvidersUserPool": [],
+  "hostedUIProviderMeta": "[]",
+  "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
+  "userPoolGroupList": [],
+  "serviceName": "Cognito",
+  "usernameCaseSensitive": false,
+  "useEnabledMfas": true,
+  "authRoleArn": {
+    "Fn::GetAtt": [
+      "AuthRole",
+      "Arn"
+    ]
+  },
+  "unauthRoleArn": {
+    "Fn::GetAtt": [
+      "UnauthRole",
+      "Arn"
+    ]
+  },
+  "breakCircularDependency": true,
+  "dependsOn": []
+}

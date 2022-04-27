@@ -1,18 +1,34 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
-import './App.css';
-import Authenticated from "./pages/Authenticated";
-import SecurityService from "./services/SecurityService";
+import Establishment from './pages/Establishment';
+import EstablishmentLoader from './pages/EstablishmentLoader';
+import UserHeader from './pages/UserHeader';
+import { useSelector } from 'react-redux';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import styles from './App.module.css';
 
 function App() {
-  if (SecurityService.isAuthenticated()) {
-    return <Authenticated/>
-  } else {
-    return (
-      <div className="App">
-        Not authenticated
-      </div>
-    );
+  // const billState = useSelector(state => state.bill);
+  const establishmentState = useSelector(state => state.establishment);
+  
+
+  const renderSwitch = () => {
+    // if (billState.loading)
+    //   return 'Loading';
+    // if (billState.error)
+    //   return billState.error;
+    
+    if (establishmentState.data)
+      return <Establishment/>;
+    if (establishmentState.error)
+      return JSON.stringify(establishmentState);
+    return <EstablishmentLoader/>;
   }
+
+  return (
+    <div className={styles.App}>
+      <UserHeader/>
+      {renderSwitch()}
+    </div>);
 }
 
-export default App;
+export default withAuthenticator(App);

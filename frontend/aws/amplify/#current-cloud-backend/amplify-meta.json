@@ -1,0 +1,79 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-backoffice-dev-124224-authRole",
+      "UnauthRoleArn": "arn:aws:iam::512389401965:role/amplify-backoffice-dev-124224-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::512389401965:role/amplify-backoffice-dev-124224-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-backoffice-dev-124224-deployment",
+      "UnauthRoleName": "amplify-backoffice-dev-124224-unauthRole",
+      "StackName": "amplify-backoffice-dev-124224",
+      "StackId": "arn:aws:cloudformation:us-east-1:512389401965:stack/amplify-backoffice-dev-124224/50283a50-c4ae-11ec-9f16-128111ab84c3",
+      "AmplifyAppId": "dvejmxsthxk9x"
+    }
+  },
+  "auth": {
+    "backofficeb6283b47": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL",
+          "NAME"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-backoffice-dev-124224-deployment/amplify-cfn-templates/auth/backofficeb6283b47-cloudformation-template.json",
+        "logicalId": "authbackofficeb6283b47"
+      },
+      "lastPushTimeStamp": "2022-04-25T16:18:55.454Z",
+      "output": {
+        "UserPoolId": "us-east-1_dCI229nTx",
+        "AppClientIDWeb": "t3mpo80ueani42ktgf2o2crj",
+        "AppClientID": "66jq453219sr0o2kijf6oe40dg",
+        "HostedUIDomain": "backofficeb6283b47-b6283b47-dev",
+        "IdentityPoolId": "us-east-1:83e5cb1b-3f48-406a-b39c-47e8d9262f93",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:512389401965:userpool/us-east-1_dCI229nTx",
+        "IdentityPoolName": "backofficeb6283b47_identitypool_b6283b47__dev",
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
+        "UserPoolName": "backofficeb6283b47_userpool_b6283b47"
+      },
+      "lastPushDirHash": "XCBK4WSkuEY9x13t3yWFryZ8DnE="
+    }
+  },
+  "hosting": {
+    "S3AndCloudFront": {
+      "service": "S3AndCloudFront",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-backoffice-dev-124224-deployment/amplify-cfn-templates/hosting/template.json",
+        "logicalId": "hostingS3AndCloudFront"
+      },
+      "lastPushTimeStamp": "2022-04-25T16:18:56.130Z",
+      "output": {
+        "S3BucketSecureURL": "https://backoffice-20220425131717-hostingbucket-dev.s3.amazonaws.com",
+        "WebsiteURL": "http://backoffice-20220425131717-hostingbucket-dev.s3-website-us-east-1.amazonaws.com",
+        "Region": "us-east-1",
+        "HostingBucketName": "backoffice-20220425131717-hostingbucket-dev"
+      },
+      "lastPushDirHash": "a9YzMUXbZ63tt/CYxOmvicVgXKA="
+    }
+  }
+}
