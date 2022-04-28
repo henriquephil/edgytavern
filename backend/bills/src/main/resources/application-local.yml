@@ -1,0 +1,23 @@
+server:
+  port : 8081
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bills
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+security:
+  oauth2:
+    resource:
+      jwk:
+        keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dCI229nTx/.well-known/jwks.json
+    client:
+      clientId: t3mpo80ueani42ktgf2o2crj
+app:
+  backofficeUrl: http://localhost:3000
+  hash:
+    salt: salty
