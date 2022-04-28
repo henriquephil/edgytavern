@@ -1,12 +1,12 @@
 package com.hphil.tavern.bills.controller.open
 
 import com.hphil.tavern.bills.client.EstablishmentClient
-import com.hphil.tavern.bills.domain.Order
+import com.hphil.tavern.bills.domain.OrderLot
 import com.hphil.tavern.bills.domain.OrderItem
 import com.hphil.tavern.bills.domain.references.*
 import com.hphil.tavern.bills.repository.BillRepository
 import com.hphil.tavern.bills.repository.OrderItemRepository
-import com.hphil.tavern.bills.repository.OrderRepository
+import com.hphil.tavern.bills.repository.OrderLotRepository
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
@@ -28,7 +28,7 @@ import java.security.Principal
 @RequestMapping("/orders")
 class OrdersController(
     private val billRepository: BillRepository,
-    private val orderRepository: OrderRepository,
+    private val orderLotRepository: OrderLotRepository,
     private val orderItemRepository: OrderItemRepository,
     private val establishmentClient: EstablishmentClient
 ) : CustomerTrait {
@@ -37,7 +37,7 @@ class OrdersController(
     fun getOrders(principal: Principal): MyOrdersResponse {
         val bill = fetchOpenBill(billRepository, principal)
         return MyOrdersResponse(
-            orderItemRepository.findAllByOrderBill(bill).map {
+            orderItemRepository.findAllByOrderLotBill(bill).map {
                 OrderItemDto(it.asset.name, it.quantity, it.totalPrice, it.status.toString())
             }
         )
@@ -49,21 +49,21 @@ class OrdersController(
         val bill = fetchOpenBill(billRepository, principal)
         val spot = establishmentClient.getSpotByHash(bill.establishmentHash, requestIncoming.spotHash)
             ?: error("Spot does not exist")
-        val order = orderRepository.save(
-            Order(bill, SpotReference(requestIncoming.spotHash, spot.name, spot.number))
+        val order = orderLotRepository.save(
+            OrderLot(bill, SpotReference(requestIncoming.spotHash, spot.name, spot.number))
         )
         requestIncoming.items.forEach { mapNewAssets(it, order) }
         // TODO notify
     }
 
-    private fun mapNewAssets(item: IncomingOrderItemDto, order: Order) {
-        val asset = establishmentClient.getAssetByHash(order.bill.establishmentHash, item.assetHashId)
+    private fun mapNewAssets(item: IncomingOrderItemDto, orderLot: OrderLot) {
+        val asset = establishmentClient.getAssetByHash(orderLot.bill.establishmentHash, item.assetHashId)
             ?: error("Asset ${item.assetHashId} does not exist")
         assert(asset.ingredients.map { it.hashId }.containsAll(item.removedIngredientsHashIds))
         assert(asset.additionals.map { it.hashId }.containsAll(item.additionalsHashIds))
 
         val orderItem = OrderItem(
-            order,
+            orderLot,
             AssetReference(
                 asset.hashId, asset.name, CategoryReference(asset.category.hashId, asset.category.name), asset.price,
                 item.removedIngredientsHashIds.map { ri ->

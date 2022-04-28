@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service
 @Service
 class CognitoService {
     fun getUserInfo(sub: String): CognitoUserInfo {
-        return CognitoUserInfo("", "")
+        return CognitoUserInfo(sub, "John doe")
     }
 }
 

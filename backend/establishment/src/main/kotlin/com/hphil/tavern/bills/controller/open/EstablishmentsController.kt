@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping
-class EstablishmentsResource(
+class EstablishmentsController(
     private val establishmentRepository: EstablishmentRepository,
     private val hashids: Hashids
 ) {
@@ -18,8 +18,8 @@ class EstablishmentsResource(
     fun getEstablishmentByHash(@PathVariable establishmentHash: String): EstablishmentResponse? {
         val establishmentId = hashids.decode(establishmentHash)[0]
         return establishmentRepository.findByIdAndActive(establishmentId, true)
-            ?.let { EstablishmentResponse(it.name) }
+            ?.let { EstablishmentResponse(establishmentHash, it.name) }
     }
 
-    class EstablishmentResponse(val name: String)
+    class EstablishmentResponse(val hashId: String, val name: String)
 }

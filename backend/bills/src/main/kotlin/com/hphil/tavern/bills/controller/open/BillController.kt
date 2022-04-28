@@ -3,7 +3,7 @@ package com.hphil.tavern.bills.controller.open
 import com.hphil.tavern.bills.client.EstablishmentClient
 import com.hphil.tavern.bills.domain.Bill
 import com.hphil.tavern.bills.repository.BillRepository
-import com.hphil.tavern.bills.repository.OrderRepository
+import com.hphil.tavern.bills.repository.OrderLotRepository
 import com.hphil.tavern.bills.services.CognitoService
 import org.hashids.Hashids
 import org.springframework.transaction.annotation.Transactional
@@ -26,16 +26,24 @@ import java.security.Principal
 @RequestMapping
 class BillController(
     private val billRepository: BillRepository,
-    private val orderRepository: OrderRepository,
+    private val orderLotRepository: OrderLotRepository,
     private val hashids: Hashids,
     private val cognitoService: CognitoService,
     private val establishmentClient: EstablishmentClient
 ) : CustomerTrait {
 
+    @GetMapping
+    fun getOpenBill(principal: Principal): OpenBillResponse? {
+        return billRepository.findOpen(principal.name)?.let {
+            OpenBillResponse(hashids.encode(it.id!!))
+        }
+    }
+
     @PostMapping
     @Transactional
     fun openBill(@RequestBody request: OpenBillRequest, principal: Principal): OpenBillResponse {
-        billRepository.findOpen(principal.name)?.also { error("There is already an active bill") }
+        billRepository.findOpen(principal.name)
+            ?.also { error("There is already an active bill") }
         // fetch the spot to assert these are real hashes
         establishmentClient.getEstablishmentByHash(request.establishmentHash)
             ?: error("Establishment does not exist")
@@ -51,7 +59,7 @@ class BillController(
     @Transactional
     fun cancelBill(principal: Principal) {
         val bill = fetchOpenBill(billRepository, principal)
-        if (orderRepository.countByBill(bill) > 0)
+        if (orderLotRepository.countByBill(bill) > 0)
             error("Bill with orders can only be closed by the manager")
         billRepository.delete(bill)
         // TODO notify

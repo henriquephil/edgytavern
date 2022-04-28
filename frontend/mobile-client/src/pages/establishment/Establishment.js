@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
-import styles from './UserHeader.module.css';
+import styles from './Establishment.module.css';
 import EstablishmentHeader from './EstablishmentHeader';
 import Bill from './Bill';
-import { fetchBill } from '../state/ApiBillActions';
+import { fetchBill } from '../../state/ApiBillActions';
 
 function Establishment() {
   const dispatch = useDispatch();

@@ -55,9 +55,39 @@ function billReducer(state = {
   }
 }
 
+function ordersReducer(state = {
+  loading: true,
+  data: [],
+  error: null
+}, action){
+  switch (action.type) {
+    case 'orders.loading':
+      return {
+        loading: true,
+        data: [],
+        error: null
+      }
+    case 'orders.set':
+      return {
+        loading: false,
+        data: action.payload,
+        error: null
+      };
+    case 'orders.error':
+      return {
+        loading: false,
+        data: [],
+        error: action.payload
+      };
+    default:
+      return state;
+  }
+}
+
 const store = createStore(combineReducers({
   establishment: establishmentReducer,
-  bill: billReducer
+  bill: billReducer,
+  orders: ordersReducer
 }), applyMiddleware(thunk));
 
 export default store;

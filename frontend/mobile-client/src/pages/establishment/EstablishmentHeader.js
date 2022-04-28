@@ -3,10 +3,9 @@ import styles from './EstablishmentHeader.module.css'
 
 function EstablishmentHeader() {
   const establishmentState = useSelector(state => state.establishment);
-  const billState = useSelector(state => state.bill);
+  const ordersState = useSelector(state => state.orders);
 
-  const sum = billState.data?.orderedItems
-    .map(b => b.finalPrice)
+  const sum = ordersState.data?.map(b => b.finalPrice)
     .reduce((prev, i) => prev += i, 0);
   
   return (

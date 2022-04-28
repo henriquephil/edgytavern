@@ -1,6 +1,6 @@
 package com.hphil.tavern.bills.controller.managed
 
-import com.hphil.tavern.bills.client.ManagementEstablishmentClient
+import com.hphil.tavern.bills.client.ManagedEstablishmentClient
 import com.hphil.tavern.bills.repository.BillRepository
 import com.hphil.tavern.bills.repository.OrderItemRepository
 import org.springframework.transaction.annotation.Transactional
@@ -26,12 +26,12 @@ import java.time.LocalDateTime
 class BillsController(
     private val billRepository: BillRepository,
     private val orderItemRepository: OrderItemRepository,
-    private val managementEstablishmentClient: ManagementEstablishmentClient
+    private val managedEstablishmentClient: ManagedEstablishmentClient
 ) {
 
     @GetMapping
     fun getBills(principal: Principal): ManagerBillsResponse {
-        val establishment = managementEstablishmentClient.getManagersEstablishment()
+        val establishment = managedEstablishmentClient.getManagedEstablishment()
         return ManagerBillsResponse(billRepository.openBillsAt(establishment.hashId)
             .map { bill ->
                 BillDto(
@@ -44,7 +44,7 @@ class BillsController(
 
     @GetMapping("/{id}")
     fun getBill(@PathVariable id: Long, principal: Principal): ManagerBillResponse {
-        val establishment = managementEstablishmentClient.getManagersEstablishment()
+        val establishment = managedEstablishmentClient.getManagedEstablishment()
         val bill = billRepository.findByEstablishmentHashAndId(establishment.hashId, id)
         return ManagerBillResponse(
             bill.id!!,
@@ -52,11 +52,11 @@ class BillsController(
             bill.open,
             bill.started,
             bill.ended,
-            bill.orders.map { order ->
+            bill.orderLots.map { order ->
                 OrderDto(
                     order.spot.name,
-                    order.time,
-                    orderItemRepository.findAllByOrder(order).map { item ->
+                    order.createdAt,
+                    orderItemRepository.findAllByOrderLot(order).map { item ->
                         OrderItemDto(
                             item.id!!,
                             item.status.toString(),
@@ -77,7 +77,7 @@ class BillsController(
     @PostMapping("/{billId}/close")
     @Transactional
     fun closeBill(@PathVariable billId: Long, principal: Principal) {
-        val establishment = managementEstablishmentClient.getManagersEstablishment()
+        val establishment = managedEstablishmentClient.getManagedEstablishment()
         val bill = billRepository.findByEstablishmentHashAndId(establishment.hashId, billId)
         bill.close()
     }
@@ -96,7 +96,7 @@ class ManagerBillResponse(
 )
 class OrderDto(
     val spotName: String,
-    val time: LocalDateTime,
+    val createdAt: LocalDateTime,
     val items: List<OrderItemDto>
 )
 class OrderItemDto(

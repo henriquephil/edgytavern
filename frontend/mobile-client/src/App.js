@@ -1,4 +1,4 @@
-import Establishment from './pages/Establishment';
+import Establishment from './pages/establishment/Establishment';
 import EstablishmentLoader from './pages/EstablishmentLoader';
 import UserHeader from './pages/UserHeader';
 import { useSelector } from 'react-redux';

@@ -33,6 +33,6 @@ function apiBuilder(baseURL) {
 
 const establishmentApi = apiBuilder(process.env.REACT_APP_BACKEND_ESTABLISHMENT);
 
-const ordersApi = apiBuilder(process.env.REACT_APP_BACKEND_ORDERS);
+const billsApi = apiBuilder(process.env.REACT_APP_BACKEND_BILLS);
 
-export { establishmentApi, ordersApi };
+export { establishmentApi, billsApi };

@@ -1,6 +1,6 @@
 package com.hphil.tavern.bills.controller.managed
 
-import com.hphil.tavern.bills.client.ManagementEstablishmentClient
+import com.hphil.tavern.bills.client.ManagedEstablishmentClient
 import com.hphil.tavern.bills.domain.OrderItemStatus
 import com.hphil.tavern.bills.repository.OrderItemRepository
 import org.springframework.transaction.annotation.Transactional
@@ -11,14 +11,14 @@ import java.security.Principal
 @RequestMapping("/orderItems")
 class OrderController(
     private val orderItemRepository: OrderItemRepository,
-    private val managementEstablishmentClient: ManagementEstablishmentClient
+    private val managedEstablishmentClient: ManagedEstablishmentClient
 ) {
 
     @PostMapping("/{orderItemId}/shift")
     @Transactional
     fun shiftItem(@PathVariable orderItemId: Long, principal: Principal) {
-        val establishment = managementEstablishmentClient.getManagersEstablishment()
-        val orderItem = orderItemRepository.findByEstablishmentHashAndId(establishment.hashId, orderItemId)
+        val establishment = managedEstablishmentClient.getManagedEstablishment()
+        val orderItem = orderItemRepository.findByOrderLotBillEstablishmentHashAndId(establishment.hashId, orderItemId)
         orderItem.status = mapOf(
             OrderItemStatus.RECEIVED to OrderItemStatus.PREPARATION,
             OrderItemStatus.PREPARATION to OrderItemStatus.DISPATCHED,
@@ -29,8 +29,8 @@ class OrderController(
     @DeleteMapping("/{orderItemId}")
     @Transactional
     fun removeItem(@PathVariable("orderItemId") orderItemId: Long, principal: Principal) {
-        val establishment = managementEstablishmentClient.getManagersEstablishment()
-        val orderItem = orderItemRepository.findByEstablishmentHashAndId(establishment.hashId, orderItemId)
+        val establishment = managedEstablishmentClient.getManagedEstablishment()
+        val orderItem = orderItemRepository.findByOrderLotBillEstablishmentHashAndId(establishment.hashId, orderItemId)
         orderItemRepository.delete(orderItem)
     }
 }

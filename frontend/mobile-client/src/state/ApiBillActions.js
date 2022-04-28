@@ -1,4 +1,4 @@
-import { ordersApi } from '../services/api';
+import { billsApi } from '../services/api';
 
 export function loadingBill() {
   return {
@@ -26,16 +26,15 @@ export function setBill(bill) {
  * GET /bill
  * POST /bill/orders
  */
-export function openBill(establishmentHash) {
+export function openBill() {
   return (dispatch, getState) => {
-    console.log(getState, getState())
     dispatch(loadingBill());
-    ordersApi.post(`/bill`, { establishmentHash })
+    billsApi.post('/', { establishmentHash: getState().establishment.data.hashId })
       .then(res => {
-        dispatch(fetchBill());
+        dispatch(setBill(res.data));
       })
       .catch(err => {
-        dispatch(errorLoadingBill(err || { message: 'error loading establishment' }));
+        dispatch(errorLoadingBill(err || { message: 'error opening bill' }));
       })
   }
 }
@@ -43,7 +42,20 @@ export function openBill(establishmentHash) {
 export function fetchBill() {
   return (dispatch, getState) => {
     dispatch(loadingBill());
-    ordersApi.get(`/bill`)
+    billsApi.get('/')
+      .then(res => {
+        dispatch(setBill(res.data));
+      })
+      .catch(err => {
+        dispatch(errorLoadingBill(err || { message: 'error loading bill' }));
+      })
+  }
+}
+
+export function fetchBillOrders() {
+  return (dispatch, getState) => {
+    dispatch(loadingBill());
+    billsApi.get('/orders')
       .then(res => {
         dispatch(setBill(res.data));
       })
@@ -55,7 +67,7 @@ export function fetchBill() {
 
 export function postBillOrder() {
   return (dispatch, getState) => {
-    ordersApi.post(`/bill/orders`, {})
+    billsApi.post(`/orders`, {})
       .then(res => {
         dispatch(fetchBill());
       })

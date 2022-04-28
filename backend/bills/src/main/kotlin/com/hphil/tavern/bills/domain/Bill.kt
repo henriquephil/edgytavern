@@ -16,7 +16,7 @@ open class Bill(
     @GeneratedValue
     open val id: Long? = null
     @OneToMany(mappedBy = "bill")
-    open val orders: List<Order> = emptyList()
+    open val orderLots: List<OrderLot> = emptyList()
     open var open: Boolean = true
     open val started: LocalDateTime = LocalDateTime.now()
     open var ended: LocalDateTime? = null

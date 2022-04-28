@@ -1,15 +1,19 @@
 package com.hphil.tavern.bills.domain
 
 import com.hphil.tavern.bills.domain.references.AssetReference
+import com.vladmihalcea.hibernate.type.json.JsonType
 import org.hibernate.annotations.Type
+import org.hibernate.annotations.TypeDef
 import java.math.BigDecimal
 import javax.persistence.*
 
+@TypeDef(name = "json", typeClass = JsonType::class)
 @Entity
 open class OrderItem(
     @ManyToOne
-    open val order: Order,
+    open val orderLot: OrderLot,
     @Type(type = "json")
+    @Column(columnDefinition = "json")
     open val asset: AssetReference,
     open val quantity: Int
 ) {
@@ -19,7 +23,7 @@ open class OrderItem(
 
     @Enumerated(EnumType.STRING)
     open var status: OrderItemStatus = OrderItemStatus.RECEIVED
-    val totalPrice: BigDecimal = asset.finalPrice * quantity.toBigDecimal()
+    open val totalPrice: BigDecimal = asset.finalPrice * quantity.toBigDecimal()
 }
 
 enum class OrderItemStatus {

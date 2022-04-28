@@ -5,18 +5,14 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-open class Order(
+open class OrderLot(
     @ManyToOne
     open val bill: Bill,
-    @OneToOne
-    @JoinTable
+    @Embedded
     open val spot: SpotReference
 ) {
     @Id
     @GeneratedValue
     open var id: Long? = null
-
-//    @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL])
-//    open val items: MutableList<OrderItem> = mutableListOf()
-    open val time: LocalDateTime = LocalDateTime.now()
+    open val createdAt: LocalDateTime = LocalDateTime.now()
 }

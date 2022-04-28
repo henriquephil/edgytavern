@@ -1,5 +1,7 @@
 .Bill {
   padding: 8px 0;
+  position: relative;
+  flex-grow: 1;
 }
 .BillCard {
   display: flex;

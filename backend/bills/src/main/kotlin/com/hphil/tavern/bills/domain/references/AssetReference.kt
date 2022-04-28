@@ -1,6 +1,7 @@
 package com.hphil.tavern.bills.domain.references
 
 import java.math.BigDecimal
+import javax.persistence.Entity
 
 class AssetReference(
     val hashId: String,

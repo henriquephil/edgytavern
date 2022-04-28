@@ -1,4 +1,4 @@
-import { ordersApi } from "../services/api";
+import { billsApi } from "../services/api";
 
 export function setEstablishment(location) {
   return {
@@ -16,7 +16,7 @@ export function errorLoadingEstablishment(location) {
 
 export function fetchLocation(establishmentHash) {
   return (dispatch, getState) => {
-    ordersApi.post('/orders/bill', { establishmentHash })
+    billsApi.post('/orders/bill', { establishmentHash })
       .then(({ data }) => {
         dispatch(setEstablishment(data));
       })

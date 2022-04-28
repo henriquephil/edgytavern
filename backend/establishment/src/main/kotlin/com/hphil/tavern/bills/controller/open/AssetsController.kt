@@ -11,7 +11,7 @@ import java.math.BigDecimal
 @RestController
 @RequestMapping("/{establishmentHash}/assets")
 //@Authenticated
-class AssetsResource(
+class AssetsController(
     private val assetRepository: AssetRepository,
     private val hashids: Hashids
 ) {

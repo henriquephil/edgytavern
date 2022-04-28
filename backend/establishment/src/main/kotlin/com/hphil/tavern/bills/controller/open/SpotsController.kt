@@ -11,7 +11,7 @@ import java.security.Principal
 
 @RestController
 @RequestMapping("/{establishmentHash}/spots")
-class SpotsResource(
+class SpotsController(
     private var spotRepository: SpotRepository,
     private var hashids: Hashids
 ) {
