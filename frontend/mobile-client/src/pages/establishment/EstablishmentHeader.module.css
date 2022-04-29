@@ -9,4 +9,5 @@
   color: black;
   font-weight: 700;
   flex-shrink: 0;
+  z-index: 300;
 }

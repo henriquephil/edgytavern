@@ -1,0 +1,25 @@
+.BillButtons{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(60vw/3);
+  z-index: 500;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  transform: translateY(calc(60vw/3));
+}
+.BillButonHolder{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+.BillButonHolder > *{
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

@@ -26,4 +26,5 @@
   justify-self: start;
   font-size: 0.8em;
   color: #b97;
+  overflow: hidden;
 }

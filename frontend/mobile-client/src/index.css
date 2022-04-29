@@ -31,9 +31,9 @@ code {
 }
 
 span.limited-text-length {
-  overflow: hidden !important;
-  text-overflow: ellipsis;
   display: -webkit-box;
-  line-clamp: 4;
-  box-orient: vertical;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

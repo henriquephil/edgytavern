@@ -3,13 +3,15 @@ import establishmentReducer from './establishmentSlice'
 import billReducer from './billSlice'
 import ordersReducer from './ordersSlice'
 import assetsReducer from './assetsSlice'
+import billVisibleComponentReducer from './billVisibleComponentSlice'
 
 const store = configureStore({
   reducer: {
     establishment: establishmentReducer,
     bill: billReducer,
     orders: ordersReducer,
-    assets: assetsReducer
+    assets: assetsReducer,
+    billVisibleComponent: billVisibleComponentReducer
   }
 });
 

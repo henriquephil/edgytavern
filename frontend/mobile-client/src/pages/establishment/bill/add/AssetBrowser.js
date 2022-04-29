@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 function AssetBrowser({ onSelected }) {
   const assetsState = useSelector(state => state.assets);
 
-  console.log(assetsState);
-
   return (
     <div className={styles.AssetBrowser}>
       {assetsState.data?.categories.map(it => <Group key={it.hashId} group={it} onSelect={asset => onSelected(asset)}/>)}
