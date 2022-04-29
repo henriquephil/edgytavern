@@ -1,0 +1,29 @@
+.Asset {
+  display: grid;
+  grid-template-columns: auto 80px fit-content(0);
+  gap: 4px;
+  padding: 8px;
+  max-width: 100%;
+}
+.name{
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+.price{
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+.select{
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  justify-self: end;
+}
+.description{
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  justify-self: start;
+  font-size: 0.8em;
+  color: #b97;
+}

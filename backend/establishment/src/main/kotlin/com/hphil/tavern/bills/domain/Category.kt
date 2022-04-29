@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne
 @Entity
 open class Category(
     @ManyToOne
-        open val establishment: Establishment = Establishment(),
+    open val establishment: Establishment = Establishment(),
     open var name: String = "") {
     @Id
     @GeneratedValue

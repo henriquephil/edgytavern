@@ -1,11 +1,11 @@
-import { useDispatch } from 'react-redux';
 import QrReader from 'react-qr-reader'
-import { fetchEstablishment } from '../state/ApiEstablishmentActions';
+import { useDispatch } from 'react-redux';
+import { fetchEstablishment } from '../services/apiActions';
+import { setEstablishment, setEstablishmentError } from '../state/establishmentSlice';
 import styles from './EstablishmentLoader.module.css';
 
 function EstablishmentLoader() {
   const dispatch = useDispatch();
-
   const handleScan = data => {
     if (data) {
       const url = new URL(data);

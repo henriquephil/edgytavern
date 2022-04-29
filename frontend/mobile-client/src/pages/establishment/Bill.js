@@ -1,26 +1,27 @@
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from './Bill.module.css';
-import { openBill } from '../../state/ApiBillActions';
+import { openBill } from '../../services/apiActions';
 import AddOrder from './add/AddOrder';
 
 function Bill() {
+  const dispatch = useDispatch();
+  const establishmentState = useSelector(state => state.establishment);
   const billState = useSelector(state => state.bill);
   const ordersState = useSelector(state => state.orders);
-  const dispatch = useDispatch();
 
   if (billState.loading)
     return <p>Loading</p>
   if (billState.error)
     return JSON.stringify(billState.error);
 
-  const openBillDispatcher = () => {
+  const dispatchOpenBill = () => {
     dispatch(openBill());
   }
 
   return (
     <div className={styles.Bill}>
-      { billState.data ? renderBill(ordersState) : renderOpenBill(openBillDispatcher) }
+      { billState.data ? renderBill(ordersState) : renderOpenBill(dispatchOpenBill) }
     </div>
   );
 }
@@ -44,10 +45,10 @@ function renderBill(ordersState) {
   );
 }
 
-function renderOpenBill(openBill) {
+function renderOpenBill(dispatchOpenBill) {
   return (
     <div className={styles.BillCard}>
-      <button onClick={() => openBill()}>Begin a new bill and order someting!</button>
+      <button onClick={() => dispatchOpenBill()}>Begin a new bill and order someting!</button>
     </div>
   );
 }

@@ -14,6 +14,7 @@ body {
   color: white;
   overflow: hidden;
   background: #1f1f1f;
+  font-size: 2vh;
 }
 
 code {
@@ -27,4 +28,12 @@ code {
 
 .text-right {
   text-align: right;
+}
+
+span.limited-text-length {
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 4;
+  box-orient: vertical;
 }

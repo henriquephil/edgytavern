@@ -1,2 +1,10 @@
 .AssetEdit {
 }
+.list {
+  display: flex;
+  flex-direction: row;
+}
+.additionalValue {
+  float: right;
+  flex-basis: 80px;
+}

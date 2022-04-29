@@ -1,29 +1,15 @@
-import { useState, useEffect } from "react";
 import styles from './AssetBrowser.module.css';
-
-import _ from 'lodash';
-
-function randomString() {
-  return _.range(Math.floor(Math.random() * 20) + 5)
-    .map(i => String.fromCharCode(Math.floor(Math.random() * 26) + 65)).join('')
-}
+import Group from "./browser/Group";
+import { useSelector } from "react-redux";
 
 function AssetBrowser({ onSelected }) {
-  const [assets, setAssets] = useState([]);
-  
-  useEffect(() => {
-    setAssets(_.range(Math.floor(Math.random() * 30) + 40)
-      .map(id => {
-        return {
-          id,
-          name: randomString()
-        }
-      }));
-  }, [])
+  const assetsState = useSelector(state => state.assets);
+
+  console.log(assetsState);
 
   return (
     <div className={styles.AssetBrowser}>
-      {assets.map(it => <div onClick={() => onSelected(it)}>{it.name}</div>)}
+      {assetsState.data?.categories.map(it => <Group key={it.hashId} group={it} onSelect={asset => onSelected(asset)}/>)}
     </div>
   );
 }

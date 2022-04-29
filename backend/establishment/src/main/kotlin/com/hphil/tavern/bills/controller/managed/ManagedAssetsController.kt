@@ -45,15 +45,9 @@ class ManagedAssetsController(
             assetRepository.findAll { root, _, builder ->
                 builder.and(
                     builder.equal(root.get<Asset>("establishment"), getEstablishment(establishmentRepository, principal)),
-                    categoryId.let { builder.equal(root.get<Asset>("category.id"), categoryId) }
+                    categoryId.let { builder.equal(root.get<Asset>("category").get<Category>("id"), categoryId) }
                 )
             }
-//            assetRepository.findAll(
-//                SpecificationBuilder.where(
-//                    "establishment" to getEstablishment(establishmentRepository, principal),
-//                    categoryId?.let { "category.id" to categoryId }
-//                )
-//            )
                 .map { AssetDto(it) }
         )
     }

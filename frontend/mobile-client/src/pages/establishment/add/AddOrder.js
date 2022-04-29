@@ -10,6 +10,7 @@ function AddOrder() {
   const [contentClassNames, setContentClassNames] = useState([styles.AddOrderContent]);
   
   useEffect(() => {
+    console.log(asset)
     const set = new Set(contentClassNames);
     if (asset)
       set.add(styles.AddOrderContentTranslated);
@@ -20,11 +21,12 @@ function AddOrder() {
   
   useEffect(() => {
     const set = new Set(componentClassNames);
-    if (visible)
+    if (visible) {
       set.delete(styles.AddOrderHidden);
-    else
+    } else {
       set.add(styles.AddOrderHidden);
-    console.log(set)
+      setAsset(null);
+    }
     setComponentClassNames([...set]);
   }, [visible]);
     
@@ -39,7 +41,12 @@ function AddOrder() {
   return (
     <div className={componentClassNames.join(' ')}>
       <div className={styles.AddOrderHeader}>
-        <button onClick={() => toggle()}>{visible? 'Cancel' : 'Add something'}</button>
+        <div>
+          {asset && <button onClick={() => setAsset(null)}>Back</button>}
+        </div>
+        <div>
+          <button onClick={() => toggle()}>{visible? 'Cancel' : 'Add something'}</button>
+        </div>
       </div>
       <div className={contentClassNames.join(' ')}>
         <div className={styles.AddOrderContentScroll}>

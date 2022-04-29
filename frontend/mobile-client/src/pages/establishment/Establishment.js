@@ -2,11 +2,14 @@ import { useDispatch } from 'react-redux';
 import styles from './Establishment.module.css';
 import EstablishmentHeader from './EstablishmentHeader';
 import Bill from './Bill';
-import { fetchBill } from '../../state/ApiBillActions';
+import { fetchAssets, fetchBill } from '../../services/apiActions';
+import { useEffect } from 'react';
 
 function Establishment() {
   const dispatch = useDispatch();
-  dispatch(fetchBill())
+
+    dispatch(fetchBill())
+    dispatch(fetchAssets())
 
   return (
     <div className={styles.Establishment}>
