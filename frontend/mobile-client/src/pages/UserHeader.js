@@ -10,7 +10,7 @@ function UserHeader() {
   return (
     <div className={styles.UserHeader}>
       <span>{Auth.user.attributes.name}</span>
-      <div className={styles.user} onClick={logout}>
+      <div className={styles.user} onClick={() => logout()}>
       </div>
     </div>
   );

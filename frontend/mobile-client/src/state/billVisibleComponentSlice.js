@@ -8,12 +8,9 @@ const billVisibleComponent = createSlice({
   reducers: {
     setVisibleComponent(state, action) {
       state.value = action.payload;
-    },
-    closeOpenBillComponent(state, action) {
-      state.value = 'none';
-    },
+    }
   }
 })
 
-export const { setVisibleComponent, closeOpenBillComponent } = billVisibleComponent.actions
+export const { setVisibleComponent } = billVisibleComponent.actions
 export default billVisibleComponent.reducer

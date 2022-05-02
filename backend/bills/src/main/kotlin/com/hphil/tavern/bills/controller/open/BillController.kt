@@ -32,37 +32,31 @@ class BillController(
     private val establishmentClient: EstablishmentClient
 ) : CustomerTrait {
 
-    @GetMapping
-    fun getOpenBill(principal: Principal): OpenBillResponse? {
-        return billRepository.findOpen(principal.name)?.let {
-            OpenBillResponse(hashids.encode(it.id!!))
-        }
-    }
-
     @PostMapping
     @Transactional
-    fun openBill(@RequestBody request: OpenBillRequest, principal: Principal): OpenBillResponse {
-        billRepository.findOpen(principal.name)
-            ?.also { error("There is already an active bill") }
-        // fetch the spot to assert these are real hashes
-        establishmentClient.getEstablishmentByHash(request.establishmentHash)
-            ?: error("Establishment does not exist")
-        val userInfo = cognitoService.getUserInfo(principal.name);
-        val bill = billRepository.save(
-            Bill(userInfo.sub, principal.name, request.establishmentHash)
-        )
+    fun createOrOpenBill(@RequestBody request: OpenBillRequest, principal: Principal): OpenBillResponse {
+        val bill = billRepository.findOpen(principal.name) ?: create(request, principal)
         return OpenBillResponse(hashids.encode(bill.id!!))
         // TODO notify
     }
 
-    @DeleteMapping // Maybe there would be better something like POST /leave
+    private fun create(request: OpenBillRequest, principal: Principal): Bill {
+        // fetch the spot to assert these are real hashes
+        establishmentClient.getEstablishmentByHash(request.establishmentHash)
+            ?: error("Establishment does not exist")
+        val userInfo = cognitoService.getUserInfo(principal.name);
+        return billRepository.save(
+            Bill(userInfo.sub, principal.name, request.establishmentHash)
+        )
+    }
+
+    @DeleteMapping
     @Transactional
     fun cancelBill(principal: Principal) {
         val bill = fetchOpenBill(billRepository, principal)
         if (orderLotRepository.countByBill(bill) > 0)
             error("Bill with orders can only be closed by the manager")
         billRepository.delete(bill)
-        // TODO notify
     }
 
 }

@@ -5,10 +5,6 @@ import { billLoading, setBill, setBillError } from '../state/billSlice';
 import { setOrders, setOrdersError } from '../state/ordersSlice';
 import { assetsLoading, setAssets, setAssetsError } from '../state/assetsSlice';
  
-function _getEstablishmentHashId(getState) {
-  return getState().establishment?.data?.hashId;
-}
-
 export function fetchEstablishment(establishmentHash) {
   return (dispatch, getState) => {
     establishmentApi.get(`${establishmentHash}`)
@@ -19,6 +15,10 @@ export function fetchEstablishment(establishmentHash) {
         dispatch(setEstablishmentError(err || { message: 'error loading establishment' }));
       })
   };
+}
+
+function _getEstablishmentHashId(getState) {
+  return getState().establishment?.data?.hashId;
 }
 
 export function fetchAssets() {
@@ -34,7 +34,7 @@ export function fetchAssets() {
   }
 }
 
-export function openBill() {
+export function getOrOpenBill() {
   return (dispatch, getState) => {
     dispatch(billLoading());
     billsApi.post('/', { establishmentHash: _getEstablishmentHashId(getState) })
@@ -43,19 +43,6 @@ export function openBill() {
       })
       .catch(err => {
         dispatch(setBillError(err || { message: 'error opening bill' }));
-      })
-  }
-}
-
-export function fetchBill() {
-  return (dispatch, getState) => {
-    dispatch(billLoading());
-    billsApi.get('/')
-      .then(res => {
-        dispatch(setBill(res.data));
-      })
-      .catch(err => {
-        dispatch(setBillError(err || { message: 'error loading bill' }));
       })
   }
 }
@@ -76,7 +63,7 @@ export function postBillOrder(order) {
   return (dispatch, getState) => {
     billsApi.post(`/orders`, order)
       .then(res => {
-        dispatch(fetchBill());
+        dispatch(fetchBillOrders());
       })
       .catch(err => {
         dispatch(setOrdersError(err || { message: 'error loading establishment' }));

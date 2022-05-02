@@ -1,20 +1,21 @@
-.BillButtons{
+.ActionButtons{
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: calc(60vw/3);
+  height: calc(20vw);
   z-index: 500;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  padding: 0 5vw;
   justify-items: center;
-  transform: translateY(calc(60vw/3));
+  transform: translateY(calc(20vw));
 }
 .BillButonHolder{
   position: relative;
   width: 100%;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 }
 .BillButonHolder > *{

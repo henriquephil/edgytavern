@@ -1,4 +1,4 @@
-.AddAsset {
+.AddItem {
   display: flex;
   flex-direction: column;
   background: #2c2c2c;
@@ -8,13 +8,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  transition: 400ms cubic-bezier(0,1,0.5,1);
+  transition: 200ms cubic-bezier(0,1,0.5,1);
   z-index: 400;
 }
-.AddAssetHidden {
+.AddItemHidden {
   transform: translateY(100%) translateY(6px);
 }
-.AddAssetContent {
+.AddItemContent {
   display: flex;
   flex-direction: row;
   overflow-y: hidden;
@@ -22,13 +22,13 @@
   width: 200vw;
   height: 100%;
   position: relative;
-  transition: 600ms cubic-bezier(0,1,0.4,1);
+  transition: 300ms cubic-bezier(0,1,0.4,1);
 }
-.AddAssetContentTranslated {
+.AddItemContentTranslated {
   transform: translateX(-100vw);
 }
 
-.AddAssetContentScroll {
+.AddItemContentScroll {
   width: 100vw;
   height: 100%;
   overflow-y: auto;

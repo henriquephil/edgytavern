@@ -1,7 +1,14 @@
 import styles from './Asset.module.css';
 import NumberFormat from 'react-number-format';
+import { useDispatch } from 'react-redux';
+import { newItem } from '../../../../../state/editItemSlice';
 
-function Asset({ asset, onSelect }) {
+function Asset({ asset }) {
+  const dispatch = useDispatch();
+
+  const onSelect = () => {
+    dispatch(newItem(asset));
+  }
 
   return (
     <div className={styles.Asset}>
@@ -10,7 +17,7 @@ function Asset({ asset, onSelect }) {
       </div>
       <div className={styles.price}><NumberFormat value={asset.price} displayType="text" thousandSeparator="." prefix={'$'} decimalScale="2" fixedDecimalScale={true} decimalSeparator=","/></div>
       <div className={styles.select}>
-        <button onClick={() => onSelect()}>>></button>
+        <button onClick={() => onSelect()}>S</button>
       </div>
       <div className={styles.description}>
         <span class="limited-text-length">{asset.description}</span>

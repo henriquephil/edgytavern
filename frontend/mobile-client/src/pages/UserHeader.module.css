@@ -5,7 +5,7 @@
   height: 6vh;
   align-items: center;
   justify-content: space-between;
-  padding: 8px;
+  padding: 0 8px;
   color: #fcfcfc;
   flex-shrink: 0;
   z-index: 200;
@@ -13,6 +13,6 @@
 .user {
   background: #fcfcfc;
   border-radius: 50%;
-  width: 34px;
-  height: 34px;
+  width: calc(6vh - 8px);
+  height: calc(6vh - 8px);
 }
