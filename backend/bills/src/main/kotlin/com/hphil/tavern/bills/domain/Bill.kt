@@ -1,16 +1,14 @@
 package com.hphil.tavern.bills.domain
 
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.OneToMany
+import javax.persistence.*
 
 @Entity
 open class Bill(
     open val userUid: String,
     open val userName: String,
-    open val establishmentHash: String
+    @ManyToOne
+    open val register: Register
 ) {
     @Id
     @GeneratedValue

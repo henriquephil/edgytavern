@@ -1,18 +1,17 @@
 import { useSelector } from "react-redux";
 import styles from './AddItem.module.css';
 import AssetBrowser from './browser/AssetBrowser';
-import ItemEdit from './edit/ItemEdit';
+import ItemEditWrapper from "./edit/ItemEditWrapper";
 
 function AddItem() {
-  const visibleComponentState = useSelector(state => state.billVisibleComponent);
-  const editItemState = useSelector(state => state.editItem);
+  const visibleComponentState = useSelector(state => state.visibleComponent);
 
   const classNames = [styles.AddItem];
-  if (visibleComponentState.value !== 'addItem')
+  if (!['menu', 'editItem'].includes(visibleComponentState.value))
     classNames.push(styles.AddItemHidden)
 
   const classNamesContent = [styles.AddItemContent];
-  if (editItemState.item?.asset)
+  if (visibleComponentState.value === 'editItem')
     classNamesContent.push(styles.AddItemContentTranslated)
 
   return (
@@ -22,7 +21,7 @@ function AddItem() {
           <AssetBrowser/>
         </div>
         <div className={styles.AddItemContentScroll}>
-          <ItemEdit/>
+          <ItemEditWrapper/>
         </div>
       </div>
     </div>

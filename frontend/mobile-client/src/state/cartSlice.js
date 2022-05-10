@@ -1,26 +1,59 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+import { updateStateArrayItem } from '../utils/stateHelper';
+
+function updateFinalValue(state) {
+  state.finalValue = state.items.reduce((sum, item) => sum + (item.finalValue * item.quantity || 0), 0);
+}
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    items: []
+    items: [],
+    finalValue: 0
   },
   reducers: {
     saveCartItem(state, action) {
-      if (action.payload.index === 0 || action.payload.index > 0) {
-        state.items = state.items.map((item, idx) => idx === action.payload.index ? action.payload.item : item);
+      if (state.items[action.payload.index]) {
+        state.items = updateStateArrayItem(state.items, action.payload.index,
+          (newItem, currentItem) => {
+            newItem.removedIngredients = action.payload.item.removedIngredients;
+            newItem.selectedAdditionals = action.payload.item.selectedAdditionals;
+            newItem.finalValue = action.payload.item.finalValue;
+        });
       } else {
-        state.items.push(action.payload.item);
+        state.items.push({
+          ...action.payload.item,
+          quantity: 1
+        });
       }
+      updateFinalValue(state);
     },
     removeFromCart(state, action) {
       state.items = state.items.filter((_, idx) => idx !== action.payload);
+      updateFinalValue(state);
     },
     emptyCart(state, action) {
       state.items = [];
+      updateFinalValue(state);
+    },
+    increaseCartItemQuantity(state, action) {
+      state.items = updateStateArrayItem(state.items, action.payload,
+        (newItem, currentItem) => {
+          newItem.quantity = currentItem.quantity + 1
+      });
+      updateFinalValue(state);
+    },
+    decreaseCartItemQuantity(state, action) {
+      state.items = updateStateArrayItem(state.items, action.payload,
+        (newItem, currentItem) => {
+          if (currentItem.quantity > 1) {
+            newItem.quantity = currentItem.quantity - 1
+          }
+      });
+      updateFinalValue(state);
     }
   }
 })
 
-export const { saveCartItem, removeFromCart, emptyCart } = cartSlice.actions
+export const { saveCartItem, removeFromCart, emptyCart, increaseCartItemQuantity, decreaseCartItemQuantity } = cartSlice.actions
 export default cartSlice.reducer

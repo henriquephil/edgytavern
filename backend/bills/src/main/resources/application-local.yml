@@ -10,6 +10,17 @@ spring:
     hibernate:
       ddl-auto: update # create-drop
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      group-id: group_id
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+auto:
+  create:
+    topics:
+      enable: true
+
 security:
   oauth2:
     resource:
@@ -17,6 +28,9 @@ security:
         keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dCI229nTx/.well-known/jwks.json
     client:
       clientId: t3mpo80ueani42ktgf2o2crj
+feign:
+  oauth2:
+    enabled: true
 aws:
   accessKey: ${AWS_ACCESS_KEY}
   secretKey: ${AWS_SECRET_KEY}

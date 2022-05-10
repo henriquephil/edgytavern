@@ -1,5 +1,5 @@
-import { fetchAssets, getOrOpenBill } from "../services/apiActions";
-import { setVisibleComponent } from "./billVisibleComponentSlice";
+import { fetchAssets, getOrOpenBill } from "../services/apiService";
+import { setVisibleComponent } from "./visibleComponentSlice";
 import { clearItem } from "./editItemSlice";
 
 function globalStateChangeHandler(store) {
@@ -14,13 +14,13 @@ function globalStateChangeHandler(store) {
       store.dispatch(fetchAssets())  
     }
 
-    // go to addItem page everytime we set an item to edit
+    // go to editItem page everytime we set an item to edit
     if (!previousState.editItem.item && currState.editItem.item) {
-      store.dispatch(setVisibleComponent('addItem'));
+      store.dispatch(setVisibleComponent('editItem'));
     }
 
-    // // clear the editing item when leaving addItem page
-    if (previousState.billVisibleComponent.value === 'addItem' && currState.billVisibleComponent.value !== 'addItem' ) {
+    // // clear the editing item when leaving editItem page
+    if (previousState.visibleComponent.value === 'editItem' && currState.visibleComponent.value !== 'editItem' ) {
       store.dispatch(clearItem())
     }
   })

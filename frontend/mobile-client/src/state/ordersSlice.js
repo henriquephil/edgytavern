@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const ordersSlice = createSlice({
   name: 'orders',
   initialState: {
-    loading: true,
-    data: [],
+    loading: false,
+    data: null,
     error: null
   },
   reducers: {

@@ -1,7 +1,6 @@
 package com.hphil.tavern.bills.domain.references
 
 import java.math.BigDecimal
-import javax.persistence.Entity
 
 class AssetReference(
     val hashId: String,
@@ -11,5 +10,5 @@ class AssetReference(
     val removedIngredients: List<IngredientReference>,
     val requestedAdditionals: List<AdditionalReference>
 ) {
-    val finalPrice: BigDecimal = basePrice + requestedAdditionals.map { it.price }.reduce(BigDecimal::add)
+    val finalPrice: BigDecimal = requestedAdditionals.map { it.price }.fold(basePrice, BigDecimal::add)
 }

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const billSlice = createSlice({
   name: 'bill',
   initialState: {
-    loading: true,
+    loading: false,
     data: null,
     error: null
   },

@@ -1,29 +1,21 @@
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setVisibleComponent } from '../../../state/billVisibleComponentSlice';
+import { setVisibleComponent } from '../../../state/visibleComponentSlice';
 import styles from './ActionButton.module.css';
 
 function ActionButton({ component, color, text, visibleWhen }) {
   const dispatch = useDispatch();
-  const [componentClassNames, setComponentClassNames] = useState([styles.ActionButton]);
-  const billVisibleComponentState = useSelector(state => state.billVisibleComponent)
+  const visibleComponentState = useSelector(state => state.visibleComponent)
   
   const clickEvent = () => {
     dispatch(setVisibleComponent(component));
   }
-
-  useEffect(() => {
-    const set = new Set(componentClassNames);
-    if (visibleWhen.indexOf(billVisibleComponentState.value) >= 0) {
-      set.add(styles.ActionButtonVisible);
-    } else {
-      set.delete(styles.ActionButtonVisible);
-    }
-    setComponentClassNames([...set]);
-  }, [billVisibleComponentState]);
+  
+  const componentClassNames = [styles.ActionButton];
+  if (visibleWhen.indexOf(visibleComponentState.value) >= 0)
+    componentClassNames.push(styles.ActionButtonVisible);
 
   return (
-    <div className={componentClassNames.join(' ')} style={{ background: color, 'box-shadow': `0 0 3px 2px ${color}` }} onClick={() => clickEvent()}>
+    <div className={componentClassNames.join(' ')} style={{ 'box-shadow': `0 0 2px 3px ${color}` }} onClick={() => clickEvent()}>
       {text}
     </div>
   );

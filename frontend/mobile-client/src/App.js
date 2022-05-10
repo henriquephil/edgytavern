@@ -7,13 +7,15 @@ import '@aws-amplify/ui-react/styles.css';
 import styles from './App.module.css';
 
 function App() {
-  const establishmentState = useSelector(state => state.establishment);
+  const { loading, data, error} = useSelector(state => state.establishment);
   
   const renderSwitch = () => {
-    if (establishmentState.data)
+    if (loading)
+      return 'Loading establishment';
+    if (error)
+      return JSON.stringify(error);
+    if (data)
       return <Establishment/>;
-    if (establishmentState.error)
-      return JSON.stringify(establishmentState); // TODO
     return <EstablishmentLoader/>;
   }
 

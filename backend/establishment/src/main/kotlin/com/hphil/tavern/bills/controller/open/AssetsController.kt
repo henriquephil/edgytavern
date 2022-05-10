@@ -23,7 +23,7 @@ class AssetsController(
         return AllAssetsByCategory(
             groups.map {
                 CategoryWithAssetsDto(hashids.encode(it.key.id!!), it.key.name, it.value.map { asset ->
-                    FullAssetResponse(
+                    CategoryAssetDto(
                         hashids.encode(asset.id!!),
                         asset.name,
                         asset.price,
@@ -34,28 +34,28 @@ class AssetsController(
             })
     }
 
-//    @GetMapping("/{assetHash}")
-//    fun getAssetByHash(
-//        @PathVariable establishmentHash: String,
-//        @PathVariable assetHash: String
-//    ): FullAssetResponse? {
-//        val establishmentId = hashids.decode(establishmentHash)[0]
-//        val assetId = hashids.decode(assetHash)[0]
-//        return assetRepository.findByEstablishmentAndAssetIds(establishmentId, assetId)
-//            ?.let { asset ->
-//                FullAssetResponse(assetHash,
-//                    asset.name,
-//                    AssetCategoryDto(hashids.encode(asset.category.id!!), asset.category.name),
-//                    asset.price,
-//                    asset.description,
-//                    asset.ingredients.map { AssetIngredientDto(hashids.encode(it.id!!), it.name) },
-//                    asset.additionals.map { AssetAdditionalDto(hashids.encode(it.id!!), it.name, it.price) })
-//            }
-//    }
+    @GetMapping("/{assetHash}")
+    fun getAssetByHash(
+        @PathVariable establishmentHash: String,
+        @PathVariable assetHash: String
+    ): AssetResponse? {
+        val establishmentId = hashids.decode(establishmentHash)[0]
+        val assetId = hashids.decode(assetHash)[0]
+        return assetRepository.findByEstablishmentIdAndAssetIds(establishmentId, assetId)
+            ?.let { asset ->
+                AssetResponse(assetHash,
+                    asset.name,
+                    AssetCategoryDto(hashids.encode(asset.category.id!!), asset.category.name),
+                    asset.price,
+                    asset.description,
+                    asset.ingredients.map { AssetIngredientDto(hashids.encode(it.id!!), it.name) },
+                    asset.additionals.map { AssetAdditionalDto(hashids.encode(it.id!!), it.name, it.price) })
+            }
+    }
 
     class AllAssetsByCategory(val categories: List<CategoryWithAssetsDto>)
-    class CategoryWithAssetsDto(val hashId: String, val name: String, val assets: List<FullAssetResponse>)
-    class FullAssetResponse(
+    class CategoryWithAssetsDto(val hashId: String, val name: String, val assets: List<CategoryAssetDto>)
+    class CategoryAssetDto(
         val hashId: String,
         val name: String,
         val price: BigDecimal,
@@ -63,6 +63,17 @@ class AssetsController(
         val ingredients: List<AssetIngredientDto>,
         val additionals: List<AssetAdditionalDto>
     )
+
+    class AssetResponse(
+        val hashId: String,
+        val name: String,
+        val category: AssetCategoryDto,
+        val price: BigDecimal,
+        val description: String?,
+        val ingredients: List<AssetIngredientDto>,
+        val additionals: List<AssetAdditionalDto>
+    )
+    class AssetCategoryDto(val hashId: String, val name: String)
 
     class AssetIngredientDto(val hashId: String, val name: String)
     class AssetAdditionalDto(val hashId: String, val name: String, val price: BigDecimal)

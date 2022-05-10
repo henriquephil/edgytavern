@@ -23,7 +23,7 @@ open class OrderItem(
 
     @Enumerated(EnumType.STRING)
     open var status: OrderItemStatus = OrderItemStatus.RECEIVED
-    open val totalPrice: BigDecimal = asset.finalPrice * quantity.toBigDecimal()
+    open val finalValue: BigDecimal = asset.finalPrice * quantity.toBigDecimal()
 }
 
 enum class OrderItemStatus {

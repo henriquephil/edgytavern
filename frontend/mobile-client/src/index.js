@@ -5,8 +5,8 @@ import { createRoot } from 'react-dom/client';
 import store from './state/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import { Amplify } from 'aws-amplify';
-import awsmobile from './aws-exports';
+import { Amplify, Auth } from 'aws-amplify';
+import {awsmobile} from 'tavern-frontend';
 
 Amplify.configure(awsmobile);
 

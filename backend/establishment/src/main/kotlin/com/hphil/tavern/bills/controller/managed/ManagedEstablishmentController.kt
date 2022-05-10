@@ -16,10 +16,11 @@ class ManagedEstablishmentController(
 
     @PostMapping
     @Transactional
-    fun create(@RequestBody request: CreateEstablishmentRequest, principal: Principal) {
+    fun create(@RequestBody request: CreateEstablishmentRequest, principal: Principal): EstablishmentResponse {
         establishmentRepository.findByOwnerUsername(principal.name)
             ?.also { error("User already has an establishment") } // TODO allow more establishments per user
-        establishmentRepository.save(Establishment(request.name, principal.name))
+        return establishmentRepository.save(Establishment(request.name, principal.name))
+            .let { EstablishmentResponse(hashids.encode(it.id!!), it.name, it.active) }
     }
 
     @GetMapping

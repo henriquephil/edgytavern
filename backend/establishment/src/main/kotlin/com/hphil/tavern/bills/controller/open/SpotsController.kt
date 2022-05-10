@@ -1,6 +1,5 @@
 package com.hphil.tavern.bills.controller.open
 
-import com.hphil.tavern.bills.domain.Spot
 import com.hphil.tavern.bills.repository.SpotRepository
 import org.hashids.Hashids
 import org.springframework.web.bind.annotation.GetMapping
@@ -24,10 +23,8 @@ class SpotsController(
         val spotId = hashids.decode(spotHash)[0]
         // using establishment.id as filter to assert that the received hash is valid
         return spotRepository.findByEstablishmentAndSpotIds(establishmentId, spotId)
-                ?.let { SpotResponse(it) }
+                ?.let { SpotResponse(hashids.encode(it.id!!), it.group.name, it.number) }
     }
 
-    class SpotResponse(val name: String, val number: Int){
-        constructor(spot: Spot) : this(spot.group.name, spot.number)
-    }
+    class SpotResponse(val hashId: String, val name: String, val number: Int)
 }

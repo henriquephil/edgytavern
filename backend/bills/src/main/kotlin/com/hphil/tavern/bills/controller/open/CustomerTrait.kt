@@ -6,5 +6,5 @@ import java.security.Principal
 
 interface CustomerTrait {
     fun fetchOpenBill(billRepository: BillRepository, principal: Principal): Bill =
-        billRepository.findOpen(principal.name) ?: error("User has no active bill")
+        billRepository.findByUserUidAndOpenTrue(principal.name) ?: error("User has no active bill")
 }

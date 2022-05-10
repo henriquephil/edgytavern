@@ -1,0 +1,33 @@
+.Dashboard{
+  width: 100%;
+  height: 100%;
+}
+.DashboardRegister{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.DashboardPanel{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.RecentOrdersContainer { /* 1900 = 400 + 5 * 300 */
+  flex-basis: 400px;
+}
+/* see SpotsBills.module.css to adjust */
+@media screen and (max-width: 1580px) { /* 380 + 300 * 4 */
+  .RecentOrdersContainer {
+    flex-basis: 380px;
+  }
+}
+@media screen and (max-width: 1260px) { /* 360 + 300 * 3 */
+  .RecentOrdersContainer {
+    flex-basis: 360px;
+  }
+}
+@media screen and (max-width: 940px) {
+  .RecentOrdersContainer {
+    flex-basis: 340px;
+  }
+}

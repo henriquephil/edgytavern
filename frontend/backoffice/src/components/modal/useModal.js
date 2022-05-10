@@ -5,10 +5,10 @@ function useModal() {
   const [ modalContent, setModalContent ] = useState(null);
   const [ events, setEvents ] = useState({ onClose: null });
 
-  const openModal = (content, { onClose }) => {
+  const openModal = (content, options = {}) => {
     setVisible(true);
     setModalContent(content);
-    setEvents({ onClose });
+    setEvents({ onClose: options.onClose });
   };
   const closeModal = res => {
     setVisible(false);

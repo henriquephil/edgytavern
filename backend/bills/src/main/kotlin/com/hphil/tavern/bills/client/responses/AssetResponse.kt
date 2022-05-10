@@ -5,13 +5,13 @@ import java.math.BigDecimal
 class AssetResponse(
     val hashId: String,
     val name: String,
-    val category: AssetCategoryResponse,
+    val category: AssetCategoryDto,
     val price: BigDecimal,
     val description: String?,
-    val ingredients: List<AssetIngredientResponse>,
-    val additionals: List<AssetAdditionalResponse>
+    val ingredients: List<AssetIngredientDto>,
+    val additionals: List<AssetAdditionalDto>
 )
 
-class AssetCategoryResponse(val hashId: String, val name: String)
-class AssetIngredientResponse(val hashId: String, val name: String)
-class AssetAdditionalResponse(val hashId: String, val name: String, val price: BigDecimal)
+class AssetCategoryDto(val hashId: String, val name: String)
+class AssetIngredientDto(val hashId: String, val name: String)
+class AssetAdditionalDto(val hashId: String, val name: String, val price: BigDecimal)

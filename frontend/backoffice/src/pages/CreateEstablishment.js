@@ -1,20 +1,16 @@
 import { Box, Button, Flex, Input } from '@chakra-ui/react'
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
-// import AxiosContext from '../api/AxiosContext';
-import { establishmentApi } from '../services/api';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createEstablishment } from '../services/apiService';
 
 function CreateEstablishment() {
-  const [ name, setName ] = useState('')
-  const navigate = useNavigate();
+  const [ name, setName ] = useState('');
+  const dispatch = useDispatch();
   
   const nameEstablishment = () => {
-    establishmentApi.post('/managed', { name })
-        .then(res => {
-          console.log(res);
-          navigate('/')
-        })
+    dispatch(createEstablishment(name));
   }
+
   return (
     <Flex w="100%" h="100vh" maxH="100vh" bg="#222" justify="center" alignItems="center">
       <Box w="400px">

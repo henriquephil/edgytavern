@@ -1,22 +1,22 @@
 import { useEffect } from 'react';
 import CreateEstablishment from './pages/CreateEstablishment';
-import Establishment from './pages/Establishment';
+import Establishment from './pages/establishment/Establishment';
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchEstablishment } from './state/actions';
+import { fetchEstablishment } from './services/apiService';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 function App() {  
-  let establishment = useSelector(state => state.establishment);
-  const dispatch = useDispatch()
+  let { loading, data, error } = useSelector(state => state.establishment);
+  const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(fetchEstablishment);
+    dispatch(fetchEstablishment());
   }, [])
 
-  if (establishment.loading) return 'Loading';
-  if (establishment.error) return `Axios Error: ${establishment.error.message}`;
-  if (establishment.data) return <Establishment/>;
+  if (loading) return 'Loading establishment';
+  if (error) return `Axios Error: ${JSON.stringify(error)}`;
+  if (data) return <Establishment/>;
   return <CreateEstablishment/>;
 }
 

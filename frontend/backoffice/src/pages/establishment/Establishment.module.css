@@ -1,0 +1,8 @@
+.Establishment {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.content {
+  backdrop-filter: blur(4px) saturate(40%) opacity(10%);
+}

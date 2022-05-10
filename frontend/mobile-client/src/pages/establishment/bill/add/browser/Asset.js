@@ -13,14 +13,14 @@ function Asset({ asset }) {
   return (
     <div className={styles.Asset}>
       <div className={styles.name}>
-        <span class="limited-text-length">{asset.name}</span>
+        <span className="limited-text-length">{asset.name}</span>
       </div>
       <div className={styles.price}><NumberFormat value={asset.price} displayType="text" thousandSeparator="." prefix={'$'} decimalScale="2" fixedDecimalScale={true} decimalSeparator=","/></div>
       <div className={styles.select}>
         <button onClick={() => onSelect()}>S</button>
       </div>
       <div className={styles.description}>
-        <span class="limited-text-length">{asset.description}</span>
+        <span className="limited-text-length">{asset.description}</span>
       </div>
     </div>
   );

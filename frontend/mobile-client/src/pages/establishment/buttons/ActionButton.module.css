@@ -1,10 +1,11 @@
 .ActionButton{
-  width: calc(20vw);
-  height: calc(20vw);
+  width: 20vw;
+  height: 20vw;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #1c1c1c;
   transition: 250ms cubic-bezier(0.4, 1.4, 0.6, 0.9);
   transform: translateY(0vh) scale(0);
 }

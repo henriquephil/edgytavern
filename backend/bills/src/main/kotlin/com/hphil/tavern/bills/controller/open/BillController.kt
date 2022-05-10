@@ -1,17 +1,18 @@
 package com.hphil.tavern.bills.controller.open
 
-import com.hphil.tavern.bills.client.EstablishmentClient
 import com.hphil.tavern.bills.domain.Bill
 import com.hphil.tavern.bills.repository.BillRepository
 import com.hphil.tavern.bills.repository.OrderLotRepository
+import com.hphil.tavern.bills.repository.RegisterRepository
 import com.hphil.tavern.bills.services.CognitoService
+import com.hphil.tavern.bills.services.QueuePulisher
 import org.hashids.Hashids
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
 
 /**
- * Every action available here is supposed to be accesses by the customer
+ * Every action available here is supposed to be accessed by the customer
  *
  * The first thing needed by the customer is to start a new Bill at some establishment
  * He will be able to do that with the QRCode link containing the hashes for his location
@@ -29,24 +30,23 @@ class BillController(
     private val orderLotRepository: OrderLotRepository,
     private val hashids: Hashids,
     private val cognitoService: CognitoService,
-    private val establishmentClient: EstablishmentClient
+    private val registerRepository: RegisterRepository,
+    private val queuePulisher: QueuePulisher
 ) : CustomerTrait {
 
     @PostMapping
     @Transactional
-    fun createOrOpenBill(@RequestBody request: OpenBillRequest, principal: Principal): OpenBillResponse {
-        val bill = billRepository.findOpen(principal.name) ?: create(request, principal)
+    fun findOrOpenBill(@RequestBody request: OpenBillRequest, principal: Principal): OpenBillResponse {
+        val bill = billRepository.findByUserUidAndOpenTrue(principal.name) ?: create(request, principal)
+        queuePulisher.billOpened(bill)
         return OpenBillResponse(hashids.encode(bill.id!!))
-        // TODO notify
     }
 
     private fun create(request: OpenBillRequest, principal: Principal): Bill {
-        // fetch the spot to assert these are real hashes
-        establishmentClient.getEstablishmentByHash(request.establishmentHash)
-            ?: error("Establishment does not exist")
-        val userInfo = cognitoService.getUserInfo(principal.name);
+        val register = registerRepository.findByEstablishmentHashAndOpenTrue(request.establishmentHash) ?: error("Register not open")
+        val userInfo = cognitoService.getUserInfo(principal.name)
         return billRepository.save(
-            Bill(userInfo.sub, principal.name, request.establishmentHash)
+            Bill(userInfo.sub, principal.name, register)
         )
     }
 
@@ -58,7 +58,6 @@ class BillController(
             error("Bill with orders can only be closed by the manager")
         billRepository.delete(bill)
     }
-
 }
 
 class OpenBillRequest(val establishmentHash: String)

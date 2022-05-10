@@ -13,18 +13,54 @@ services:
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 5432:5432
-#  mongo:
-#    image: mongo
-#    restart: always
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  kafka:
+    image: confluentinc/cp-kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    depends_on:
+      - kafka
+    ports:
+      - 19000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092
+#  rabbiqmq:
+#    image: rabbitmq:management
 #    environment:
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: boot
-#  mongo-express:
-#    image: mongo-express
-#    restart: always
+#      - RABBITMQ_DEFAULT_USER=guest
+#      - RABBITMQ_DEFAULT_PASS=guest
 #    ports:
-#      - 8027:8081
+#      - 5672:5672
+#      - 15672:15672
+#      
+#  hazelcast:
+#    image: hazelcast/hazelcast
+#    ports:
+#      - 5701:5701
+#  management-center:
+#    image: hazelcast/management-center
 #    environment:
-#      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-#      ME_CONFIG_MONGODB_ADMINPASSWORD: boot
-#      ME_CONFIG_MONGODB_URL: mongodb://root:boot@mongo:27017/
+#      - MC_ADMIN_USER=admin
+#      - MC_ADMIN_PASSWORD=Haz3!cast
+#      - MC_DEFAULT_CLUSTER=dev
+#      - MC_DEFAULT_CLUSTER_MEMBERS=localhost:5701,hazelcast:5701
+#    ports:
+#      - 8010:8080

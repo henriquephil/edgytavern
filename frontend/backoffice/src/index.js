@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import store from './state/store';
 import { BrowserRouter } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
-import awsmobile from 'tavern-frontend';
+import {awsmobile} from 'tavern-frontend';
 
 const theme = extendTheme({
   background: "#222222",

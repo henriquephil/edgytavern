@@ -4,7 +4,7 @@ import style from './Category.module.css';
 import EditAssetModal from "./modals/EditAssetModal";
 import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../../../components/modal/ModalContext";
-import { establishmentApi } from '../../../../services/api';
+import api from '../../../../services/api';
 
 function Category({ category }) {
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ function Category({ category }) {
   const loadAssets = () => {
     setLoading(true);
     setAssets([]);
-    establishmentApi.get('/managed/assets', { params: { categoryId: category.id } })
+    api.get('/managed/assets', { params: { categoryId: category.id } })
       .then(response => setAssets(response.data.assets))
       .finally(() => setLoading(false));
   }

@@ -23,7 +23,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const assetsSlice = createSlice({
   name: 'assets',
   initialState: {
-    loading: true,
+    loading: false,
     data: null,
     error: null
   },

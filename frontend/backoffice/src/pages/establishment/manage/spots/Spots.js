@@ -1,6 +1,6 @@
 import { Box,  Grid } from "@chakra-ui/react"
 import { Fragment, useEffect, useState } from "react";
-import { establishmentApi } from "../../../../services/api";
+import api from "../../../../services/api";
 import SpotGroup from './SpotGroup';
 import AddSpotGroup from './AddSpotGroup';
 
@@ -10,7 +10,7 @@ function Spots() {
 
   const loadSpots = () => {
     setLoading(true);
-    establishmentApi.get('/managed/spots')
+    api.get('/managed/spots')
       .then(({ data }) => {
         setSpots(data.groups);
       })
@@ -22,7 +22,7 @@ function Spots() {
   const addGroup = group => {
     if (group.name && group.amount) {
       setLoading(true);
-      establishmentApi.post('/managed/spots', group)
+      api.post('/managed/spots', group)
         .then(_ => {
           loadSpots();
         });

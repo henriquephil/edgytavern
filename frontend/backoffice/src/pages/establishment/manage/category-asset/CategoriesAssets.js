@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { establishmentApi } from "../../../../services/api";
+import api from "../../../../services/api";
 import AddCategory from "./AddCategory";
 import Category from "./Category";
 
@@ -10,7 +10,7 @@ function CategoriesAssets() {
 
   const loadCategories = () => {
     setLoading(true);
-    establishmentApi.get('/managed/categories')
+    api.get('/managed/categories')
       .then(response => {
         setCategories(response.data.categories);
       })
@@ -21,7 +21,7 @@ function CategoriesAssets() {
 
   const addCategory = category => {
     if (category.name) {
-      establishmentApi.post('/managed/categories', category)
+      api.post('/managed/categories', category)
         .then(res => loadCategories());
     }
   }

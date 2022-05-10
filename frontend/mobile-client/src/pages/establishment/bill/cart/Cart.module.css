@@ -1,21 +1,57 @@
 .Cart {
   display: flex;
   flex-direction: column;
+  padding: 4px;
   background: #ffa100;
+  color: #1c1c1c;
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 50vh;
-  transition: 200ms cubic-bezier(0,1,0.5,1);
+  max-height: calc(100% - 30vw);
+  transition: 300ms cubic-bezier(0,1,0.5,1);
   z-index: 100;
+  font-weight: 600;
 }
 .CartHidden {
-  transform: translateY(-50vh)
+  transform: translateY(-100%)
+}
+
+.CartFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: baseline;
+  padding: 8px 0 4px 0;
+}
+.CartFooterValue {
+  font-size: 1.3em;
+}
+
+.ItemList {
+  overflow: auto;
+  position: relative;
+}
+.ItemList {
+  overflow: auto;
+  position: relative;
 }
 
 .CartItem {
   display: grid;
-  grid-template-columns: auto 30px;
+  grid-template-columns: min-content min-content auto min-content min-content;
+  align-items: baseline;
+  grid-gap: 2px;
+  padding: 4px 0;
+}
+.CartButton {
+  background: #1c1c1c;
+  color: #c1c1c1;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 1px;
+  padding: 0 8px;
 }

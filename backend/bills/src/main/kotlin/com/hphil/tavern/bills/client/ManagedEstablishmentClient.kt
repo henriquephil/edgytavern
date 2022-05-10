@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping
 
 @FeignClient(name = "establishment-managed", url = "\${app.clients.establishment.url}")
 interface ManagedEstablishmentClient {
-    @GetMapping
+    @GetMapping("/managed")
     fun getManagedEstablishment(): ManagedEstablishmentResponse
 }

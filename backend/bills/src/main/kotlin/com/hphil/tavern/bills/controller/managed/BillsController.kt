@@ -1,12 +1,11 @@
 package com.hphil.tavern.bills.controller.managed
 
-import com.hphil.tavern.bills.client.ManagedEstablishmentClient
 import com.hphil.tavern.bills.repository.BillRepository
 import com.hphil.tavern.bills.repository.OrderItemRepository
+import com.hphil.tavern.bills.services.RegisterService
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
-import java.security.Principal
 import java.time.LocalDateTime
 
 /**
@@ -22,30 +21,31 @@ import java.time.LocalDateTime
  *
  */
 @RestController
-@RequestMapping("/manager")
+@RequestMapping("/managed/bills")
 class BillsController(
     private val billRepository: BillRepository,
     private val orderItemRepository: OrderItemRepository,
-    private val managedEstablishmentClient: ManagedEstablishmentClient
+    private val registerService: RegisterService
 ) {
 
     @GetMapping
-    fun getBills(principal: Principal): ManagerBillsResponse {
-        val establishment = managedEstablishmentClient.getManagedEstablishment()
-        return ManagerBillsResponse(billRepository.openBillsAt(establishment.hashId)
+    fun getBills(@RequestParam(required = false) registerId: Long?): ManagerBillsResponse {
+        val register = registerService.getRegisterByEstablishmentHash(registerId)
+        return ManagerBillsResponse(billRepository.findAllByRegister(register)
             .map { bill ->
                 BillDto(
                     bill.id!!,
                     bill.userName,
+                    bill.open,
                     bill.started
                 )
             })
     }
 
     @GetMapping("/{id}")
-    fun getBill(@PathVariable id: Long, principal: Principal): ManagerBillResponse {
-        val establishment = managedEstablishmentClient.getManagedEstablishment()
-        val bill = billRepository.findByEstablishmentHashAndId(establishment.hashId, id)
+    fun getBill(@PathVariable id: Long): ManagerBillResponse {
+        val register = registerService.getRegisterByEstablishmentHash()
+        val bill = billRepository.findByRegisterAndId(register, id)
         return ManagerBillResponse(
             bill.id!!,
             bill.userName,
@@ -66,7 +66,7 @@ class BillsController(
                             item.asset.requestedAdditionals.map { it.name },
                             item.asset.finalPrice,
                             item.quantity,
-                            item.totalPrice
+                            item.finalValue
                         )
                     }
                 )
@@ -76,15 +76,16 @@ class BillsController(
 
     @PostMapping("/{billId}/close")
     @Transactional
-    fun closeBill(@PathVariable billId: Long, principal: Principal) {
-        val establishment = managedEstablishmentClient.getManagedEstablishment()
-        val bill = billRepository.findByEstablishmentHashAndId(establishment.hashId, billId)
+    fun closeBill(@PathVariable billId: Long) {
+        val register = registerService.getRegisterByEstablishmentHash()
+        val bill = billRepository.findByRegisterAndId(register, billId)
+        // verification needed
         bill.close()
     }
 }
 
 class ManagerBillsResponse(val bills: List<BillDto>)
-class BillDto(val id: Long, val customerName: String, val started: LocalDateTime)
+class BillDto(val id: Long, val customerName: String, val open: Boolean, val started: LocalDateTime)
 
 class ManagerBillResponse(
     val id: Long,
@@ -93,7 +94,9 @@ class ManagerBillResponse(
     val started: LocalDateTime,
     var ended: LocalDateTime?,
     val orders: List<OrderDto>
-)
+) {
+    val total = orders.flatMap { it.items }.map { it.totalPrice }.fold(BigDecimal.ZERO, BigDecimal::add)
+}
 class OrderDto(
     val spotName: String,
     val createdAt: LocalDateTime,
