@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
 @Service
-class QueuePulisher(
+class QueuePublisher(
     private val kafkaTemplate: KafkaTemplate<String, String>,
     private val objectMapper: ObjectMapper
 ) {
     fun orderReceived(order: OrderLot) {
-        publish("order-received", OrderMessage(order))
+        publish("order-received", OrderMessage(order)) // maybe just the establishmentHashId
     }
 
     fun billOpened(bill: Bill) {
-        publish("bill-opened", BillOpenedMessage(bill))
+        publish("bill-opened", BillOpenedMessage(bill)) // maybe just the establishmentHashId
     }
 
     private fun publish(topic: String, payload: Any) {

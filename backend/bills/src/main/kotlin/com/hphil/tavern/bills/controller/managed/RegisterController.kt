@@ -3,7 +3,6 @@ package com.hphil.tavern.bills.controller.managed
 import com.hphil.tavern.bills.client.ManagedEstablishmentClient
 import com.hphil.tavern.bills.domain.Register
 import com.hphil.tavern.bills.repository.RegisterRepository
-import org.hashids.Hashids
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -15,8 +14,7 @@ import java.time.LocalDateTime
 @RequestMapping("/managed/register")
 class RegisterController(
     val managedEstablishmentClient: ManagedEstablishmentClient,
-    val registerRepository: RegisterRepository,
-    val hashids: Hashids
+    val registerRepository: RegisterRepository
 ) {
 
     @GetMapping
@@ -31,7 +29,7 @@ class RegisterController(
     fun open(): OpenRegisterResponse {
         val establishment = managedEstablishmentClient.getManagedEstablishment()
         registerRepository.findByEstablishmentHashAndOpenTrue(establishment.hashId)
-            ?.let { error("There is already an ongoing register being recorded") }
+            ?.let { error("There is already an ongoing register") }
 
         val register = registerRepository.save(
             Register(establishment.hashId)

@@ -11,10 +11,10 @@ class EventController(
 ) {
 
     // TODO safer user identification
-    @GetMapping
-    fun sse(@RequestParam id: String): SseEmitter {
+    @GetMapping("/establishment")
+    fun sse(@RequestParam hashId: String): SseEmitter {
         val emitter = SseEmitter(Long.MAX_VALUE)
-        eventListeners.registerEmitter(id, emitter)
+        eventListeners.registerEmitter(hashId, emitter)
         return emitter
     }
 }

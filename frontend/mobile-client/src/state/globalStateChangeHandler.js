@@ -19,7 +19,7 @@ function globalStateChangeHandler(store) {
       store.dispatch(setVisibleComponent('editItem'));
     }
 
-    // // clear the editing item when leaving editItem page
+    // clear the editing item when leaving editItem page
     if (previousState.visibleComponent.value === 'editItem' && currState.visibleComponent.value !== 'editItem' ) {
       store.dispatch(clearItem())
     }

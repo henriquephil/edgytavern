@@ -2,6 +2,7 @@ package com.hphil.tavern.bills.controller.managed
 
 import com.hphil.tavern.bills.domain.Establishment
 import com.hphil.tavern.bills.repository.EstablishmentRepository
+import com.hphil.tavern.bills.services.UserInfo
 import org.hashids.Hashids
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
@@ -24,9 +25,8 @@ class ManagedEstablishmentController(
     }
 
     @GetMapping
-    fun getManagedEstablishment(principal: Principal): EstablishmentResponse? {
-//        return EstablishmentResponse(hashids.encode(establishment.id!!), establishment.name, establishment.active)
-        return establishmentRepository.findByOwnerUsername(principal.name)
+    fun getManagedEstablishment(userInfo: UserInfo): EstablishmentResponse? {
+        return establishmentRepository.findByOwnerUsername(userInfo.username)
             ?.let { EstablishmentResponse(hashids.encode(it.id!!), it.name, it.active) }
     }
 

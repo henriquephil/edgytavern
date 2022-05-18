@@ -5,7 +5,7 @@ import com.hphil.tavern.bills.repository.BillRepository
 import com.hphil.tavern.bills.repository.OrderLotRepository
 import com.hphil.tavern.bills.repository.RegisterRepository
 import com.hphil.tavern.bills.services.CognitoService
-import com.hphil.tavern.bills.services.QueuePulisher
+import com.hphil.tavern.bills.services.QueuePublisher
 import org.hashids.Hashids
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
@@ -31,23 +31,24 @@ class BillController(
     private val hashids: Hashids,
     private val cognitoService: CognitoService,
     private val registerRepository: RegisterRepository,
-    private val queuePulisher: QueuePulisher
+    private val queuePublisher: QueuePublisher
 ) : CustomerTrait {
 
     @PostMapping
     @Transactional
     fun findOrOpenBill(@RequestBody request: OpenBillRequest, principal: Principal): OpenBillResponse {
         val bill = billRepository.findByUserUidAndOpenTrue(principal.name) ?: create(request, principal)
-        queuePulisher.billOpened(bill)
         return OpenBillResponse(hashids.encode(bill.id!!))
     }
 
     private fun create(request: OpenBillRequest, principal: Principal): Bill {
         val register = registerRepository.findByEstablishmentHashAndOpenTrue(request.establishmentHash) ?: error("Register not open")
         val userInfo = cognitoService.getUserInfo(principal.name)
-        return billRepository.save(
+        val bill = billRepository.save(
             Bill(userInfo.sub, principal.name, register)
         )
+        queuePublisher.billOpened(bill)
+        return bill;
     }
 
     @DeleteMapping

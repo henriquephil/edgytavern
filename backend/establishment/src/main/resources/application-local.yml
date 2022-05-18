@@ -1,5 +1,5 @@
 server:
-  port : 8081
+  port: 8081
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/establishment
@@ -13,8 +13,10 @@ spring:
 security:
   oauth2:
     resource:
-      jwk:
-        keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dCI229nTx/.well-known/jwks.json
+#      jwk:
+#        keySetUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dCI229nTx/.well-known/jwks.json
+      userInfoUri: http://localhost:8089/auth/userInfo
+#      tokenInfoUri: http://localhost:8089/auth/tokenInfo
     client:
       clientId: t3mpo80ueani42ktgf2o2crj
 aws:

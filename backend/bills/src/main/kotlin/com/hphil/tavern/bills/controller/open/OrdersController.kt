@@ -7,7 +7,7 @@ import com.hphil.tavern.bills.domain.references.*
 import com.hphil.tavern.bills.repository.BillRepository
 import com.hphil.tavern.bills.repository.OrderItemRepository
 import com.hphil.tavern.bills.repository.OrderLotRepository
-import com.hphil.tavern.bills.services.QueuePulisher
+import com.hphil.tavern.bills.services.QueuePublisher
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
@@ -32,7 +32,7 @@ class OrdersController(
     private val orderLotRepository: OrderLotRepository,
     private val orderItemRepository: OrderItemRepository,
     private val establishmentClient: EstablishmentClient,
-    private val queuePulisher: QueuePulisher
+    private val queuePublisher: QueuePublisher
 ) : CustomerTrait {
 
     @GetMapping
@@ -55,14 +55,12 @@ class OrdersController(
             OrderLot(bill, SpotReference(requestIncoming.spotHash, spot.name, spot.number))
         )
         requestIncoming.items.forEach { mapNewAssets(it, order) }
-        queuePulisher.orderReceived(order)
+        queuePublisher.orderReceived(order)
     }
 
     private fun mapNewAssets(item: IncomingOrderItemDto, orderLot: OrderLot) {
         val asset = establishmentClient.getAssetByHash(orderLot.bill.register.establishmentHash, item.assetHashId)
             ?: error("Asset ${item.assetHashId} does not exist")
-        assert(asset.ingredients.map { it.hashId }.containsAll(item.removedIngredientsHashIds))
-        assert(asset.additionals.map { it.hashId }.containsAll(item.additionalsHashIds))
 
         val orderItem = OrderItem(
             orderLot,

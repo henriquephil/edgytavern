@@ -15,7 +15,7 @@ class RegistersController(
     val registerRepository: RegisterRepository
 ) {
     @GetMapping
-    fun getOpen(): List<RegistersDto> {
+    fun getAllClosed(): List<RegistersDto> {
         val establishment = managedEstablishmentClient.getManagedEstablishment()
         return registerRepository.findAllByEstablishmentHashAndOpenFalse(establishment.hashId)
             .map { RegistersDto(it) }

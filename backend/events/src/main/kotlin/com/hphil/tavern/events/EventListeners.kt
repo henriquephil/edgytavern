@@ -13,24 +13,22 @@ import java.util.concurrent.ConcurrentHashMap
 class EventListeners(
     private val objectMapper: ObjectMapper
 ) {
-    /* TODO there is A LOT to improve here
-     * use cache pub/sub like "establishment.${hashId}"
-     */
+    // TODO there is A LOT to improve here
 
-    val emitters = ConcurrentHashMap<String, MutableList<SseEmitter>>()
+    val emitters = ConcurrentHashMap<String, MutableList<SseEmitter>>() // get rid of this
 
     @KafkaListener(
         topics = ["order-received", "bill-opened"],
-        groupId = "group-id" // TODO unique group id per app instance
+        groupId = "group-id"
     )
     fun establishmentListener(payload: ConsumerRecord<String, String>) {
         val obj = objectMapper.readTree(payload.value())
         val establishmentHash = obj.get("establishmentHash").asText()
-        emitters[establishmentHash]?.forEach {
+        emitters[establishmentHash]?.forEach { // and get rid of this
             try {
                 it.send(
                     SseEmitter.event()
-                        .id(UUID.randomUUID().toString()) // TODO sequential UID per establishment, maybe to use in reconnect
+                        .id(UUID.randomUUID().toString()) // TODO improve
                         .name(payload.topic())
                         .data(obj, MediaType.APPLICATION_JSON)
                 )
@@ -47,12 +45,12 @@ class EventListeners(
         synchronized(list) {
             list.add(emitter)
         }
-        emitter.send("CONNECTED")
+        emitter.send("CONNECTED") // is that a good idea?
     }
 
     fun dropEmitter(establishmentHash: String, emitter: SseEmitter, ex: Exception) {
         emitters[establishmentHash]?.also {
-            synchronized(it) {
+            synchronized(it) { // is it safe?
                 it.remove(emitter)
             }
         }

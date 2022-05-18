@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<properties>
+		<java.version>11</java.version>
+		<kotlin.version>1.6.21</kotlin.version>
+		<myndocs.oauth.version>0.7.1-SNAPSHOT</myndocs.oauth.version>
+	</properties>
+
+	<groupId>com.hphil.tavern</groupId>
+	<artifactId>auth</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>auth</name>
+	<description>Auth</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.javalin</groupId>
+			<artifactId>javalin</artifactId>
+			<version>3.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.36</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.10.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.3.4</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>5.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>at.favre.lib</groupId>
+			<artifactId>bcrypt</artifactId>
+			<version>0.9.0</version>
+		</dependency>
+
+
+	</dependencies>
+
+<!--	<build>-->
+<!--		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>-->
+<!--		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<groupId>org.springframework.boot</groupId>-->
+<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--			</plugin>-->
+<!--			<plugin>-->
+<!--				<groupId>org.jetbrains.kotlin</groupId>-->
+<!--				<artifactId>kotlin-maven-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<args>-->
+<!--						<arg>-Xjsr305=strict</arg>-->
+<!--					</args>-->
+<!--					<compilerPlugins>-->
+<!--						<plugin>spring</plugin>-->
+<!--					</compilerPlugins>-->
+<!--				</configuration>-->
+<!--				<dependencies>-->
+<!--					<dependency>-->
+<!--						<groupId>org.jetbrains.kotlin</groupId>-->
+<!--						<artifactId>kotlin-maven-allopen</artifactId>-->
+<!--						<version>${kotlin.version}</version>-->
+<!--					</dependency>-->
+<!--				</dependencies>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</build>-->
+
+</project>
