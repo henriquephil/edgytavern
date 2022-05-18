@@ -1,6 +1,13 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
+  app.use('/api/security',
+    createProxyMiddleware({
+      target: 'http://localhost:8089',
+      pathRewrite: { '^/api/security': '/', },
+      changeOrigin: true,
+    })
+  );
   app.use('/api/establishment',
     createProxyMiddleware({
       target: 'http://localhost:8081',
@@ -15,10 +22,10 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   );
-  app.use('/api/yeller',
+  app.use('/api/events',
     createProxyMiddleware({
       target: 'http://localhost:8088',
-      pathRewrite: { '^/api/yeller': '/', },
+      pathRewrite: { '^/api/events': '/', },
       changeOrigin: true,
     })
   );

@@ -1,4 +1,4 @@
-package com.hphil.tavern.bills.services
+package com.hphil.tavern.bills.services.security
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor
 import org.springframework.stereotype.Component

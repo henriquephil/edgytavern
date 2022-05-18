@@ -3,10 +3,12 @@ import { NavLink } from "react-router-dom"
 import topbar from '../assets/topbar.png'
 import style from './Menubar.module.css'
 import { useSelector } from 'react-redux'
-import { Auth } from 'aws-amplify';
+import auth from "../components/auth/Auth"
+import { useLocalStorage } from "react-use"
 
 function Menubar() {
   const establishment = useSelector(state => state.establishment.data);
+  const [ userInfo ] = useLocalStorage('userInfo');
 
   return (
     <Flex w="100%" h="80px" className={style.Menubar} color="#222" justify="center"
@@ -21,7 +23,7 @@ function Menubar() {
           </Box>
         </Flex>
         <Box p="8px" color="black"><h1 className={style.establishmentName}>{establishment.name}</h1></Box>
-        <Box p="8px" fontSize="1.2em" onClick={() => Auth.signOut()} cursor="pointer">{Auth.user.attributes.name}</Box>
+        <Box p="8px" fontSize="1.2em" onClick={() => auth.signOut()} cursor="pointer">{JSON.stringify(userInfo)}</Box>
       </Flex>
     </Flex>);
 }

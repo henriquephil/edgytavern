@@ -10,7 +10,7 @@ function Spots() {
 
   const loadSpots = () => {
     setLoading(true);
-    api.get('/managed/spots')
+    api.get('/api/establishment/managed/spots')
       .then(({ data }) => {
         setSpots(data.groups);
       })
@@ -22,7 +22,7 @@ function Spots() {
   const addGroup = group => {
     if (group.name && group.amount) {
       setLoading(true);
-      api.post('/managed/spots', group)
+      api.post('/api/establishment/managed/spots', group)
         .then(_ => {
           loadSpots();
         });

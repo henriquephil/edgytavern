@@ -10,7 +10,7 @@ function CategoriesAssets() {
 
   const loadCategories = () => {
     setLoading(true);
-    api.get('/managed/categories')
+    api.get('/api/establishment/managed/categories')
       .then(response => {
         setCategories(response.data.categories);
       })
@@ -21,7 +21,7 @@ function CategoriesAssets() {
 
   const addCategory = category => {
     if (category.name) {
-      api.post('/managed/categories', category)
+      api.post('/api/establishment/managed/categories', category)
         .then(res => loadCategories());
     }
   }

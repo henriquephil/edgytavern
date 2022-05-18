@@ -7,7 +7,7 @@ import javax.persistence.Id
 
 @Entity
 open class Establishment(open var name: String = "",
-                         open val ownerUsername: String = "") {
+                         open val ownerId: String = "") {
     @Id
     @GeneratedValue
     open val id: Long? = null

@@ -1,4 +1,4 @@
-package com.hphil.tavern.bills.services
+package com.hphil.tavern.bills.services.security
 
 class UserInfo(
     val id: String,

@@ -30,8 +30,8 @@ function EditAssetModal({asset}) {
     if (body.name && body.categoryId && body.price) {
       setSaveLoading(true);
       const promise = asset.id ? 
-        api.put(`/managed/assets/${asset.id}`, body) :
-        api.post('/managed/assets', body);
+        api.put(`/api/establishment/managed/assets/${asset.id}`, body) :
+        api.post('/api/establishment/managed/assets', body);
       promise
         .then(() => closeModal(true))
         .finally(() => setSaveLoading(false));

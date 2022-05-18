@@ -1,19 +1,16 @@
-package com.hphil.tavern.bills.controller.managed
+package com.hphil.tavern.bills.services.security
 
-import com.hphil.tavern.bills.domain.Establishment
-import com.hphil.tavern.bills.repository.EstablishmentRepository
 import org.springframework.core.MethodParameter
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.oauth2.provider.OAuth2Authentication
 import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 
-class EstablishmentLoader(
-    private val establishmentRepository: EstablishmentRepository
-) : HandlerMethodArgumentResolver {
-
+class UserInfoResolver: HandlerMethodArgumentResolver  {
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return Establishment::class.java.isAssignableFrom(parameter.parameterType)
+        return UserInfo::class.java.isAssignableFrom(parameter.parameterType)
     }
 
     override fun resolveArgument(
@@ -21,9 +18,7 @@ class EstablishmentLoader(
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
-    ): Any? {
-        TODO("not yet implemented")
+    ): UserInfo {
+        return (SecurityContextHolder.getContext().authentication as OAuth2Authentication).userAuthentication.principal as UserInfo
     }
-
-
 }

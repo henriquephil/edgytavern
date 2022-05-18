@@ -5,18 +5,21 @@ const establishmentSlice = createSlice({
   initialState: {
     loading: false,
     data: null,
-    error: null
+    error: null,
+    dispatched: false
   },
   reducers: {
     setEstablishmentLoading(state, action) {
       state.loading = true;
       state.data = null;
       state.error = null;
+      state.dispatched = true;
     },
     setEstablishment(state, action) {
       state.loading = false;
       state.data = action.payload;
       state.error = null;
+      state.dispatched = !!action.payload;
     },
     setEstablishmentError(state, action) {
       state.loading = false;

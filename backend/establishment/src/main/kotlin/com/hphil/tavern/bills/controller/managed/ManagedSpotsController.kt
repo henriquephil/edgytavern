@@ -6,11 +6,11 @@ import com.hphil.tavern.bills.repository.EstablishmentRepository
 import com.hphil.tavern.bills.repository.SpotGroupRepository
 import com.hphil.tavern.bills.repository.SpotRepository
 import com.hphil.tavern.bills.services.FileStorage
+import com.hphil.tavern.bills.services.security.UserInfo
 import org.hashids.Hashids
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
-import java.security.Principal
 
 @RestController
 @RequestMapping("/managed/spots")
@@ -26,10 +26,10 @@ class ManagedSpotsController(
 
     @PostMapping
     @Transactional
-    fun addSpot(@RequestBody groupRequest: AddSpotGroupRequest, principal: Principal) {
+    fun addSpot(@RequestBody groupRequest: AddSpotGroupRequest, userInfo: UserInfo) {
         val group = spotGroupRepository.save(
             SpotGroup(
-                getEstablishment(establishmentRepository, principal),
+                getEstablishment(establishmentRepository, userInfo),
                 groupRequest.name
             )
         )
@@ -39,10 +39,10 @@ class ManagedSpotsController(
     }
 
     @GetMapping
-    fun findAll(principal: Principal): AllSpotsResponse {
+    fun findAll(userInfo: UserInfo): AllSpotsResponse {
         return AllSpotsResponse(
             spotGroupRepository
-                .findAllByEstablishment(getEstablishment(establishmentRepository, principal))
+                .findAllByEstablishment(getEstablishment(establishmentRepository, userInfo))
                 .map { SpotGroupDto(it, spotRepository.countByGroup(it)) }
         )
     }
@@ -52,10 +52,10 @@ class ManagedSpotsController(
     fun update(
         @RequestBody groupRequest: UpdateSpotGroupRequest,
         @PathVariable groupId: Long,
-        principal: Principal
+        userInfo: UserInfo
     ) {
         val group = spotGroupRepository.findById(groupId).orElseThrow()
-        validateManager(group.establishment, principal)
+        validateManager(group.establishment, userInfo)
         group.name = groupRequest.name
         group.active = groupRequest.active
 

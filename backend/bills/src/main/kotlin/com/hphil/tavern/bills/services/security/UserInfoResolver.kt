@@ -1,4 +1,4 @@
-package com.hphil.tavern.bills.services
+package com.hphil.tavern.bills.services.security
 
 import org.springframework.core.MethodParameter
 import org.springframework.security.core.context.SecurityContextHolder

@@ -7,12 +7,12 @@ import com.hphil.tavern.bills.domain.Ingredient
 import com.hphil.tavern.bills.repository.AssetRepository
 import com.hphil.tavern.bills.repository.CategoryRepository
 import com.hphil.tavern.bills.repository.EstablishmentRepository
+import com.hphil.tavern.bills.services.security.UserInfo
 import com.hphil.tavern.bills.util.MergeUtil.updateChildSet
 import com.hphil.tavern.bills.util.RemovalIndicator
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
-import java.security.Principal
 
 @RestController
 @RequestMapping("/managed/assets")
@@ -25,10 +25,10 @@ class ManagedAssetsController(
 
     @PostMapping
     @Transactional
-    fun add(@RequestBody request: AddAssetRequest, principal: Principal) {
+    fun add(@RequestBody request: AddAssetRequest, userInfo: UserInfo) {
         assetRepository.save(
             Asset(
-                getEstablishment(establishmentRepository, principal),
+                getEstablishment(establishmentRepository, userInfo),
                 request.name,
                 parseCategory(request.categoryId),
                 request.price,
@@ -40,11 +40,11 @@ class ManagedAssetsController(
     }
 
     @GetMapping
-    fun findAll(principal: Principal, @RequestParam("categoryId") categoryId: Long?): AllAssetsResponse {
+    fun findAll(@RequestParam("categoryId") categoryId: Long?, userInfo: UserInfo): AllAssetsResponse {
         return AllAssetsResponse(
             assetRepository.findAll { root, _, builder ->
                 builder.and(
-                    builder.equal(root.get<Asset>("establishment"), getEstablishment(establishmentRepository, principal)),
+                    builder.equal(root.get<Asset>("establishment"), getEstablishment(establishmentRepository, userInfo)),
                     categoryId.let { builder.equal(root.get<Asset>("category").get<Category>("id"), categoryId) }
                 )
             }
@@ -54,9 +54,9 @@ class ManagedAssetsController(
 
     @PutMapping("/{id}")
     @Transactional
-    fun update(@RequestBody request: UpdateAssetRequest, @PathVariable id: Long, principal: Principal) {
+    fun update(@RequestBody request: UpdateAssetRequest, @PathVariable id: Long, userInfo: UserInfo) {
         val asset = assetRepository.findById(id).orElseThrow()
-        validateManager(asset.establishment, principal)
+        validateManager(asset.establishment, userInfo)
         asset.name = request.name
         asset.category = parseCategory(request.categoryId)
         asset.price = request.price

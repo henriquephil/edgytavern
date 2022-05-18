@@ -3,9 +3,9 @@ package com.hphil.tavern.bills.controller.managed
 import com.hphil.tavern.bills.domain.Category
 import com.hphil.tavern.bills.repository.CategoryRepository
 import com.hphil.tavern.bills.repository.EstablishmentRepository
+import com.hphil.tavern.bills.services.security.UserInfo
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
-import java.security.Principal
 
 @RestController
 @RequestMapping("/managed/categories")
@@ -16,15 +16,15 @@ class ManagedCategoriesController(
 
     @PostMapping
     @Transactional
-    fun add(@RequestBody request: AddCategoryRequest, principal: Principal) {
+    fun add(@RequestBody request: AddCategoryRequest, userInfo: UserInfo) {
         categoryRepository.save(
-            Category(getEstablishment(establishmentRepository, principal), request.name)
+            Category(getEstablishment(establishmentRepository, userInfo), request.name)
         )
     }
 
     @GetMapping
-    fun findAll(principal: Principal): AllCategoriesResponse {
-        val establishment = getEstablishment(establishmentRepository, principal)
+    fun findAll(userInfo: UserInfo): AllCategoriesResponse {
+        val establishment = getEstablishment(establishmentRepository, userInfo)
         return AllCategoriesResponse(
             categoryRepository.findAllByEstablishment(establishment)
                 .map { CategoryDto(it) }
@@ -33,9 +33,9 @@ class ManagedCategoriesController(
 
     @PutMapping("/{id}")
     @Transactional
-    fun update(@RequestBody request: UpdateCategoryRequest, @PathVariable id: Long, principal: Principal) {
+    fun update(@RequestBody request: UpdateCategoryRequest, @PathVariable id: Long, userInfo: UserInfo) {
         val category = categoryRepository.findById(id).orElseThrow()
-        validateManager(category.establishment, principal)
+        validateManager(category.establishment, userInfo)
         category.name = request.name
         category.active = request.active
     }

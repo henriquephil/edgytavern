@@ -1,6 +1,6 @@
 import Axios from 'axios';
+import auth from '../components/auth/Auth';
 import { convertDateStringsToDates } from '../utils';
-import { Auth } from 'aws-amplify';
 
 const api = Axios.create({
   transformResponse: Axios.defaults.transformResponse.concat((data) => {
@@ -15,8 +15,8 @@ const responseErrorInterceptor = function(error) {
 };
 
 api.interceptors.request.use(async config => {
-  const res = await Auth.currentSession();
-  config.headers.Authorization = `Bearer ${res.getAccessToken().getJwtToken()}`;
+  const session = await auth.refreshAndGetSession();
+  config.headers.Authorization = session.mountedToken;
   return config;
 }, err => {
   console.log(err);
