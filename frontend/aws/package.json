@@ -1,9 +1,0 @@
-{
-  "name": "tavern-frontend",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "aws-amplify": "^4.3.20"
-  }
-}

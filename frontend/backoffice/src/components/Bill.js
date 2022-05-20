@@ -1,5 +1,5 @@
-import { Box, Flex, Grid } from "@chakra-ui/react";
-import { Fragment } from "react";
+import { Box, Flex, Grid } from "@chakra-ui/react"
+import { Fragment } from "react"
 import style from './Bill.module.css'
 
 function Bill({bill}) {
@@ -21,7 +21,7 @@ function Bill({bill}) {
         </Grid>
       </Flex>
     </Box>
-  );
+  )
 }
 
-export default Bill;
+export default Bill

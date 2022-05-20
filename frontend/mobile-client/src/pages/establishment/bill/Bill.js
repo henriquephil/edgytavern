@@ -1,7 +1,7 @@
-import styles from './Bill.module.css';
-import BillCard from "./BillCard";
-import AddItem from "./add/AddItem";
-import Cart from './cart/Cart';
+import styles from './Bill.module.css'
+import BillCard from "./BillCard"
+import AddItem from "./add/AddItem"
+import Cart from './cart/Cart'
 
 function Bill() {
   return (
@@ -10,8 +10,8 @@ function Bill() {
       <AddItem/>
       <Cart/>
     </div>
-  );
+  )
 }
 
 
-export default Bill;
+export default Bill

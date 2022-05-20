@@ -1,13 +1,13 @@
-import { Box, Flex, Grid } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-import SpotBill from '../../../components/SpotBill';
-import style from './SpotsBills.module.css';
+import { Box, Flex, Grid } from "@chakra-ui/react"
+import { useSelector } from "react-redux"
+import SpotBill from '../../../components/SpotBill'
+import style from './SpotsBills.module.css'
 
 function SpotBills() {
-  let { loading, data, error } = useSelector(state => state.openBills);
+  let { loading, data, error } = useSelector(state => state.openBills)
 
-  if (loading) return 'Loading bills';
-  if (error) return JSON.stringify(error);
+  if (loading) return 'Loading bills'
+  if (error) return JSON.stringify(error)
   if (!data) return <></>
 
   return (
@@ -17,7 +17,7 @@ function SpotBills() {
           <SpotBill spotBill={sb} />
         </Box>))}
     </Grid>
-  );
+  )
 }
 
-export default SpotBills;
+export default SpotBills

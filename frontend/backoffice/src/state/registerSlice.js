@@ -9,19 +9,19 @@ const registerSlice = createSlice({
   },
   reducers: {
     setRegisterLoading(state, action) {
-      state.loading = true;
-      state.data = null;
-      state.error = null;
+      state.loading = true
+      state.data = null
+      state.error = null
     },
     setRegister(state, action) {
-      state.loading = false;
-      state.data = action.payload;
-      state.error = null;
+      state.loading = false
+      state.data = action.payload
+      state.error = null
     },
     setRegisterError(state, action) {
-      state.loading = false;
-      state.data = null;
-      state.error = action.payload;
+      state.loading = false
+      state.data = null
+      state.error = action.payload
     }
   }
 })

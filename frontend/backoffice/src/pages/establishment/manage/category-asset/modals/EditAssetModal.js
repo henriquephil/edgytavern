@@ -1,40 +1,40 @@
-import { AddIcon, DeleteIcon, EditIcon, HamburgerIcon, LockIcon, UnlockIcon } from "@chakra-ui/icons";
-import { Box, Button, Checkbox, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import { useContext, useState } from "react";
-import { useList } from "react-use";
-import api from '../../../../../services/api';
-import { ModalContext } from "../../../../../components/modal/ModalContext";
+import { AddIcon, DeleteIcon, EditIcon, HamburgerIcon, LockIcon, UnlockIcon } from "@chakra-ui/icons"
+import { Box, Button, Checkbox, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
+import { useContext, useState } from "react"
+import { useList } from "react-use"
+import api from '../../../../../services/api'
+import { ModalContext } from "../../../../../components/modal/ModalContext"
 
 // TODO break into components
 function EditAssetModal({asset}) {
-  if (!asset.category) throw new Error("Asset must have a predetermined category");
+  if (!asset.category) throw new Error("Asset must have a predetermined category")
 
-  const [ name, setName ] = useState(asset.name);
-  const [ active, setActive ] = useState(asset.active);
-  const [ price, setPrice ] = useState(asset.price);
-  const [ description, setDescription ] = useState(asset.description);
-  const [ ingredients, ingredientsActions ] = useList(asset.ingredients);
-  const [ ingredientName, setIngredientName ] = useState('');
-  const [ ingredientRemovable, setIngredientRemovable ] = useState(false);
-  const [ additionals, additionalsActions ] = useList(asset.additionals);
-  const [ additionalName, setadditionalName ] = useState('');
-  const [ additionalPrice, setAdditionalPrice ] = useState('');
+  const [ name, setName ] = useState(asset.name)
+  const [ active, setActive ] = useState(asset.active)
+  const [ price, setPrice ] = useState(asset.price)
+  const [ description, setDescription ] = useState(asset.description)
+  const [ ingredients, ingredientsActions ] = useList(asset.ingredients)
+  const [ ingredientName, setIngredientName ] = useState('')
+  const [ ingredientRemovable, setIngredientRemovable ] = useState(false)
+  const [ additionals, additionalsActions ] = useList(asset.additionals)
+  const [ additionalName, setadditionalName ] = useState('')
+  const [ additionalPrice, setAdditionalPrice ] = useState('')
   const { closeModal } = useContext(ModalContext)
 
-  const [ saveLoading, setSaveLoading ] = useState(false);
+  const [ saveLoading, setSaveLoading ] = useState(false)
 
-  const save = () => {
+  function save() {
     const body = {
       name, active, categoryId: asset.category.id, price, description, ingredients, additionals
-    };
+    }
     if (body.name && body.categoryId && body.price) {
-      setSaveLoading(true);
+      setSaveLoading(true)
       const promise = asset.id ? 
         api.put(`/api/establishment/managed/assets/${asset.id}`, body) :
-        api.post('/api/establishment/managed/assets', body);
+        api.post('/api/establishment/managed/assets', body)
       promise
         .then(() => closeModal(true))
-        .finally(() => setSaveLoading(false));
+        .finally(() => setSaveLoading(false))
     }
   }
 
@@ -57,10 +57,10 @@ function EditAssetModal({asset}) {
           </MenuList>
         </Menu>
       </Flex>
-    </Flex>;
+    </Flex>
   }
 
-  const renderNewIngredient = () => {
+  function renderNewIngredient() {
     return (
       <Flex>
         <Flex basis="auto" grow="1" className="form-input">
@@ -80,10 +80,10 @@ function EditAssetModal({asset}) {
           </Button>
         </Box>
       </Flex>
-    );
+    )
   }
 
-  const renderAdditional = additional => {
+  function renderAdditional(additional) {
     return <Flex key={additional.id}>
     <Flex basis="auto" grow="1" className="form-input">
         <span>{additional.name}</span>
@@ -102,10 +102,10 @@ function EditAssetModal({asset}) {
           </MenuList>
         </Menu>
       </Flex>
-    </Flex>;
+    </Flex>
   }
 
-  const renderNewAdditional = () => {
+  function renderNewAdditional() {
     return (
     <Flex>
       <Flex basis="auto" grow="1" className="form-input">
@@ -169,4 +169,4 @@ function EditAssetModal({asset}) {
   )
 }
 
-export default EditAssetModal;
+export default EditAssetModal

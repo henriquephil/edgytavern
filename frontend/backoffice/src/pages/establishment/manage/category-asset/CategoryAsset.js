@@ -1,15 +1,15 @@
-import { EditIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Spacer } from "@chakra-ui/react";
-import { useContext } from "react";
-import CutBorder from "../../../../components/CutBorder";
-import { ModalContext } from "../../../../components/modal/ModalContext";
-import EditAssetModal from "./modals/EditAssetModal";
+import { EditIcon } from "@chakra-ui/icons"
+import { Box, Button, Flex, Spacer } from "@chakra-ui/react"
+import { useContext } from "react"
+import CutBorder from "../../../../components/CutBorder"
+import { ModalContext } from "../../../../components/modal/ModalContext"
+import EditAssetModal from "./modals/EditAssetModal"
 
 function CategoryAsset({asset, onCategoryEdited}) {
   const { openModal } = useContext(ModalContext)
   const onClose = res => {
-    console.log(res);
-    if (res) onCategoryEdited();
+    console.log(res)
+    if (res) onCategoryEdited()
   }
 
   return (
@@ -32,7 +32,7 @@ function CategoryAsset({asset, onCategoryEdited}) {
         </Flex>
       </CutBorder>
     </Box>
-  );
+  )
 }
 
-export default CategoryAsset;
+export default CategoryAsset

@@ -1,24 +1,24 @@
-import { Fragment, useContext } from "react";
-import { ModalContext } from "../../../../components/modal/ModalContext";
-import MyScroll from "../../../../components/MyScroll";
-import api from "../../../../services/api";
-import { useFetchBill } from "../../../../services/apiHooks";
-import styles from './EditBillModal.module.scss';
+import { Fragment, useContext } from "react"
+import { ModalContext } from "../../../../components/modal/ModalContext"
+import MyScroll from "../../../../components/MyScroll"
+import api from "../../../../services/api"
+import { useFetchBill } from "../../../../services/apiHooks"
+import styles from './EditBillModal.module.scss'
 
 function EditBillModal({ billId }) {
   const { closeModal } = useContext(ModalContext)
-  const { billLoading, billData, billError } = useFetchBill(billId);
+  const { billLoading, billData, billError } = useFetchBill(billId)
   
   function paymentReceived() {
     api.post(`/api/bills/managed/bills/${billId}/close`)
     .then(res => {
-      closeModal();
+      closeModal()
     })
   }
   
-  if (billLoading) return 'loading';
-  if (billError) return JSON.stringify(billError);
-  if (!billData) return 'WTF no bill data?';
+  if (billLoading) return 'loading'
+  if (billError) return JSON.stringify(billError)
+  if (!billData) return 'WTF no bill data?'
   
   const statusColors = {
     'RECEIVED': 'red',
@@ -76,4 +76,4 @@ function EditBillModal({ billId }) {
   )
 }
 
-export default EditBillModal;
+export default EditBillModal

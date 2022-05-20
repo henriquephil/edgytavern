@@ -1,7 +1,7 @@
-import styles from './Establishment.module.css';
-import EstablishmentHeader from './EstablishmentHeader';
-import ActionButtons from './buttons/ActionButtons';
-import BillWrapper from './bill/BillWrapper';
+import styles from './Establishment.module.css'
+import EstablishmentHeader from './EstablishmentHeader'
+import ActionButtons from './buttons/ActionButtons'
+import BillWrapper from './bill/BillWrapper'
 
 function Establishment() {
   
@@ -11,7 +11,7 @@ function Establishment() {
       <BillWrapper/>
       <ActionButtons/>
     </div>
-  );
+  )
 }
 
-export default Establishment;
+export default Establishment

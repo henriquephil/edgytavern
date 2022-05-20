@@ -9,24 +9,24 @@ const spotSlice = createSlice({
   },
   reducers: {
     setSpotLoading(state, action) {
-      state.loading = true;
-      state.data = null;
-      state.error = null;
+      state.loading = true
+      state.data = null
+      state.error = null
     },
     setSpot(state, action) {
-      state.loading = false;
-      state.data = action.payload;
-      state.error = null;
+      state.loading = false
+      state.data = action.payload
+      state.error = null
     },
     setSpotError(state, action) {
-      state.loading = false;
-      state.data = null;
-      state.error = action.payload;
+      state.loading = false
+      state.data = null
+      state.error = action.payload
     },
     leaveSpot(state, action) {
-      state.loading = false;
-      state.data = null;
-      state.error = null;
+      state.loading = false
+      state.data = null
+      state.error = null
     }
   }
 })

@@ -1,11 +1,11 @@
-import { fetchOpenBills, fetchRegister } from "../services/apiService";
-import { events } from "../services/events";
+import { fetchOpenBills, fetchRegister } from "../services/apiService"
+import { events } from "../services/events"
 
 function globalStateChangeHandler(store) {
-  let currState = store.getState();
+  let currState = store.getState()
   store.subscribe(() => {
-    const previousState = currState;
-    currState = store.getState();
+    const previousState = currState
+    currState = store.getState()
 
     if (previousState.establishment.data?.hashId !== currState.establishment.data?.hashId) {
       store.dispatch(fetchRegister())
@@ -18,4 +18,4 @@ function globalStateChangeHandler(store) {
   })
 }
 
-export default globalStateChangeHandler;
+export default globalStateChangeHandler

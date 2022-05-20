@@ -1,13 +1,13 @@
-import styles from './Asset.module.css';
-import NumberFormat from 'react-number-format';
-import { useDispatch } from 'react-redux';
-import { newItem } from '../../../../../state/editItemSlice';
+import styles from './Asset.module.css'
+import NumberFormat from 'react-number-format'
+import { useDispatch } from 'react-redux'
+import { newItem } from '../../../../../state/editItemSlice'
 
 function Asset({ asset }) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const onSelect = () => {
-    dispatch(newItem(asset));
+  function onSelect() {
+    dispatch(newItem(asset))
   }
 
   return (
@@ -23,7 +23,7 @@ function Asset({ asset }) {
         <span className="limited-text-length">{asset.description}</span>
       </div>
     </div>
-  );
+  )
 }
 
 export default Asset

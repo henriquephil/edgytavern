@@ -1,19 +1,17 @@
-import styles from './UserHeader.module.css';
-import { Auth } from 'aws-amplify';
+import { useLocalStorage } from 'react-use'
+import { auth } from 'tavern-commons'
+import styles from './UserHeader.module.css'
 
 function UserHeader() {
+  const [ sessionInfo ] = useLocalStorage('sessionInfo')
   
-  const logout = () => {
-    Auth.signOut();
-  }
-
   return (
     <div className={styles.UserHeader}>
-      <span>{Auth.user.attributes.name}</span>
-      <div className={styles.user} onClick={() => logout()}>
+      <span>{sessionInfo.userInfo.displayName}</span>
+      <div className={styles.user} onClick={() => auth.signOut()}>
       </div>
     </div>
-  );
+  )
 }
 
-export default UserHeader;
+export default UserHeader

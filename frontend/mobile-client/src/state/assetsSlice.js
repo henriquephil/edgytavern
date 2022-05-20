@@ -29,19 +29,19 @@ const assetsSlice = createSlice({
   },
   reducers: {
     setAssets(state, action) {
-      state.loading = false;
-      state.data = action.payload;
-      state.error = null;
+      state.loading = false
+      state.data = action.payload
+      state.error = null
     },
     setAssetsError(state, action) {
-      state.loading = false;
-      state.data = null;
-      state.error = action.payload;
+      state.loading = false
+      state.data = null
+      state.error = action.payload
     },
     assetsLoading(state, action) {
-      state.loading = true;
-      state.data = null;
-      state.error = null;
+      state.loading = true
+      state.data = null
+      state.error = null
     }
   }
 })

@@ -1,13 +1,13 @@
 import { Box, Flex } from '@chakra-ui/react'
-import Menubar from '../../layout/Menubar';
-import Dashboard from './dashboard/Dashboard';
-import Manage from './manage/Manage';
-// import bg from '../../assets/pub-bg1.jpeg';
-import style from './Establishment.module.css';
-import { ModalProvider } from '../../components/modal/ModalContext';
-import { Route, Routes } from 'react-router-dom';
-import CategoriesAssets from './manage/category-asset/CategoriesAssets';
-import Spots from './manage/spots/Spots';
+import Menubar from '../../layout/Menubar'
+import Dashboard from './dashboard/Dashboard'
+import Manage from './manage/Manage'
+// import bg from '../../assets/pub-bg1.jpeg'
+import style from './Establishment.module.css'
+import { ModalProvider } from '../../components/modal/ModalContext'
+import { Route, Routes } from 'react-router-dom'
+import CategoriesAssets from './manage/category-asset/CategoriesAssets'
+import Spots from './manage/spots/Spots'
 
 function Establishment() {
   return (
@@ -28,7 +28,7 @@ function Establishment() {
         </Flex>
       </ModalProvider>
     </Flex>
-  );
+  )
 }
 
-export default Establishment;
+export default Establishment

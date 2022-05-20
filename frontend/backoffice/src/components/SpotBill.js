@@ -1,14 +1,14 @@
-import { Box, Flex } from "@chakra-ui/react";
-import { useContext } from "react";
-import EditBillModal from "../pages/establishment/dashboard/modals/EditBillModal";
-import CutBorder from "./CutBorder";
-import { ModalContext } from "./modal/ModalContext";
+import { Box, Flex } from "@chakra-ui/react"
+import { useContext } from "react"
+import EditBillModal from "../pages/establishment/dashboard/modals/EditBillModal"
+import CutBorder from "./CutBorder"
+import { ModalContext } from "./modal/ModalContext"
 
 function SpotBill({spotBill}) {
 
   const { openModal } = useContext(ModalContext)
 
-  const headerBg = spotBill.open ? '#ffa100' : '#ccc';
+  const headerBg = spotBill.open ? '#ffa100' : '#ccc'
 
   return (
     <CutBorder borderAt='left'>
@@ -21,7 +21,7 @@ function SpotBill({spotBill}) {
         </Flex>
       </Flex>
     </CutBorder>
-  );
+  )
 }
 
-export default SpotBill;
+export default SpotBill

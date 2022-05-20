@@ -3,10 +3,10 @@ export function updateStateArrayItem(collection, index, callback) {
     if (idx === index) {
       const newItem = {
         ...item
-      };
-      callback(newItem, item);
+      }
+      callback(newItem, item)
       return newItem
     }
-    return item;
-  });
+    return item
+  })
 }

@@ -1,5 +1,5 @@
-import { Box, Flex } from "@chakra-ui/react";
-import CutBorder from "./CutBorder";
+import { Box, Flex } from "@chakra-ui/react"
+import CutBorder from "./CutBorder"
 
 function OrderStatus(props) {
   return (
@@ -17,7 +17,7 @@ function OrderStatus(props) {
           </Flex>
         </Flex>
       </CutBorder>
-    </Box>);
+    </Box>)
 }
 
-export default OrderStatus;
+export default OrderStatus

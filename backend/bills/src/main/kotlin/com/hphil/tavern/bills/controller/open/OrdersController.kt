@@ -8,10 +8,10 @@ import com.hphil.tavern.bills.repository.BillRepository
 import com.hphil.tavern.bills.repository.OrderItemRepository
 import com.hphil.tavern.bills.repository.OrderLotRepository
 import com.hphil.tavern.bills.services.QueuePublisher
+import com.hphil.tavern.bills.services.security.UserInfo
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
-import java.security.Principal
 
 /**
  * Every action available here is supposed to be accesses by the customer
@@ -36,8 +36,8 @@ class OrdersController(
 ) : CustomerTrait {
 
     @GetMapping
-    fun getOrders(principal: Principal): MyOrdersResponse {
-        val bill = fetchOpenBill(billRepository, principal)
+    fun getOrders(userInfo: UserInfo): MyOrdersResponse {
+        val bill = fetchOpenBill(billRepository, userInfo)
         return MyOrdersResponse(
             orderItemRepository.findAllByOrderLotBill(bill).map {
                 OrderItemDto(it.asset.name, it.quantity, it.finalValue, it.status.toString())
@@ -47,8 +47,8 @@ class OrdersController(
 
     @PostMapping
     @Transactional
-    fun addOrder(@RequestBody requestIncoming: IncomingOrderRequest, principal: Principal) {
-        val bill = fetchOpenBill(billRepository, principal)
+    fun addOrder(@RequestBody requestIncoming: IncomingOrderRequest, userInfo: UserInfo) {
+        val bill = fetchOpenBill(billRepository, userInfo)
         val spot = establishmentClient.getSpotByHash(bill.register.establishmentHash, requestIncoming.spotHash)
             ?: error("Spot does not exist")
         val order = orderLotRepository.save(

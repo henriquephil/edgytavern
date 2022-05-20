@@ -1,12 +1,12 @@
-import { fetchAssets, getOrOpenBill } from "../services/apiService";
-import { setVisibleComponent } from "./visibleComponentSlice";
-import { clearItem } from "./editItemSlice";
+import { fetchAssets, getOrOpenBill } from "../services/apiService"
+import { setVisibleComponent } from "./visibleComponentSlice"
+import { clearItem } from "./editItemSlice"
 
 function globalStateChangeHandler(store) {
-  let currState = store.getState();
+  let currState = store.getState()
   store.subscribe(() => {
-    const previousState = currState;
-    currState = store.getState();
+    const previousState = currState
+    currState = store.getState()
 
     // update bill and assets everytime the establishment is updated
     if (previousState.establishment.data !== currState.establishment.data) {
@@ -16,7 +16,7 @@ function globalStateChangeHandler(store) {
 
     // go to editItem page everytime we set an item to edit
     if (!previousState.editItem.item && currState.editItem.item) {
-      store.dispatch(setVisibleComponent('editItem'));
+      store.dispatch(setVisibleComponent('editItem'))
     }
 
     // clear the editing item when leaving editItem page
@@ -26,4 +26,4 @@ function globalStateChangeHandler(store) {
   })
 }
 
-export default globalStateChangeHandler;
+export default globalStateChangeHandler

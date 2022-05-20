@@ -1,8 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import establishmentReducer from './establishmentSlice';
-import registerReducer from './registerSlice';
-import globalStateChangeHandler from "./globalStateChangeHandler";
-import openBillsReducer from './openBillsSlice';
+import { configureStore } from "@reduxjs/toolkit"
+import establishmentReducer from './establishmentSlice'
+import registerReducer from './registerSlice'
+import globalStateChangeHandler from "./globalStateChangeHandler"
+import openBillsReducer from './openBillsSlice'
 
 const store = configureStore ({
   reducer: {
@@ -10,8 +10,8 @@ const store = configureStore ({
     register: registerReducer,
     openBills: openBillsReducer,
   }
-});
+})
 
-globalStateChangeHandler(store);
+globalStateChangeHandler(store)
 
-export default store;
+export default store

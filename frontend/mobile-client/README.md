@@ -1,1 +1,0 @@
-amplify customize https://aws.amazon.com/pt/blogs/mobile/amplify-uis-new-authenticator-component-makes-it-easy-to-add-customizable-login-pages-to-your-react-angular-or-vue-app/

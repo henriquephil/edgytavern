@@ -1,0 +1,33 @@
+https://help.bizagi.com/bpm-suite/en/index.html?subjectaltname_support.htm
+
+???openssl req -newkey rsa:2048 -nodes -keyout domain.key -out domain.csr 
+
+? openssl req -new -newkey rsa:2048 -days 365 -extensions v3_ca -subj "[key_details]" -nodes -x509 -sha256 -set_serial 0 -keyout domain.key -out domain.cer
+
+openssl req -newkey rsa:2048 -nodes -sha256 -keyout domain.key -out domain.csr -config C:\Users\henri\dev\edgytavern\env-resources\cert\openssl-san.cnf
+
+openssl x509 -req -sha256 -CAcreateserial -in domain.csr -days 365 -CA domain.cer -CAkey domain.key -out domain.cer
+
+
+
+
+https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8
+
+openssl req -x509 -newkey rsa:4096 -sha256 -keyout opensll.key -out openssl.crt -days 600 -config san.cnf
+
+openssl pkcs12 -export -name “HPhil LTDA” -out openssl.pfx -inkey openssl.key -in openssl.crt
+
+
+
+
+
+
+
+openssl req -newkey rsa:2048 -nodes -keyout domain.key -out domain.csr -config san.cnf
+
+openssl x509 -signkey domain.key -in domain.csr -req -days 365 -out domain.crt
+
+
+
+worked:
+openssl req -x509 -sha256 -newkey rsa:2048 -nodes -keyout domain.key -out domain.crt -config san.cnf

@@ -1,23 +1,23 @@
-import { Box, Flex } from "@chakra-ui/react";
-import MyScroll from "../../../components/MyScroll";
-import RecentOrders from "./RecentOrders";
-import SpotBills from './SpotBills';
-import styles from './Dashboard.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import OpenRegister from "./OpenRegister";
-import { closeRegister } from "../../../services/apiService";
+import { Box, Flex } from "@chakra-ui/react"
+import MyScroll from "../../../components/MyScroll"
+import RecentOrders from "./RecentOrders"
+import SpotBills from './SpotBills'
+import styles from './Dashboard.module.css'
+import { useDispatch, useSelector } from "react-redux"
+import OpenRegister from "./OpenRegister"
+import { closeRegister } from "../../../services/apiService"
 
 function Dashboard() {
-  const { loading, data, error } = useSelector(state => state.register);
-  const dispatch = useDispatch();
+  const { loading, data, error } = useSelector(state => state.register)
+  const dispatch = useDispatch()
   
   function clickCloseRegister() {
     dispatch(closeRegister())
       .catch(err => console.log(err)) // TODO
   }
 
-  if (loading) return 'Loading';
-  if (error) return JSON.stringify(error);
+  if (loading) return 'Loading'
+  if (error) return JSON.stringify(error)
   if (!data) return <OpenRegister/>
 
   return (
@@ -39,7 +39,7 @@ function Dashboard() {
         </Box>
       </div>
     </div>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard

@@ -1,6 +1,7 @@
 package com.hphil.tavern.auth.service.repository
 
 import com.hphil.tavern.auth.model.Client
+import com.hphil.tavern.auth.model.IdentityProvider
 import com.hphil.tavern.auth.model.Token
 import com.hphil.tavern.auth.model.User
 
@@ -13,8 +14,8 @@ class MapRepository: Repository {
         clientList.add(client)
     }
 
-    override fun findClient(clientId: String, clientSecret: String): Client? {
-        return clientList.find { it.id == clientId && it.secret == clientSecret }
+    override fun findClient(clientId: String): Client? {
+        return clientList.find { it.id == clientId }
     }
 
 
@@ -26,12 +27,16 @@ class MapRepository: Repository {
         findUserById(user.id)?.password = user.password
     }
 
+    override fun updateUserDisplayName(user: User) {
+        findUserById(user.id)?.displayName = user.displayName
+    }
+
     override fun findUserById(id: String): User? {
         return userList.find { it.id == id }
     }
 
-    override fun findUserByUsername(username: String): User? {
-        return userList.find { it.username == username }
+    override fun findUserByUsernameAndProvider(username: String, provider: IdentityProvider): User? {
+        return userList.find { it.username == username && it.provider == provider }
     }
 
 

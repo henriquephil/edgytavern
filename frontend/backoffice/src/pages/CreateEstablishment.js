@@ -1,14 +1,14 @@
 import { Box, Button, Flex, Input } from '@chakra-ui/react'
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createEstablishment } from '../services/apiService';
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { createEstablishment } from '../services/apiService'
 
 function CreateEstablishment() {
-  const [ name, setName ] = useState('');
-  const dispatch = useDispatch();
+  const [ name, setName ] = useState('')
+  const dispatch = useDispatch()
   
-  const nameEstablishment = () => {
-    dispatch(createEstablishment(name));
+  function nameEstablishment() {
+    dispatch(createEstablishment(name))
   }
 
   return (
@@ -19,7 +19,7 @@ function CreateEstablishment() {
       <Button w="100%" disabled={name.length < 1} onClick={nameEstablishment}>Submit</Button>
       </Box>
     </Flex>
-  );
+  )
 }
 
-export default CreateEstablishment;
+export default CreateEstablishment

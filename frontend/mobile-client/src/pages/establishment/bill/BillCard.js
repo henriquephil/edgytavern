@@ -1,10 +1,10 @@
-import { Fragment } from "react";
-import { useSelector } from "react-redux";
-import styles from './BillCard.module.css';
-import SpotHeader from "./SpotHeader";
+import { Fragment } from "react"
+import { useSelector } from "react-redux"
+import styles from './BillCard.module.css'
+import SpotHeader from "./SpotHeader"
 
 function BillCard() {
-  const {loading, data, error} = useSelector(state => state.orders);
+  const {loading, data, error} = useSelector(state => state.orders)
 
   const statusColors = {
     'RECEIVED': 'red',
@@ -14,9 +14,9 @@ function BillCard() {
   }
 
   if (loading)
-    return 'Loading bill';
+    return 'Loading bill'
   if (error)
-    return 'Error: ' + JSON.stringify(error);
+    return 'Error: ' + JSON.stringify(error)
 
   return (
     <div className={styles.BillCard}>
@@ -33,8 +33,8 @@ function BillCard() {
         )}
       </div>}
     </div>
-  );
+  )
 }
 
 
-export default BillCard;
+export default BillCard

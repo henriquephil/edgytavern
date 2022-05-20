@@ -1,12 +1,12 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"
 
 function SpotHeader() {
-  const { loading, data, error} = useSelector(state => state.spot);
+  const { loading, data, error} = useSelector(state => state.spot)
 
   if (loading)
-    return 'Loading spot';
+    return 'Loading spot'
   if (error)
-    return JSON.stringify(error);
+    return JSON.stringify(error)
 
   return (
     <div>
@@ -16,7 +16,7 @@ function SpotHeader() {
       <span>{data?.number}</span>
       <button>switch</button>
     </div>
-  );
+  )
 }
 
-export default SpotHeader;
+export default SpotHeader

@@ -7,7 +7,7 @@ const billVisibleComponent = createSlice({
   },
   reducers: {
     setVisibleComponent(state, action) {
-      state.value = action.payload;
+      state.value = action.payload
     }
   }
 })

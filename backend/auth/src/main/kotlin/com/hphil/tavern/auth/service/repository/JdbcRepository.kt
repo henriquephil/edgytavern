@@ -1,9 +1,6 @@
 package com.hphil.tavern.auth.service.repository
 
-import com.hphil.tavern.auth.model.Client
-import com.hphil.tavern.auth.model.Token
-import com.hphil.tavern.auth.model.TokenType
-import com.hphil.tavern.auth.model.User
+import com.hphil.tavern.auth.model.*
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import java.sql.PreparedStatement
@@ -28,21 +25,21 @@ class JdbcRepository() : Repository {
         }
     }
 
-    override fun findClient(clientId: String, clientSecret: String): Client? {
-        return findOne(CLIENT_FIND, { rs -> this.mapClient(rs) }) {
+    override fun findClient(clientId: String): Client? {
+        return findOne(CLIENT_FIND_BY_ID, { rs -> this.mapClient(rs) }) {
             it.setString(1, clientId)
-            it.setString(2, clientSecret)
         }
     }
 
     override fun addUser(user: User) {
         execute(USER_INSERT) {
             it.setString(1, user.id)
-            it.setString(2, user.username)
-            it.setString(3, user.password)
-            it.setBoolean(4, user.active)
-            it.setString(5, user.displayName)
-            it.setTimestamp(6, Timestamp.valueOf(user.createdAt))
+            it.setString(2, user.provider.toString())
+            it.setString(3, user.username)
+            it.setString(4, user.password)
+            it.setBoolean(5, user.active)
+            it.setString(6, user.displayName)
+            it.setTimestamp(7, Timestamp.valueOf(user.createdAt))
         }
     }
 
@@ -53,15 +50,23 @@ class JdbcRepository() : Repository {
         }
     }
 
+    override fun updateUserDisplayName(user: User) {
+        execute(USER_UPDATE_DISPLAY_NAME) {
+            it.setString(1, user.displayName)
+            it.setString(2, user.id)
+        }
+    }
+
     override fun findUserById(id: String): User? {
         return findOne(USER_FIND_BY_ID, { mapUser(it) }) {
             it.setString(1, id)
         }
     }
 
-    override fun findUserByUsername(username: String): User? {
-        return findOne(USER_FIND_BY_USERNAME, { mapUser(it) }) {
+    override fun findUserByUsernameAndProvider(username: String, provider: IdentityProvider): User? {
+        return findOne(USER_FIND_BY_USERNAME_AND_PROVIDER, { mapUser(it) }) {
             it.setString(1, username)
+            it.setString(2, provider.toString())
         }
     }
 
@@ -104,6 +109,7 @@ class JdbcRepository() : Repository {
 
     private fun mapUser(rs: ResultSet): User = User(
         rs.getString("id"),
+        IdentityProvider.valueOf(rs.getString("identity_provider")),
         rs.getString("username"),
         rs.getString("password"),
         rs.getBoolean("active"),
@@ -144,13 +150,14 @@ class JdbcRepository() : Repository {
     companion object {
         private const val clientColumns = "id, secret"
         private const val CLIENT_INSERT = "INSERT INTO client($clientColumns) VALUES (?, ?)"
-        private const val CLIENT_FIND = "SELECT $clientColumns FROM client WHERE id=? AND secret=?"
+        private const val CLIENT_FIND_BY_ID = "SELECT $clientColumns FROM client WHERE id=?"
 
-        private const val userColumns = "id, username, password, active, display_name, created_at"
-        private const val USER_INSERT = "INSERT INTO users($userColumns) VALUES (?, ?, ?, ?, ?, ?)"
+        private const val userColumns = "id, identity_provider, username, password, active, display_name, created_at"
+        private const val USER_INSERT = "INSERT INTO users($userColumns) VALUES (?, ?, ?, ?, ?, ?, ?)"
         private const val USER_UPDATE_PASSWORD = "UPDATE users SET password=? WHERE id=?"
+        private const val USER_UPDATE_DISPLAY_NAME = "UPDATE users SET display_name=? WHERE id=?"
         private const val USER_FIND_BY_ID = "SELECT $userColumns FROM users WHERE id=?"
-        private const val USER_FIND_BY_USERNAME = "SELECT $userColumns FROM users WHERE username=?"
+        private const val USER_FIND_BY_USERNAME_AND_PROVIDER = "SELECT $userColumns FROM users WHERE username=? AND identity_provider=?"
 
         private const val tokenColumns =
             "user_id, client_id, token_type, access_token, access_token_expiration, refresh_token, refresh_token_expiration"

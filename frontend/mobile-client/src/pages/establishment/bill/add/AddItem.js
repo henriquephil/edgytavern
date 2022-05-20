@@ -1,16 +1,16 @@
-import { useSelector } from "react-redux";
-import styles from './AddItem.module.css';
-import AssetBrowser from './browser/AssetBrowser';
-import ItemEditWrapper from "./edit/ItemEditWrapper";
+import { useSelector } from "react-redux"
+import styles from './AddItem.module.css'
+import AssetBrowser from './browser/AssetBrowser'
+import ItemEditWrapper from "./edit/ItemEditWrapper"
 
 function AddItem() {
-  const visibleComponentState = useSelector(state => state.visibleComponent);
+  const visibleComponentState = useSelector(state => state.visibleComponent)
 
-  const classNames = [styles.AddItem];
+  const classNames = [styles.AddItem]
   if (!['menu', 'editItem'].includes(visibleComponentState.value))
     classNames.push(styles.AddItemHidden)
 
-  const classNamesContent = [styles.AddItemContent];
+  const classNamesContent = [styles.AddItemContent]
   if (visibleComponentState.value === 'editItem')
     classNamesContent.push(styles.AddItemContentTranslated)
 
@@ -25,7 +25,7 @@ function AddItem() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AddItem;
+export default AddItem

@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit"
 import establishmentReducer from './establishmentSlice'
 import spotReducer from './spotSlice'
 import billReducer from './billSlice'
@@ -7,7 +7,7 @@ import assetsReducer from './assetsSlice'
 import cartReducer from './cartSlice'
 import editItemReducer from './editItemSlice'
 import visibleComponentReducer from './visibleComponentSlice'
-import globalStateChangeHandler from "./globalStateChangeHandler";
+import globalStateChangeHandler from "./globalStateChangeHandler"
 
 const store = configureStore({
   reducer: {
@@ -20,8 +20,8 @@ const store = configureStore({
     editItem: editItemReducer,
     visibleComponent: visibleComponentReducer
   }
-});
+})
 
-globalStateChangeHandler(store);
+globalStateChangeHandler(store)
 
-export default store;
+export default store

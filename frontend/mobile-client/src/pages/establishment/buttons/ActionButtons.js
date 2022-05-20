@@ -1,5 +1,5 @@
-import styles from './ActionButtons.module.css';
-import ActionButton from './ActionButton';
+import styles from './ActionButtons.module.css'
+import ActionButton from './ActionButton'
 
 function ActionButtons() {
   return (
@@ -15,8 +15,8 @@ function ActionButtons() {
         <ActionButton component="menu" color="blue" text="Menu" visibleWhen={['bill', 'cart']}/>
       </div>
     </div>
-  );
+  )
 }
 
 
-export default ActionButtons;
+export default ActionButtons

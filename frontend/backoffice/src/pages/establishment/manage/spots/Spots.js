@@ -1,31 +1,31 @@
 import { Box,  Grid } from "@chakra-ui/react"
-import { Fragment, useEffect, useState } from "react";
-import api from "../../../../services/api";
-import SpotGroup from './SpotGroup';
-import AddSpotGroup from './AddSpotGroup';
+import { Fragment, useEffect, useState } from "react"
+import api from "../../../../services/api"
+import SpotGroup from './SpotGroup'
+import AddSpotGroup from './AddSpotGroup'
 
 function Spots() {
-  const [loading, setLoading] = useState(true);
-  const [spots, setSpots] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const [spots, setSpots] = useState([])
 
-  const loadSpots = () => {
-    setLoading(true);
+  function loadSpots() {
+    setLoading(true)
     api.get('/api/establishment/managed/spots')
       .then(({ data }) => {
-        setSpots(data.groups);
+        setSpots(data.groups)
       })
       .finally(() => setLoading(false))
   }
 
-  useEffect(() => loadSpots(), []);
+  useEffect(() => loadSpots(), [])
 
   const addGroup = group => {
     if (group.name && group.amount) {
-      setLoading(true);
+      setLoading(true)
       api.post('/api/establishment/managed/spots', group)
         .then(_ => {
-          loadSpots();
-        });
+          loadSpots()
+        })
     }
   }
 
@@ -42,7 +42,7 @@ function Spots() {
         <AddSpotGroup addGroup={group => addGroup(group)}/>
       </Grid>
     </>
-    );
+    )
 }
 
-export default Spots;
+export default Spots

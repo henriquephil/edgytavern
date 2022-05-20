@@ -1,26 +1,26 @@
-import { Box, Button, Flex } from "@chakra-ui/react";
-import CategoryAsset from "./CategoryAsset";
-import style from './Category.module.css';
-import EditAssetModal from "./modals/EditAssetModal";
-import { useContext, useEffect, useState } from "react";
-import { ModalContext } from "../../../../components/modal/ModalContext";
-import api from '../../../../services/api';
+import { Box, Button, Flex } from "@chakra-ui/react"
+import CategoryAsset from "./CategoryAsset"
+import style from './Category.module.css'
+import EditAssetModal from "./modals/EditAssetModal"
+import { useContext, useEffect, useState } from "react"
+import { ModalContext } from "../../../../components/modal/ModalContext"
+import api from '../../../../services/api'
 
 function Category({ category }) {
-  const [loading, setLoading] = useState(true);
-  const [assets, setAssets] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const [assets, setAssets] = useState([])
   
   const { openModal } = useContext(ModalContext)
 
-  const loadAssets = () => {
-    setLoading(true);
-    setAssets([]);
+  function loadAssets() {
+    setLoading(true)
+    setAssets([])
     api.get('/api/establishment/managed/assets', { params: { categoryId: category.id } })
       .then(response => setAssets(response.data.assets))
-      .finally(() => setLoading(false));
+      .finally(() => setLoading(false))
   }
   
-  useEffect(() => loadAssets(), []);
+  useEffect(() => loadAssets(), [])
 
   return (
     <Box w="100%" p="8px 0">
@@ -34,11 +34,11 @@ function Category({ category }) {
       </Flex>
       {loading ? 'Loading' :
         assets.map(asset => {
-          asset.category = category;
+          asset.category = category
           return <CategoryAsset key={asset.id} asset={asset} onCategoryEdited={loadAssets}/>
         })}
     </Box>
-  );
+  )
 }
 
-export default Category;
+export default Category

@@ -1,7 +1,7 @@
-import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Grid } from "@chakra-ui/react";
-import { useState } from "react";
-import CutBorder from "../../../../components/CutBorder";
+import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons"
+import { Box, Button, Flex, Grid } from "@chakra-ui/react"
+import { useState } from "react"
+import CutBorder from "../../../../components/CutBorder"
 
 function SpotGroup({ spot }) {
   return (
@@ -22,7 +22,7 @@ function SpotGroup({ spot }) {
         </Flex>
       </Flex>
     </CutBorder>
-  );
+  )
 }
 
-export default SpotGroup;
+export default SpotGroup

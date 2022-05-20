@@ -6,10 +6,10 @@ import com.hphil.tavern.bills.repository.OrderLotRepository
 import com.hphil.tavern.bills.repository.RegisterRepository
 import com.hphil.tavern.bills.services.CognitoService
 import com.hphil.tavern.bills.services.QueuePublisher
+import com.hphil.tavern.bills.services.security.UserInfo
 import org.hashids.Hashids
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
-import java.security.Principal
 
 /**
  * Every action available here is supposed to be accessed by the customer
@@ -36,16 +36,15 @@ class BillController(
 
     @PostMapping
     @Transactional
-    fun findOrOpenBill(@RequestBody request: OpenBillRequest, principal: Principal): OpenBillResponse {
-        val bill = billRepository.findByUserUidAndOpenTrue(principal.name) ?: create(request, principal)
+    fun findOrOpenBill(@RequestBody request: OpenBillRequest, userInfo: UserInfo): OpenBillResponse {
+        val bill = billRepository.findByUserUidAndOpenTrue(userInfo.id) ?: create(request, userInfo)
         return OpenBillResponse(hashids.encode(bill.id!!))
     }
 
-    private fun create(request: OpenBillRequest, principal: Principal): Bill {
+    private fun create(request: OpenBillRequest, userInfo: UserInfo): Bill {
         val register = registerRepository.findByEstablishmentHashAndOpenTrue(request.establishmentHash) ?: error("Register not open")
-        val userInfo = cognitoService.getUserInfo(principal.name)
         val bill = billRepository.save(
-            Bill(userInfo.sub, principal.name, register)
+            Bill(userInfo.id, userInfo.displayName, register)
         )
         queuePublisher.billOpened(bill)
         return bill;
@@ -53,8 +52,8 @@ class BillController(
 
     @DeleteMapping
     @Transactional
-    fun cancelBill(principal: Principal) {
-        val bill = fetchOpenBill(billRepository, principal)
+    fun cancelBill(userInfo: UserInfo) {
+        val bill = fetchOpenBill(billRepository, userInfo)
         if (orderLotRepository.countByBill(bill) > 0)
             error("Bill with orders can only be closed by the manager")
         billRepository.delete(bill)

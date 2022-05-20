@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setVisibleComponent } from '../../../../../state/visibleComponentSlice';
-import { saveCartItem } from '../../../../../state/cartSlice';
-import styles from './ItemEdit.module.css';
-import ToggableItem from './ToggableItem';
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setVisibleComponent } from '../../../../../state/visibleComponentSlice'
+import { saveCartItem } from '../../../../../state/cartSlice'
+import styles from './ItemEdit.module.css'
+import ToggableItem from './ToggableItem'
 
 function ItemEdit() {
-  const dispatch = useDispatch();
-  const editItemState = useSelector(state => state.editItem);
-  const [ingredients, setIngredients] = useState([]);
-  const [additionals, setAdditionals] = useState([]);
-  const [finalValue, setFinalValue] = useState(0);
+  const dispatch = useDispatch()
+  const editItemState = useSelector(state => state.editItem)
+  const [ingredients, setIngredients] = useState([])
+  const [additionals, setAdditionals] = useState([])
+  const [finalValue, setFinalValue] = useState(0)
 
   useEffect(() => {
     setIngredients(
@@ -20,7 +20,7 @@ function ItemEdit() {
           value: it
         }
       }) || []
-    );
+    )
     setAdditionals(
       editItemState.item.asset.additionals.map(it => {
         return {
@@ -28,20 +28,20 @@ function ItemEdit() {
           value: it
         }
       }) || []
-    );
+    )
   }, [editItemState, editItemState.item])
 
   useEffect(() => {
     if (editItemState.item)
     {
       setFinalValue(additionals.filter(it => it.selected)
-        .reduce((sum, actual) => sum + actual.value.price, editItemState.item.asset.price));
+        .reduce((sum, actual) => sum + actual.value.price, editItemState.item.asset.price))
     } else{
-      setFinalValue(0);
+      setFinalValue(0)
     }
-  }, [additionals, editItemState.item]);
+  }, [additionals, editItemState.item])
 
-  const changedIngredient = (ing, value) => {
+  function changedIngredient(ing, value) {
     setIngredients(ingredients.map(it => {
       if (it === ing) {
         return {
@@ -49,10 +49,10 @@ function ItemEdit() {
           value: it.value
         }
       }
-      return it;
-    }));
+      return it
+    }))
   }
-  const changedAdditional = (add, value) => {
+  function changedAdditional(add, value) {
     setAdditionals(additionals.map(it => {
       if (it === add) {
         return {
@@ -60,11 +60,11 @@ function ItemEdit() {
           value: it.value
         }
       }
-      return it;
-    }));
+      return it
+    }))
   }
 
-  const confirm = () => {
+  function confirm() {
     dispatch(saveCartItem(
       {
         index: editItemState.index,
@@ -75,8 +75,8 @@ function ItemEdit() {
           finalValue
         }
       }
-    ));
-    dispatch(setVisibleComponent('cart'));
+    ))
+    dispatch(setVisibleComponent('cart'))
   }
 
   return (
@@ -125,7 +125,7 @@ function ItemEdit() {
         <button onClick={() => confirm()}>Confirm</button>
       </div>
     </div>
-  );
+  )
 }
 
-export default ItemEdit;
+export default ItemEdit

@@ -1,24 +1,24 @@
-import { useDispatch } from 'react-redux';
-import { updateItem } from '../../../../state/editItemSlice';
-import { removeFromCart, decreaseCartItemQuantity, increaseCartItemQuantity } from '../../../../state/cartSlice';
-import styles from './Cart.module.css';
+import { useDispatch } from 'react-redux'
+import { updateItem } from '../../../../state/editItemSlice'
+import { removeFromCart, decreaseCartItemQuantity, increaseCartItemQuantity } from '../../../../state/cartSlice'
+import styles from './Cart.module.css'
 
 function CartItem({ index, item }) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const editItem = () => {
-    dispatch(updateItem({ index, item: structuredClone(item) }));
+  function editItem() {
+    dispatch(updateItem({ index, item: structuredClone(item) }))
   }
 
-  const reduce = () => {
+  function reduce() {
     dispatch(decreaseCartItemQuantity(index))
   }
 
-  const add = () => {
+  function add() {
     dispatch(increaseCartItemQuantity(index))
   }
 
-  const remove = () => {
+  function remove() {
     dispatch(removeFromCart(index))
   }
 
@@ -37,8 +37,8 @@ function CartItem({ index, item }) {
       <span className={styles.CartButton} onClick={() => editItem()}>E</span>
       <span className={styles.CartButton} onClick={() => remove()}>R</span>
     </div>
-  );
+  )
 }
 
 
-export default CartItem;
+export default CartItem

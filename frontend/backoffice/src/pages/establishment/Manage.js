@@ -1,7 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react"
-import MyScroll from "../../components/MyScroll";
-import style from "./Manage.module.css";
-import { NavLink, Outlet } from "react-router-dom";
+import MyScroll from "../../components/MyScroll"
+import style from "./Manage.module.css"
+import { NavLink, Outlet } from "react-router-dom"
 
 function Manage() {
   return (
@@ -19,7 +19,7 @@ function Manage() {
           <Outlet />
         </MyScroll>
       </Box>
-    </Flex>);
+    </Flex>)
 }
 
-export default Manage;
+export default Manage

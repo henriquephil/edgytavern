@@ -1,8 +1,8 @@
-import { Box, Flex } from "@chakra-ui/react";
-import MyScroll from "../../components/MyScroll";
-import RecentOrders from "./dashboard/RecentOrders";
-import SpotBills from './dashboard/SpotBills';
-import style from './Dashboard.module.css';
+import { Box, Flex } from "@chakra-ui/react"
+import MyScroll from "../../components/MyScroll"
+import RecentOrders from "./dashboard/RecentOrders"
+import SpotBills from './dashboard/SpotBills'
+import style from './Dashboard.module.css'
 
 function Dashboard() {
   return (<>
@@ -16,7 +16,7 @@ function Dashboard() {
           <RecentOrders/>
         </MyScroll>
       </Box>
-    </>);
+    </>)
 }
 
-export default Dashboard;
+export default Dashboard

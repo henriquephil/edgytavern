@@ -1,11 +1,11 @@
-import styles from './LoadBlock.module.css';
+import styles from './LoadBlock.module.css'
 
 function LoadBlock({ color, visible }) {
   const style = {
     background: color
   }
 
-  const classes = [styles.LoadBlock];
+  const classes = [styles.LoadBlock]
   if (visible)
     classes.push(styles.visible)
   
@@ -16,4 +16,4 @@ function LoadBlock({ color, visible }) {
   )
 }
 
-export default LoadBlock;
+export default LoadBlock

@@ -1,4 +1,4 @@
-import styles from './ToggableItem.module.css';
+import styles from './ToggableItem.module.css'
 
 function ToggableItem({ active, children, onChange }) {
   return (
@@ -9,6 +9,6 @@ function ToggableItem({ active, children, onChange }) {
       { children }
     </div>
   )
-};
+}
 
-export default ToggableItem;
+export default ToggableItem

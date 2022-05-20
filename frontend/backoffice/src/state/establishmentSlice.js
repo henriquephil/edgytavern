@@ -10,21 +10,21 @@ const establishmentSlice = createSlice({
   },
   reducers: {
     setEstablishmentLoading(state, action) {
-      state.loading = true;
-      state.data = null;
-      state.error = null;
-      state.dispatched = true;
+      state.loading = true
+      state.data = null
+      state.error = null
+      state.dispatched = true
     },
     setEstablishment(state, action) {
-      state.loading = false;
-      state.data = action.payload;
-      state.error = null;
-      state.dispatched = !!action.payload;
+      state.loading = false
+      state.data = action.payload
+      state.error = null
+      state.dispatched = !!action.payload
     },
     setEstablishmentError(state, action) {
-      state.loading = false;
-      state.data = null;
-      state.error = action.payload;
+      state.loading = false
+      state.data = null
+      state.error = action.payload
     }
   }
 })

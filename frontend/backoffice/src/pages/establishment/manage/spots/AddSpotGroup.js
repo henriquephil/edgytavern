@@ -1,12 +1,12 @@
 import { Box, Button, Flex, FormLabel } from "@chakra-ui/react"
 import { AddIcon } from '@chakra-ui/icons'
-import { useState } from "react";
-import CutBorder from "../../../../components/CutBorder";
+import { useState } from "react"
+import CutBorder from "../../../../components/CutBorder"
 
 
 function AddSpotGroup({ addGroup }) {
-  const [name, setName] = useState('');
-  const [amount, setAmount] = useState('');
+  const [name, setName] = useState('')
+  const [amount, setAmount] = useState('')
 
   return (
     <CutBorder borderAt='left'>
@@ -21,16 +21,16 @@ function AddSpotGroup({ addGroup }) {
         </Flex>
         <Flex className="form-input">
           <Button disabled={!name || !amount} onClick={() => {
-            addGroup({ name, amount });
-            setName('');
-            setAmount('');
+            addGroup({ name, amount })
+            setName('')
+            setAmount('')
           }}>
             <AddIcon w={3} h={3} />
           </Button>
         </Flex>
       </Flex>
     </CutBorder>
-  );
+  )
 }
 
-export default AddSpotGroup;
+export default AddSpotGroup

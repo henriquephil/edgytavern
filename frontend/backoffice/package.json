@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.15.4",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^2.0.0-next.2",
     "@emotion/react": "^11.9.0",
@@ -11,8 +10,8 @@
     "@reduxjs/toolkit": "^1.8.1",
     "@stomp/stompjs": "^6.1.2",
     "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.0.1",
-    "@testing-library/user-event": "^14.1.0",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.23",
     "@types/react": "^18.0.3",
@@ -22,9 +21,9 @@
     "framer-motion": "^6.2.10",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.3",
-    "react": "^18.0.0",
+    "react": "^18.1.0",
     "react-custom-scrollbars": "^4.2.1",
-    "react-dom": "^18.0.0",
+    "react-dom": "^18.1.0",
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -32,13 +31,11 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
     "sockjs-client": "^1.6.0",
-    "tavern-frontend": "file:./../aws",
-    "typescript": "^4.6.3",
+    "tavern-commons": "file:../tavern-commons",
     "web-vitals": "^2.1.4",
     "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
-    "@aws-amplify/cli": "^8.0.2",
     "sass": "^1.51.0"
   },
   "scripts": {

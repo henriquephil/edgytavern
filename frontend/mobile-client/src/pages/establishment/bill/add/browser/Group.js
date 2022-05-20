@@ -1,4 +1,4 @@
-import styles from './Group.module.css';
+import styles from './Group.module.css'
 import Asset from './Asset'
 
 function Group({ group }) {
@@ -10,7 +10,7 @@ function Group({ group }) {
         {group.assets.map(it => <Asset key={it.hashId} asset={it}/>)}
       </div>
     </div>
-  );
+  )
 }
 
 export default Group

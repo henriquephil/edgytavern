@@ -9,19 +9,19 @@ const billSlice = createSlice({
   },
   reducers: {
     setBill(state, action) {
-      state.loading = false;
-      state.data = action.payload;
-      state.error = null;
+      state.loading = false
+      state.data = action.payload
+      state.error = null
     },
     setBillError(state, action) {
-      state.loading = false;
-      state.data = null;
-      state.error = action.payload;
+      state.loading = false
+      state.data = null
+      state.error = action.payload
     },
     billLoading(state, action) {
-      state.loading = true;
-      state.data = null;
-      state.error = null;
+      state.loading = true
+      state.data = null
+      state.error = null
     }
   }
 })

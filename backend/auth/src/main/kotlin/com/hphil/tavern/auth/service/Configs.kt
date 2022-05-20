@@ -13,7 +13,7 @@ open class AuthConfig(
 )
 
 open class TokenConfig(
-    val accessTokenTtl: Long = 3600,
+    val accessTokenTtl: Long = 15 * 60,
     val refreshTokenTtl: Long? = null,
     val generateToken: () -> String = { UUID.randomUUID().toString() }
 )

@@ -8,11 +8,11 @@ const editItemSlice = createSlice({
   },
   reducers: {
     updateItem(state, action) {
-      state.index = action.payload.index;
+      state.index = action.payload.index
       state.item = action.payload.item
     },
     newItem(state, action) {
-      state.index = null;
+      state.index = null
       state.item = {
         asset: action.payload,
         removedIngredients: [],
@@ -20,7 +20,7 @@ const editItemSlice = createSlice({
       }
     },
     clearItem(state, action) {
-      state.index = null;
+      state.index = null
       state.item = null
     }
   }

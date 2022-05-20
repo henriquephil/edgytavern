@@ -7,11 +7,13 @@ CREATE TABLE client
 CREATE TABLE users
 (
     id TEXT PRIMARY KEY,
+    identity_provider TEXT NOT NULL;
     username TEXT NOT NULL,
-    password TEXT NOT NULL,
+    password TEXT,
     active BOOLEAN NOT NULL,
     display_name TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP NOT NULL,
+    CONSTRAINT unq_user_username UNIQUE(username, identity_provider)
 );
 
 CREATE TABLE token

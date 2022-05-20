@@ -1,84 +1,84 @@
-import api from './api';
-import { setEstablishment, setEstablishmentError, setEstablishmentLoading } from '../state/establishmentSlice';
-import { billLoading, setBill, setBillError } from '../state/billSlice';
-import { ordersLoading, setOrders, setOrdersError } from '../state/ordersSlice';
-import { assetsLoading, setAssets, setAssetsError } from '../state/assetsSlice';
-import { setSpot, setSpotError, setSpotLoading } from '../state/spotSlice';
-import { emptyCart } from '../state/cartSlice';
-import { setVisibleComponent } from '../state/visibleComponentSlice';
+import api from './api'
+import { setEstablishment, setEstablishmentError, setEstablishmentLoading } from '../state/establishmentSlice'
+import { billLoading, setBill, setBillError } from '../state/billSlice'
+import { ordersLoading, setOrders, setOrdersError } from '../state/ordersSlice'
+import { assetsLoading, setAssets, setAssetsError } from '../state/assetsSlice'
+import { setSpot, setSpotError, setSpotLoading } from '../state/spotSlice'
+import { emptyCart } from '../state/cartSlice'
+import { setVisibleComponent } from '../state/visibleComponentSlice'
  
 export function fetchEstablishment(establishmentHash, spotHash) {
   return (dispatch, getState) => {
-    dispatch(setEstablishmentLoading());
+    dispatch(setEstablishmentLoading())
     api.get(`/api/establishment/${establishmentHash}`)
       .then(res => {
-        dispatch(setEstablishment(res.data));
+        dispatch(setEstablishment(res.data))
         dispatch(fetchSpot(spotHash))
       })
       .catch(err => {
-        dispatch(setEstablishmentError(err || 'error loading establishment'));
+        dispatch(setEstablishmentError(err || 'error loading establishment'))
       })
-  };
+  }
 }
 
 function _getEstablishmentHashId(getState) {
-  return getState().establishment?.data?.hashId;
+  return getState().establishment?.data?.hashId
 }
 
 export function fetchSpot(spotHash) {
   return (dispatch, getState) => {
-    dispatch(setSpotLoading());
+    dispatch(setSpotLoading())
     api.get(`/api/establishment/${_getEstablishmentHashId(getState)}/spots/${spotHash}`)
       .then(res => {
-        dispatch(setSpot(res.data));
+        dispatch(setSpot(res.data))
       })
       .catch(err => {
-        dispatch(setSpotError(err || 'error loading spot'));
+        dispatch(setSpotError(err || 'error loading spot'))
       })
-  };
+  }
 }
 
 function _getSpotHashId(getState) {
-  return getState().spot?.data?.hashId;
+  return getState().spot?.data?.hashId
 }
 
 export function fetchAssets() {
   return (dispatch, getState) => {
-    dispatch(assetsLoading());
+    dispatch(assetsLoading())
     api.get(`/api/establishment/${_getEstablishmentHashId(getState)}/assets`)
       .then(res => {
-        dispatch(setAssets(res.data));
+        dispatch(setAssets(res.data))
       })
       .catch(err => {
-        dispatch(setAssetsError(err || 'error loading assets'));
+        dispatch(setAssetsError(err || 'error loading assets'))
       })
   }
 }
 
 export function getOrOpenBill() {
   return (dispatch, getState) => {
-    dispatch(billLoading());
+    dispatch(billLoading())
     api.post('/api/bills', { establishmentHash: _getEstablishmentHashId(getState) })
       .then(res => {
-        dispatch(setBill(res.data));
+        dispatch(setBill(res.data))
         dispatch(fetchBillOrders())
       })
       .catch(err => {
-        dispatch(setBillError(err || 'error opening bill'));
+        dispatch(setBillError(err || 'error opening bill'))
       })
   }
 }
 
 export function fetchBillOrders() {
   return (dispatch, getState) => {
-    dispatch(ordersLoading());
-    dispatch(setVisibleComponent('bill'));
+    dispatch(ordersLoading())
+    dispatch(setVisibleComponent('bill'))
     api.get('/api/bills/orders')
       .then(res => {
-        dispatch(setOrders(res.data));
+        dispatch(setOrders(res.data))
       })
       .catch(err => {
-        dispatch(setOrdersError(err ||'error loading orders'));
+        dispatch(setOrdersError(err ||'error loading orders'))
       })
   }
 }
@@ -86,7 +86,7 @@ export function fetchBillOrders() {
 export function postBillOrder() {
   return async (dispatch, getState) => {
     try{
-      const cartState = getState().cart;
+      const cartState = getState().cart
       const items = cartState.items?.map(it => {
         return {
           assetHashId: it.asset.hashId,
@@ -100,13 +100,13 @@ export function postBillOrder() {
         await api.post(`/api/bills/orders`, {
           spotHash: _getSpotHashId(getState),
           items
-        });
-        dispatch(emptyCart());
-        dispatch(fetchBillOrders());
+        })
+        dispatch(emptyCart())
+        dispatch(fetchBillOrders())
       }
     } catch (err) {
-      dispatch(setOrdersError(err || 'error posting order'));
-      return err || 'An error ocurred';
+      dispatch(setOrdersError(err || 'error posting order'))
+      return err || 'An error ocurred'
     }
   }
 }

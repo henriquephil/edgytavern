@@ -1,26 +1,26 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import LoadBlock from '../../../../components/LoadBlock';
-import { postBillOrder } from '../../../../services/apiService';
-import styles from './Cart.module.css';
-import CartItem from './CartItem';
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import LoadBlock from '../../../../components/LoadBlock'
+import { postBillOrder } from '../../../../services/apiService'
+import styles from './Cart.module.css'
+import CartItem from './CartItem'
 
 function Cart() {
-  const dispatch = useDispatch();
-  const cartState = useSelector(state => state.cart);
-  const visibleComponentState = useSelector(state => state.visibleComponent);
-  const [postingOrder, setPostingOrder ] = useState(false);
+  const dispatch = useDispatch()
+  const cartState = useSelector(state => state.cart)
+  const visibleComponentState = useSelector(state => state.visibleComponent)
+  const [postingOrder, setPostingOrder ] = useState(false)
 
-  const componentClassNames = [styles.Cart];
+  const componentClassNames = [styles.Cart]
   if (visibleComponentState.value !== 'cart')
     componentClassNames.push(styles.CartHidden)
 
-  const send = () => {
+  function send() {
     setPostingOrder(true)
     dispatch(postBillOrder())
       .finally(() => {
         setPostingOrder(false)
-      });
+      })
   }
   
   return (
@@ -39,8 +39,8 @@ function Cart() {
       </div>
       <LoadBlock color="#ffa100" visible={postingOrder}/>
     </div>
-  );
+  )
 }
 
 
-export default Cart;
+export default Cart

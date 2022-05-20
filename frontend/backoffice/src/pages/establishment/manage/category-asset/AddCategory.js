@@ -1,10 +1,10 @@
 import { Box, Button, Flex, FormLabel } from "@chakra-ui/react"
 import { AddIcon } from '@chakra-ui/icons'
-import { useState } from "react";
+import { useState } from "react"
 
 
 function AddCategory({ addCategory }) {
-  const [name, setName] = useState('');
+  const [name, setName] = useState('')
 
   return (
     <Flex w="100%" align="flex-end">
@@ -14,13 +14,13 @@ function AddCategory({ addCategory }) {
       </Flex>
       <Flex shrink="1" className="form-input">
         <Button variant="ghost" disabled={!name} onClick={() => {
-          addCategory({ name });
-          setName('');
+          addCategory({ name })
+          setName('')
         }}>
           <AddIcon w={3} h={3} />
         </Button>
       </Flex>
-    </Flex>);
+    </Flex>)
 }
 
-export default AddCategory;
+export default AddCategory
