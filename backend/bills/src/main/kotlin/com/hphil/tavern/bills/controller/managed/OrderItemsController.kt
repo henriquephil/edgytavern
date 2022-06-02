@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/managed/orderItems")
+@RequestMapping("/managed/order-items")
 class OrderItemsController(
     private val orderItemRepository: OrderItemRepository,
     private val registerService: RegisterService

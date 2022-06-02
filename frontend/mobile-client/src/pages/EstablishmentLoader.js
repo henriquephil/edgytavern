@@ -1,10 +1,12 @@
-import { QrReader } from 'react-qr-reader'
+import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEstablishment } from '../services/apiService'
+import QrVideo from './establishment/overlays/scanSpot/QrVideo'
 import styles from './EstablishmentLoader.module.css'
 
 function EstablishmentLoader() {
   const dispatch = useDispatch()
+  const videoRef = useRef(null)
   const establishmentState = useSelector(state => state.establishment)
 
   if (establishmentState.loading || establishmentState.data)
@@ -29,12 +31,7 @@ function EstablishmentLoader() {
 
   return (
     <div className={styles.EstablishmentLoader}>
-      <QrReader
-          delay={300}
-          onError={handleError}
-          onScan={handleScan}
-          style={{ width: '100%' }}
-        />
+      <QrVideo onResult={res => handleScan(res)}/>
       <p>Where are you at?</p>
       <p>Scan your location's QR code to access the menu</p>
       <button onClick={() => handleScan('http://localhost:3001/?e=9aMron&s=ZLbXoN')}>test</button>

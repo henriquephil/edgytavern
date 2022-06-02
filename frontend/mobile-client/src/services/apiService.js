@@ -5,7 +5,7 @@ import { ordersLoading, setOrders, setOrdersError } from '../state/ordersSlice'
 import { assetsLoading, setAssets, setAssetsError } from '../state/assetsSlice'
 import { setSpot, setSpotError, setSpotLoading } from '../state/spotSlice'
 import { emptyCart } from '../state/cartSlice'
-import { setVisibleComponent } from '../state/visibleComponentSlice'
+import { FRAME_BILL, setVisibleFrame } from '../state/visibleFrameSlice'
  
 export function fetchEstablishment(establishmentHash, spotHash) {
   return (dispatch, getState) => {
@@ -72,7 +72,7 @@ export function getOrOpenBill() {
 export function fetchBillOrders() {
   return (dispatch, getState) => {
     dispatch(ordersLoading())
-    dispatch(setVisibleComponent('bill'))
+    dispatch(setVisibleFrame(FRAME_BILL))
     api.get('/api/bills/orders')
       .then(res => {
         dispatch(setOrders(res.data))
@@ -96,9 +96,10 @@ export function postBillOrder() {
           finalValue: cartState.finalValue
         }
       })
-      if (items?.length > 0) {
+      const spotHash = _getSpotHashId(getState)
+      if (items?.length > 0 && spotHash) {
         await api.post(`/api/bills/orders`, {
-          spotHash: _getSpotHashId(getState),
+          spotHash,
           items
         })
         dispatch(emptyCart())

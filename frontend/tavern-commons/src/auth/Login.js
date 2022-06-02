@@ -1,6 +1,7 @@
-import "./login.css"
-import auth from "./auth"
 import React, { useState } from "react"
+import style from './login.module.css'
+import formStyle from '../form.module.css'
+import auth from "./auth"
 import GoogleLogin from 'react-google-login'
 
 function Login() {
@@ -17,17 +18,17 @@ function Login() {
   }
 
   return (
-    <div className="login-page">
-      <div className="login-form">
-        <div className="form-input">
+    <div className={style.loginPage}>
+      <div className={style.loginForm}>
+        <div className={formStyle.field}>
             <label>e-mail</label>
             <input type="email" value={username} onChange={e => setUsername(e.target.value)}/>
         </div>
-        <div className="form-input">
+        <div className={formStyle.field}>
             <label>Password</label>
             <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
         </div>
-        <div className="form-input">
+        <div className={formStyle.field}>
           <button disabled={!username || !password} onClick={() => login()}>Login</button>
         </div>
         <GoogleLogin

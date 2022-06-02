@@ -1,13 +1,71 @@
-._QITl1 {
+._index__form-input__1ZXQc {
+  padding: 4px;
+  flex-direction: column;
+}
+._index__form-input__1ZXQc input, ._index__form-input__1ZXQc select, ._index__form-input__1ZXQc span {
+  color: #f0f0f0;
+  background: #333;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  transition: 125ms linear;
+}
+._index__form-input__1ZXQc select {
+  padding: 7px;
+}
+._index__form-input__1ZXQc input:focus {
+  box-shadow: 0 2px 0 0 #ffa100;
+  outline: none;
+}
+._index__form-input__1ZXQc input:-moz-read-only, ._index__form-input__1ZXQc select:-moz-read-only, ._index__form-input__1ZXQc span:-moz-read-only {
+  opacity: 0.5;
+}
+._index__form-input__1ZXQc input:read-only, ._index__form-input__1ZXQc select:read-only, ._index__form-input__1ZXQc span:read-only {
+  opacity: 0.5;
+}
+._login-module__loginPage__3YO6v {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   background: #222;
   color: #fcfcfc;
 }
-._CSXrH {
-  width: min(60vw, 400px);
+._login-module__loginForm__1p5Tm {
+  width: min(80vw, 400px);
+}
+._form-module__field__13sAl {
+  padding: 4px;
+  flex-direction: column;
+}
+._form-module__field__13sAl input, ._form-module__field__13sAl select, ._form-module__field__13sAl span {
+  color: #f0f0f0;
+  background: #333;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  transition: 125ms linear;
+}
+._form-module__field__13sAl select {
+  padding: 7px;
+}
+._form-module__field__13sAl input:focus {
+  box-shadow: 0 2px 0 0 #ffa100;
+  outline: none;
+}
+._form-module__field__13sAl input:-moz-read-only, ._form-module__field__13sAl select:-moz-read-only, ._form-module__field__13sAl span:-moz-read-only {
+  opacity: 0.5;
+}
+._form-module__field__13sAl input:read-only, ._form-module__field__13sAl select:read-only, ._form-module__field__13sAl span:read-only {
+  opacity: 0.5;
+}
+
+._form-module__field__13sAl label {
+  color: #f0f0f0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0 0 0 8px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }

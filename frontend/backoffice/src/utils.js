@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 var dateRegExMs = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.{1}\d{1,7}-\d{2}:\d{2}$/
 var dateRegExZ = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.{1}\d{1,7}Z$/
 var dateRegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})$/
@@ -29,8 +31,8 @@ export function convertDateStringsToDates(input) {
     var value = input[key]
     var match
     if (typeof value === "string" && (match = tryMatchDate(value))) {
-      var date = new Date(match[1], match[2] - 1, match[3], match[4] || 0, match[5] || 0, match[6] || 0)
-      input[key] = date
+      // var date = new Date(match[1], match[2] - 1, match[3], match[4] || 0, match[5] || 0, match[6] || 0)
+      input[key] = moment(value)
     } else if (typeof value === "object") {
       convertDateStringsToDates(value)
     }

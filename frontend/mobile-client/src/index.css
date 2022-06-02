@@ -2,8 +2,10 @@
   box-sizing: border-box;
 }
 
-html, body {
+html, body, #root {
   overflow: hidden;
+  font-size: 14px;
+  height: 100%;
 }
 
 body {
@@ -14,7 +16,6 @@ body {
   color: white;
   overflow: hidden;
   background: #1f1f1f;
-  font-size: 2vh;
 }
 
 code {

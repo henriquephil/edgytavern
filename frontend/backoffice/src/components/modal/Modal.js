@@ -30,26 +30,29 @@ function Modal() {
     }
   }
 
+  function backgroundClick(e) {
+    console.log(e, 'looking for mouse down')
+    if (e.target === bgRef.current) close()
+  }
+
   useEffect(() => {
     if (visible) firstTabIdx.current.focus()
   }, [visible])
 
   if (visible) {
     return createPortal(
-      <Flex ref={bgRef} className={style.Modal} display={visible ? 'flex' : 'none'} onClick={e => {
-        if (e.target === bgRef.current) close()
-      }}>
+      <Flex ref={bgRef} className={style.Modal} display={visible ? 'flex' : 'none'} onClick={e => backgroundClick(e)}>
         <input ref={firstTabIdx} onKeyDown={e => blockTabShift(e)} className={style.hiddenTabInput}></input>
-          <Box maxH="100vh" maxW="768px">
-            <CutBorder borderAt='top'>
-              <Box background="#222">
-                {modalContent}
-              </Box>
-            </CutBorder>
-          </Box>
-          <input onKeyDown={e => blockTab(e)} className={style.hiddenTabInput}></input>
-        </Flex>,
-        document.querySelector("#modal-root"))
+        <Box maxH="100vh" maxW="768px">
+          <CutBorder borderAt='top'>
+            <Box background="#222">
+              {modalContent}
+            </Box>
+          </CutBorder>
+        </Box>
+        <input onKeyDown={e => blockTab(e)} className={style.hiddenTabInput}></input>
+      </Flex>,
+      document.querySelector("#modal-root"))
   }
   return null
 }

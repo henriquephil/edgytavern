@@ -19,7 +19,6 @@ const establishmentSlice = createSlice({
       state.loading = false
       state.data = action.payload
       state.error = null
-      state.dispatched = !!action.payload
     },
     setEstablishmentError(state, action) {
       state.loading = false

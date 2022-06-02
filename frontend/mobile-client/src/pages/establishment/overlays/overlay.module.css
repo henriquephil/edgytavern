@@ -1,0 +1,32 @@
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(34, 34, 34, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 7vh;
+  transition: 150ms linear;
+}
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.content {
+  max-width: 100vw;
+  width: 100vw;
+  max-height: 80vh;
+  min-height: 0;
+  background-color: #333;
+  box-shadow: 2px 0 2px 1px #ffa100, -2px 0 2px 1px #ffa100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 150ms linear;
+}
+.hidden .content {
+  opacity: 0;
+}

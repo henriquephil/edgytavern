@@ -14,9 +14,7 @@ function App() {
   if (loading) return 'Loading establishment'
   if (error) return `Axios Error: ${JSON.stringify(error)}`
   if (data) return <Establishment/>
-  if (dispatched) {
-    return <CreateEstablishment/>
-  }
+  if (dispatched) return <CreateEstablishment/>
   dispatch(fetchEstablishment())
 }
 

@@ -24,10 +24,10 @@ fun main() {
         .routes {
             path("/auth") {
                 post("/token", tokenHandler::handle)
+                post("/google", googleHandler::handle)
                 post("/tokenInfo", tokenInfoHandler::handle)
                 get("/userInfo", userInfoHandler::handle)
                 post("/logout", logoutHandler::handle)
-                post("/google", googleHandler::handle)
             }
             path("/user") {
                 post("/register", userHandler::insert)

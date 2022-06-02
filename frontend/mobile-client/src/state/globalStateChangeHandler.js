@@ -1,5 +1,4 @@
 import { fetchAssets, getOrOpenBill } from "../services/apiService"
-import { setVisibleComponent } from "./visibleComponentSlice"
 import { clearItem } from "./editItemSlice"
 
 function globalStateChangeHandler(store) {
@@ -14,13 +13,8 @@ function globalStateChangeHandler(store) {
       store.dispatch(fetchAssets())  
     }
 
-    // go to editItem page everytime we set an item to edit
-    if (!previousState.editItem.item && currState.editItem.item) {
-      store.dispatch(setVisibleComponent('editItem'))
-    }
-
     // clear the editing item when leaving editItem page
-    if (previousState.visibleComponent.value === 'editItem' && currState.visibleComponent.value !== 'editItem' ) {
+    if (previousState.visibleFrame.value === 'editItem' && currState.visibleFrame.value !== 'editItem' ) {
       store.dispatch(clearItem())
     }
   })

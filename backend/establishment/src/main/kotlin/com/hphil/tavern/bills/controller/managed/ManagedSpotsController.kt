@@ -75,9 +75,10 @@ class ManagedSpotsController(
         val spot = spotRepository.saveAndFlush(
             Spot(group, sequence)
         )
-        val establishmentHash = hashIds.encode(spot.group.establishment.id!!)
-        val spotHash = hashIds.encode(spot.id!!)
-        spot.qrCode = "$establishmentHash.$spotHash"
+//        val establishmentHash = hashIds.encode(spot.group.establishment.id!!)
+//        val spotHash = hashIds.encode(spot.id!!)
+//        spot.qrCode = "$establishmentHash.$spotHash"
+        spot.qrCode = hashIds.encode(spot.id!!)
 //        fileStorage.generateAndStoreQrCodeImage("$backofficeUrl/e=$establishmentHash&s=$spotHash", spot.qrCode!!)
     }
 }

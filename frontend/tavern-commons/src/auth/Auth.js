@@ -4,6 +4,8 @@ import moment from "moment"
 const SESSION_INFO = 'sessionInfo'
 
 class Auth {
+  refreshing = false
+
   async authenticate(username, password) {
     const sessionInfo = this._getStorageSessionInfo()
     if (sessionInfo) throw 'already authenticated'
@@ -18,6 +20,9 @@ class Auth {
   }
 
   async refreshAndGetSession() {
+    while(this.refreshing) {
+      await new Promise(res => setTimeout(res, 1000));
+    }
     const sessionInfo = this._getStorageSessionInfo()
     if (!sessionInfo) throw 'not authenticated'
     if (moment().isBefore(sessionInfo.expiresAt)) {
@@ -31,7 +36,7 @@ class Auth {
     if (!sessionInfo) throw 'not authenticated'
     axios.post(`/api/security/auth/logout`, null, { headers: { 'Authorization': sessionInfo.mountedToken } })
     localStorage.removeItem(SESSION_INFO)
-    window.location = '/' // not sure
+    window.location = window.location // not sure
   }
 
   // privates
@@ -52,13 +57,16 @@ class Auth {
   }
 
   async _refreshToken(sessionInfo) {
+    this.refreshing = true
     const refreshRequest = new URLSearchParams()
     refreshRequest.append('client_id', 'client')
     refreshRequest.append('client_secret', 'secret')
     refreshRequest.append('grant_type', 'refresh_token')
     refreshRequest.append('refresh_token', sessionInfo.tokenInfo.refresh_token)
     const tokenInfo = (await axios.post(`/api/security/auth/token`, refreshRequest)).data
-    return await this._persistTokenInfo(tokenInfo)
+    const newTokenInfo = await this._persistTokenInfo(tokenInfo)
+    this.refreshing = false
+    return newTokenInfo
   }
 
   async _persistTokenInfo(tokenInfo) {

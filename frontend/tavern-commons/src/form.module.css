@@ -1,0 +1,30 @@
+.field {
+  padding: 4px;
+  flex-direction: column;
+}
+.field input, .field select, .field span {
+  color: #f0f0f0;
+  background: #333;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  transition: 125ms linear;
+}
+.field select {
+  padding: 7px;
+}
+.field input:focus {
+  box-shadow: 0 2px 0 0 #ffa100;
+  outline: none;
+}
+.field input:read-only, .field select:read-only, .field span:read-only {
+  opacity: 0.5;
+}
+
+.field label {
+  color: #f0f0f0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0 0 0 8px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}

@@ -1,8 +1,9 @@
 .UserHeader {
+  font-size: 16px;
+  width: 100%;
+  height: 50px;
   display: flex;
   background: #1f1f1f;
-  width: 100%;
-  height: 6vh;
   align-items: center;
   justify-content: space-between;
   padding: 0 8px;
@@ -14,6 +15,6 @@
 .user {
   background: #fcfcfc;
   border-radius: 50%;
-  width: calc(6vh - 8px);
-  height: calc(6vh - 8px);
+  width: 42px;
+  height: 42px;
 }
