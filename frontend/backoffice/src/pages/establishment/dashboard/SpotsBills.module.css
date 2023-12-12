@@ -1,5 +1,11 @@
 .SpotBills { /* 1900 = 400 + 5 * 300 */
+  display: grid;
   grid-template-columns: repeat(6, 1fr);
+  width: 100%;
+  max-width: 100%;
+}
+.billHolder {
+  padding: 4px;
 }
 /* see Dashboard.module.css to adjust */
 @media screen and (max-width: 2038px) {

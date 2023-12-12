@@ -36,7 +36,7 @@ export function fetchRegister() {
       return
     }
     dispatch(setRegisterLoading())
-    api.get(`/api/bills/managed/register`)
+    api.get(`/api/counter/admin/active/register`)
       .then(res => {
         dispatch(setRegister(res.data))
       })
@@ -49,7 +49,7 @@ export function fetchRegister() {
 export function openRegister() {
   return (dispatch, getState) => {
     dispatch(setRegisterLoading())
-    api.post(`/api/bills/managed/register`)
+    api.post(`/api/counter/admin/active/register`)
       .then(res => {
         dispatch(setRegister(res.data))
       })
@@ -61,7 +61,7 @@ export function openRegister() {
 
 export function closeRegister() {
   return async (dispatch, getState) => {
-    const res = await api.post(`/api/bills/managed/register/close`)
+    const res = await api.post(`/api/counter/admin/active/register/close`)
     dispatch(setRegister(null))
     return res
   }
@@ -74,7 +74,7 @@ export function fetchOpenBills() {
       return
     }
     dispatch(setOpenBillsLoading())
-    api.get(`/api/bills/managed/bills`)
+    api.get(`/api/counter/admin/active/bills`)
       .then(res => {
         dispatch(setOpenBills(res.data))
       })

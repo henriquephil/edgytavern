@@ -76,7 +76,7 @@ class JdbcRepository() : Repository {
             stmt.setString(2, token.clientId)
             stmt.setString(3, token.tokenType.toString())
             stmt.setString(4, token.accessToken)
-            stmt.setTimestamp(5, token.accessTokenExpiration?.let { Timestamp.valueOf(it) })
+            stmt.setTimestamp(5, token.accessTokenExpiration.let { Timestamp.valueOf(it) })
             stmt.setString(6, token.refreshToken)
             stmt.setTimestamp(7, token.refreshTokenExpiration?.let { Timestamp.valueOf(it) })
         }

@@ -1,8 +1,8 @@
-import { Box,  Grid } from "@chakra-ui/react"
 import { Fragment, useEffect, useState } from "react"
 import api from "../../../../services/api"
 import SpotGroup from './SpotGroup'
 import AddSpotGroup from './AddSpotGroup'
+import styles from "./Spots.module.css"
 
 function Spots() {
   const [loading, setLoading] = useState(true)
@@ -30,17 +30,17 @@ function Spots() {
   }
 
   const emptyMessage = (
-    <Box w="100%">
+    <div className={styles.SpotsEmpty}>
       <span>Start by adding a Group (outside, balcony, pooltable, etc)</span>
-    </Box>
+    </div>
   )
   return (
     <>
       {spots?.length === 0 ? emptyMessage : <Fragment/>}
-      <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" autoColumns="dense" gap="3">
+      <div className={styles.SpotsPane}>
         { spots.map(spot => <SpotGroup key={spot.id} spot={spot}/> )}
         <AddSpotGroup addGroup={group => addGroup(group)}/>
-      </Grid>
+      </div>
     </>
     )
 }

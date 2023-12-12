@@ -1,0 +1,12 @@
+.CreateEstablishment {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  background: #222;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  width: 400px;
+}

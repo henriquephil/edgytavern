@@ -1,0 +1,20 @@
+.EditAssetModal {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px;
+  width: 750px;
+}
+.controls{
+  display: flex;
+  justify-content: flex-end;
+  flex-basis: 100%;
+  border-top: 1px solid #ffa100;
+  margin-top: 4px;
+}
+.controls > div{
+  padding: 4px;
+}
+.ingredient, .additional {
+  display: flex;
+  flex-direction: row;
+}

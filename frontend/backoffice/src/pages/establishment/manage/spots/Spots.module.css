@@ -1,0 +1,16 @@
+.SpotsPane {
+  display: grid;
+  grid-gap: var(--chakra-space-3);
+  grid-auto-columns: dense;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+.SpotsEmpty {
+  width: 100%;
+}
+.AddSpotGroup {
+  display: flex;
+  flex-direction: column;
+}
+.SpotGroup {
+  display: flex;
+}

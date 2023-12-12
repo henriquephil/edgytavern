@@ -1,6 +1,23 @@
+.Manage {
+  display: flex;
+  align-items: start;
+  flex-basis: 1200px;
+  min-width: 900px;
+  height: 100%;
+}
 .establishmentName {
   font-weight: lighter;
   font-size: 2.5em;
+}
+.links {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  min-width: 100px;
+}
+.links .linkBox {
+  padding: 12px;
+  text-align: right;
 }
 .links a{
   color: #fff;
@@ -9,4 +26,10 @@
 }
 .links a.active {
   color: #ffa100;
+}
+
+.panel {
+  flex-basis: auto;
+  flex-grow: 5;
+  height: 100%;
 }

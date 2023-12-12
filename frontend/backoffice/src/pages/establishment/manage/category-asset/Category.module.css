@@ -1,3 +1,16 @@
+.category {
+  width: 100%;
+  padding: 8px 0;
+}
+.categoryHeader {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  padding: 8px 50px 0 32px;
+}
 .categoryName {
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  flex-basis: auto;
+  flex-grow: 1;
+  font-size: 1.7em;
 }

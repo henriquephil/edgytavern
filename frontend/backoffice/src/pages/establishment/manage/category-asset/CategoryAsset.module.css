@@ -1,0 +1,28 @@
+.CategoryAsset {
+  padding: 4px 0 4px 4px;
+}
+.CategoryAssetList {
+  display: flex;
+}
+.Asset {
+  flex-basis: auto;
+  flex-grow: 1;
+  padding: 4px;
+  background: #333;
+  color: #fff;
+}
+.AssetInner {
+  display: flex;
+  align-items: baseline;
+}
+.AssetName {
+  font-size: 1.1em;
+  padding: 4px 8px;
+  flex-grow: 1;
+}
+.AssetControl {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 4px;
+}

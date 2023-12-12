@@ -1,0 +1,7 @@
+.RecentOrders {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: #222;
+  padding: 0 2px;
+}

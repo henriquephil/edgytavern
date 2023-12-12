@@ -1,11 +1,11 @@
-import { Box } from '@chakra-ui/react'
 import { Scrollbars } from 'react-custom-scrollbars'
+import styles from "./MyScroll.module.css"
 
 function MyScroll({children}) {
   return <Scrollbars renderThumbVertical={({style, ...props}) => <div {...props} style={{...style, backgroundColor: '#ffa100', }}></div>}>
-      <Box paddingRight="10px">
+      <div className={styles.container}>
         {children}
-      </Box>
+      </div>
     </Scrollbars>
 }
 export default MyScroll

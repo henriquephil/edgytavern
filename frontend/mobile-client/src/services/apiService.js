@@ -58,7 +58,7 @@ export function fetchAssets() {
 export function getOrOpenBill() {
   return (dispatch, getState) => {
     dispatch(billLoading())
-    api.post('/api/bills', { establishmentHash: _getEstablishmentHashId(getState) })
+    api.post('/api/counter/bill', { establishmentHash: _getEstablishmentHashId(getState) })
       .then(res => {
         dispatch(setBill(res.data))
         dispatch(fetchBillOrders())
@@ -73,7 +73,7 @@ export function fetchBillOrders() {
   return (dispatch, getState) => {
     dispatch(ordersLoading())
     dispatch(setVisibleFrame(FRAME_BILL))
-    api.get('/api/bills/orders')
+    api.get('/api/counter/orders')
       .then(res => {
         dispatch(setOrders(res.data))
       })
@@ -98,7 +98,7 @@ export function postBillOrder() {
       })
       const spotHash = _getSpotHashId(getState)
       if (items?.length > 0 && spotHash) {
-        await api.post(`/api/bills/orders`, {
+        await api.post(`/api/counter/orders`, {
           spotHash,
           items
         })

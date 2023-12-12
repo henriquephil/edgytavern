@@ -11,7 +11,7 @@ class TokenInfoHandler(
     fun handle(context: Context) {
         val token = context.formParam("token")
         val accessToken = repository.findTokenByAccessToken(token!!) ?: error("access token does not exist")
-        if (accessToken.accessTokenExpiration != null && accessToken.accessTokenExpiration.isAfter(LocalDateTime.now())) {
+        if (accessToken.accessTokenExpiration.isAfter(LocalDateTime.now())) {
             error("access token expired")
         }
         val user = repository.findUserById(accessToken.userId) ?: error("user not found")

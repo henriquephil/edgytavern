@@ -1,10 +1,10 @@
-import { Box, Button, Flex } from "@chakra-ui/react"
 import CategoryAsset from "./CategoryAsset"
-import style from './Category.module.css'
+import styles from './Category.module.css'
 import EditAssetModal from "./modals/EditAssetModal"
 import { useContext, useEffect, useState } from "react"
 import { ModalContext } from "../../../../components/modal/ModalContext"
 import api from '../../../../services/api'
+import Button from "../../../../components/Button"
 
 function Category({ category }) {
   const [loading, setLoading] = useState(true)
@@ -23,21 +23,21 @@ function Category({ category }) {
   useEffect(() => loadAssets(), [])
 
   return (
-    <Box w="100%" p="8px 0">
-      <Flex w="100%" p="8px 50px 0 32px" align="baseline">
-        <Box flexBasis="auto" flexGrow="1" fontSize="1.7em" className={style.categoryName}>
+    <div className={styles.category}>
+      <div className={styles.categoryHeader}>
+        <div className={styles.categoryName}>
           {category.name}
-        </Box>
-        <Button variant="ghost" onClick={() => openModal(<EditAssetModal asset={{ category }}/>, { onClose: loadAssets })}>
+        </div>
+        <Button primary onClick={() => openModal(<EditAssetModal asset={{ category }}/>, { onClose: loadAssets })}>
           New asset
         </Button>
-      </Flex>
+      </div>
       {loading ? 'Loading' :
         assets.map(asset => {
           asset.category = category
           return <CategoryAsset key={asset.id} asset={asset} onCategoryEdited={loadAssets}/>
         })}
-    </Box>
+    </div>
   )
 }
 

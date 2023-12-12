@@ -1,27 +1,21 @@
-import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons"
-import { Box, Button, Flex, Grid } from "@chakra-ui/react"
-import { useState } from "react"
-import CutBorder from "../../../../components/CutBorder"
+import Button from "../../../../components/Button"
+import FormInput from "../../../../components/FormInput"
 
 function SpotGroup({ spot }) {
   return (
-    <CutBorder borderAt='left'>
-      <Flex flexDirection="column">
-        <Flex grow="1" direction="column" className="form-input">
-          <label>Group name</label>
-          <input type="text" value={spot.name} disabled/>
-        </Flex>
-        <Flex shrink="0" direction="column" className="form-input">
-          <label>Amount of spots</label>
-          <input type="text" value={spot.amount} disabled/>
-        </Flex>
-        <Flex className="form-input">
-          <Button onClick={() => console.log(spot)}>
-            <DeleteIcon/>
-          </Button>
-        </Flex>
-      </Flex>
-    </CutBorder>
+    <div className={SpotGroup}>
+      <FormInput label="Group name">
+        <input type="text" value={spot.name} disabled/>
+      </FormInput>
+      <FormInput label="Amount of spots">
+        <input type="text" value={spot.amount} disabled/>
+      </FormInput>
+      <FormInput>
+        <Button onClick={() => console.log(spot)}>
+          Delete
+        </Button>
+      </FormInput>
+    </div>
   )
 }
 

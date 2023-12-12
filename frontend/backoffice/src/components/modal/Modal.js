@@ -1,8 +1,6 @@
-import { Box, Flex } from "@chakra-ui/react"
 import { useContext, useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { useKey } from "react-use"
-import CutBorder from "../CutBorder"
 import style from "./Modal.module.css"
 import { ModalContext } from "./ModalContext"
 
@@ -41,17 +39,13 @@ function Modal() {
 
   if (visible) {
     return createPortal(
-      <Flex ref={bgRef} className={style.Modal} display={visible ? 'flex' : 'none'} onClick={e => backgroundClick(e)}>
+      <div ref={bgRef} className={style.Modal} display={visible ? 'flex' : 'none'} onClick={e => backgroundClick(e)}>
         <input ref={firstTabIdx} onKeyDown={e => blockTabShift(e)} className={style.hiddenTabInput}></input>
-        <Box maxH="100vh" maxW="768px">
-          <CutBorder borderAt='top'>
-            <Box background="#222">
-              {modalContent}
-            </Box>
-          </CutBorder>
-        </Box>
+        <div className={style.box} maxH="100vh" maxW="768px">
+          {modalContent}
+        </div>
         <input onKeyDown={e => blockTab(e)} className={style.hiddenTabInput}></input>
-      </Flex>,
+      </div>,
       document.querySelector("#modal-root"))
   }
   return null

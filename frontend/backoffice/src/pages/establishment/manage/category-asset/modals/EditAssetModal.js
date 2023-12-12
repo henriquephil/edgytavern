@@ -1,9 +1,10 @@
-import { AddIcon, DeleteIcon, EditIcon, HamburgerIcon, LockIcon, UnlockIcon } from "@chakra-ui/icons"
-import { Box, Button, Checkbox, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
 import { useContext, useState } from "react"
 import { useList } from "react-use"
 import api from '../../../../../services/api'
 import { ModalContext } from "../../../../../components/modal/ModalContext"
+import styles from "./EditAssetModal.module.css"
+import FormInput from "../../../../../components/FormInput"
+import Button from "../../../../../components/Button"
 
 // TODO break into components
 function EditAssetModal({asset}) {
@@ -39,133 +40,105 @@ function EditAssetModal({asset}) {
   }
 
   const renderIngredient = ingredient => {
-    return <Flex key={ingredient.id}>
-      <Flex basis="auto" grow="1" className="form-input">
+    return <div key={ingredient.id} className={styles.ingredient}>
+      <FormInput grow="1">
         <span readOnly>{ingredient.name}</span>
-      </Flex>
-      <Flex shrink="0" p="0 20px" className="form-input" justify="center">
-        {ingredient.removable ? <UnlockIcon/> : <LockIcon/>}
-      </Flex>
-      <Flex sharink="0" className="form-input">
-        <Menu>
-          <MenuButton as={Button} p="8px">
-            <HamburgerIcon />
-          </MenuButton>
-          <MenuList>
-            <MenuItem><EditIcon/> Edit</MenuItem>
-            <MenuItem><DeleteIcon/> Delete</MenuItem>
-          </MenuList>
-        </Menu>
-      </Flex>
-    </Flex>
+      </FormInput>
+      <Button>
+        Edit
+      </Button>
+    </div>
   }
 
   function renderNewIngredient() {
     return (
-      <Flex>
-        <Flex basis="auto" grow="1" className="form-input">
+      <div className={styles.ingredient}>
+        <FormInput grow="1">
           <input type="text" placeholder="Name" value={ingredientName} onChange={e => setIngredientName(e.target.value)}/>
-        </Flex>
-          <Box p="4px" flexShrink="0">
-            <Button onClick={() => setIngredientRemovable(!ingredientRemovable)} variant="ghost">
-              {ingredientRemovable ? <UnlockIcon/> : <LockIcon/>}
-            </Button>
-          </Box>
-        <Box p="4px" flexShrink="0">
-          <Button onClick={() => {
-            if (ingredientName && (typeof ingredientRemovable === 'boolean'))
-              ingredientsActions.push({ name: ingredientName, removable: ingredientRemovable })
-          }}>
-            <AddIcon/>
-          </Button>
-        </Box>
-      </Flex>
+        </FormInput>
+        <Button onClick={() => setIngredientRemovable(!ingredientRemovable)} variant="ghost">
+          {ingredientRemovable ? "U" /*nlock*/ : "L"/*ock*/}
+        </Button>
+        <Button onClick={() => {
+          if (ingredientName && (typeof ingredientRemovable === 'boolean'))
+            ingredientsActions.push({ name: ingredientName, removable: ingredientRemovable })
+        }}>
+          Add
+        </Button>
+      </div>
     )
   }
 
   function renderAdditional(additional) {
-    return <Flex key={additional.id}>
-    <Flex basis="auto" grow="1" className="form-input">
-        <span>{additional.name}</span>
-      </Flex>
-      <Flex basis="120px" flexShrink="0" className="form-input">
-        <span>{additional.price}</span>
-      </Flex>
-      <Flex sharink="0" className="form-input">
-        <Menu>
-          <MenuButton as={Button} p="8px">
-            <HamburgerIcon />
-          </MenuButton>
-          <MenuList>
-            <MenuItem><EditIcon/> Edit</MenuItem>
-            <MenuItem><DeleteIcon/> Delete</MenuItem>
-          </MenuList>
-        </Menu>
-      </Flex>
-    </Flex>
+    return (
+      <div className={styles.additional}>
+        <FormInput grow="1">
+          <span>{additional.name}</span>
+        </FormInput>
+        <FormInput grow="1">
+          <span>{additional.price}</span>
+        </FormInput>
+        <Button>
+          Edit
+        </Button>
+      </div>
+    )
   }
 
   function renderNewAdditional() {
     return (
-    <Flex>
-      <Flex basis="auto" grow="1" className="form-input">
+    <div className={styles.additional}>
+      <FormInput grow="1">
         <input type="text" placeholder="Name" value={additionalName} onChange={e => setadditionalName(e.target.value)}/>
-      </Flex>
-      <Flex basis="120px" flexShrink="0" className="form-input">
+      </FormInput>
+      <FormInput grow="1">
         <input type="number" placeholder="Price" value={additionalPrice} onChange={e => setAdditionalPrice(e.target.value)}/>
-      </Flex>
-      <Box p="4px" flexShrink="0">
-        <Button onClick={() => {
-          if (additionalName && additionalPrice)
-            additionalsActions.push({ name: additionalName, price: additionalPrice })
-        }}>
-          <AddIcon/>
-        </Button>
-      </Box>
-    </Flex>
+      </FormInput>
+      <Button onClick={() => {
+        if (additionalName && additionalPrice)
+          additionalsActions.push({ name: additionalName, price: additionalPrice })
+      }}>
+        Add
+      </Button>
+    </div>
     )
   }
 
   return (
-    <Flex p="8px" w="750px" wrap="wrap">
-      <Flex basis="50%" grow="1" className="form-input">
-          <label>Name</label>
+    <div className={styles.EditAssetModal}>
+      <FormInput w="50" grow="1" label="Name">
           <input type="text" value={name} onChange={e => setName(e.target.value)}/>
-      </Flex>
+      </FormInput>
       {asset.id ? (
-        <Flex shrink="1" className="form-input" paddingTop="32px">
-          <Checkbox isChecked={active} onChange={e => setActive(e.target.checked)} colorScheme="whiteAlpha">Active</Checkbox>
-        </Flex>) : null}
-      <Flex basis="70%" className="form-input">
-          <label>Category</label>
+        <FormInput grow="-1" label="Active">
+          {/* <Checkbox isChecked={active} onChange={e => setActive(e.target.checked)} colorScheme="whiteAlpha">Active</Checkbox> */}
+          <input type="checkbox" onChange={e => setActive(e.target.checked)} />
+        </FormInput>) : null}
+      <FormInput w="70" label="Category">
           <input type="text" value={asset.category.name} readOnly tabIndex="-1" />
-      </Flex>
-      <Flex basis="30%" className="form-input">
-          <label>Price</label>
+      </FormInput>
+      <FormInput w="30" label="Price">
           <input type="number" value={price} onChange={e => setPrice(e.target.value)}/>
-      </Flex>
-      <Flex basis="100%" className="form-input">
-          <label>Detailed description</label>
+      </FormInput>
+      <FormInput w="100" label="Detailed description">
           <input type="text" value={description} onChange={e => setDescription(e.target.value)}/>
-      </Flex>
+      </FormInput>
 
-      <Flex basis="50%" direction="column">
-        <label>Ingredients</label>
+      <FormInput w="50" label="Ingredients" top>
         {ingredients.map(renderIngredient)}
         {renderNewIngredient()}
-      </Flex>
+      </FormInput>
 
-      <Flex basis="50%" direction="column">
-        <label>Additionals</label>
+      <FormInput w="50" label="Additionals" top>
         {additionals.map(renderAdditional)}
         {renderNewAdditional()}
-      </Flex>
+      </FormInput>
 
-      <Flex basis="100%" justify="flex-end" borderTop="1px solid #ffa100" marginTop="4px">
-        <Box p="4px"><Button onClick={() => closeModal()}>Cancel</Button></Box>
-        <Box p="4px"><Button onClick={() => save()} isLoading={saveLoading}>Save</Button></Box>
-      </Flex>
-    </Flex>
+      <div className={styles.controls}>
+        <div><Button onClick={() => closeModal()}>Cancel</Button></div>
+        <div><Button onClick={() => save()} isLoading={saveLoading} primary>Save</Button></div>
+      </div>
+    </div>
   )
 }
 

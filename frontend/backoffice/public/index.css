@@ -40,7 +40,12 @@ code {
 .text-right {
   text-align: right;
 }
-
+/* links */
+a {
+  background-color: transparent;
+  color: inherit;
+  text-decoration: inherit;
+}
 
 /* input */
 input.subtle {
@@ -53,8 +58,10 @@ input.subtle {
   color: #f0f0f0;
 }
 .form-input {
-  padding: 4px;
+  display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  padding: 4px;
 }
 .form-input input, .form-input select, .form-input span {
   color: #f0f0f0;
@@ -81,4 +88,7 @@ label {
   font-size: 0.9rem;
   padding: 0 0 0 8px;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.full-width {
+  width: 100%;
 }

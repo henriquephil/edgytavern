@@ -11,7 +11,7 @@ export function useFetchBill(billId) {
       setError('invalid bill id')
     }
     setLoading(true)
-    api.get(`/api/bills/managed/bills/${billId}`)
+    api.get(`/api/counter/admin/bills/${billId}`)
       .then(res => {
         setBill(res.data)
         setLoading(false)

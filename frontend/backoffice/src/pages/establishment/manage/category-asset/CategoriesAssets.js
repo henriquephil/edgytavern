@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import api from "../../../../services/api"
 import AddCategory from "./AddCategory"
@@ -28,13 +27,13 @@ function CategoriesAssets() {
   
   if (loading) return 'Loading'
   return (
-    <Box w="100%">
+    <div className="full-width">
       {categories?.length ? categories.map(c => <Category key={c.id} category={c} />) :
-      <Box w="100%">
+      <div className="full-width">
         <span>Looks like you haven't added categories yet. Start by using the form below</span>
-      </Box>}
+      </div>}
       <AddCategory addCategory={category => addCategory(category)}/>
-    </Box>)
+    </div>)
 }
 
 export default CategoriesAssets

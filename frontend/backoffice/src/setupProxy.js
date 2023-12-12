@@ -15,10 +15,10 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   )
-  app.use('/api/bills',
+  app.use('/api/counter',
     createProxyMiddleware({
       target: 'http://localhost:8082',
-      pathRewrite: { '^/api/bills': '/', },
+      pathRewrite: { '^/api/counter': '/', },
       changeOrigin: true,
     })
   )

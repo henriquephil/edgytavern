@@ -1,9 +1,8 @@
-import { EditIcon } from "@chakra-ui/icons"
-import { Box, Button, Flex, Spacer } from "@chakra-ui/react"
 import { useContext } from "react"
-import CutBorder from "../../../../components/CutBorder"
 import { ModalContext } from "../../../../components/modal/ModalContext"
 import EditAssetModal from "./modals/EditAssetModal"
+import styles from "./CategoryAsset.module.css"
+import Button from "../../../../components/Button"
 
 function CategoryAsset({asset, onCategoryEdited}) {
   const { openModal } = useContext(ModalContext)
@@ -13,25 +12,21 @@ function CategoryAsset({asset, onCategoryEdited}) {
   }
 
   return (
-    <Box p="4px 0 4px 4px">
-      <CutBorder borderAt='left'>
-        <Flex>
-          <Box flexBasis="auto" flexGrow="1" p="4px" background="#333" color="#fff"
-              style={{opacity: asset.active ? 1 : 0.5}}>
-            <Flex align="baseline">
-              <Box fontSize="1.1em" p="4px 8px">{asset.name}</Box>
-              <Spacer/>
-              <Box>{asset.price}</Box>
-            </Flex>
-          </Box>
-          <Flex p="0 4px" align="center" justify="flex-end">
-            <Button variant="ghost" onClick={() => openModal(<EditAssetModal asset={asset}/>, { onClose })}>
-              <EditIcon/>
-            </Button>
-          </Flex>
-        </Flex>
-      </CutBorder>
-    </Box>
+    <div className={styles.CategoryAsset}>
+      <div className={styles.CategoryAssetList}>
+        <div className={styles.Asset} style={{opacity: asset.active ? 1 : 0.5}}>
+          <div className={styles.AssetInner}>
+            <div className={styles.AssetName}>{asset.name}</div>
+            <div className={styles.AssetPrice}>{asset.price}</div>
+          </div>
+        </div>
+        <div className={styles.AssetControl}>
+          <Button onClick={() => openModal(<EditAssetModal asset={asset}/>, { onClose })}>
+            Edit
+          </Button>
+        </div>
+      </div>
+    </div>
   )
 }
 

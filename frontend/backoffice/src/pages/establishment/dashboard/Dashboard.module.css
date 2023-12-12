@@ -12,8 +12,19 @@
   height: 100%;
   display: flex;
 }
+.DashboardBills{
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  flex-grow: 1;
+  height: 100%;
+}
 .RecentOrdersContainer { /* 1900 = 400 + 5 * 300 */
   flex-basis: 400px;
+  flex-shrink: 0;
+  height: 100%;
 }
 /* see SpotsBills.module.css to adjust */
 @media screen and (max-width: 1580px) { /* 380 + 300 * 4 */

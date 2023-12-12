@@ -9,11 +9,13 @@ class ClientService(
 ) {
 
     fun clientFromRequestValidateSecret(context: Context): Client {
+        val basicAuth = context.basicAuthCredentials()
+
         val clientId: String
         val clientSecret: String
-        if (context.basicAuthCredentialsExist()) {
-            clientId = context.basicAuthCredentials().username
-            clientSecret = context.basicAuthCredentials().password
+        if (basicAuth != null) {
+            clientId = basicAuth.username
+            clientSecret = basicAuth.password
         } else {
             clientId = context.formParam("client_id") ?: error("client_id required")
             clientSecret = context.formParam("client_secret") ?: error("client_secret required")
@@ -24,12 +26,9 @@ class ClientService(
     }
 
     fun clientFromRequest(context: Context): Client {
-        val clientId: String
-        if (context.basicAuthCredentialsExist()) {
-            clientId = context.basicAuthCredentials().username
-        } else {
-            clientId = context.formParam("client_id") ?: error("client_id required")
-        }
+        val clientId = context.basicAuthCredentials()?.username
+            ?: context.formParam("client_id")
+            ?: error("client_id required")
         return repository.findClient(clientId) ?: error("invalid client")
     }
 }

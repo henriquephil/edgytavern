@@ -1,0 +1,23 @@
+.Button {
+  font-weight: 600;
+  transition-duration: 200ms;
+  min-width: 2.5rem;
+  min-height: 2.8em;
+  color: #f0f0f0;
+  border: none;
+  padding: 8px;
+  transition: 125ms linear;
+}
+.Button.primary {
+  background: #333;
+}
+.Button:hover {
+  background: #333;
+}
+.Button.primary:hover {
+  background: #4a4a4a;
+}
+.Button.disabled {
+  cursor: not-allowed;
+  background: transparent;
+}

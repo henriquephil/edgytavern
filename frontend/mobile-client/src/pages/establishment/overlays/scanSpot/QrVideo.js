@@ -21,6 +21,8 @@ export default function QrVideo({ onResult }) {
   }, [])
 
   return (
-    <video ref={videoRef} muted/>
+    <div style={{ width: '100vw', height: '40vh'}}>
+      <video ref={videoRef} muted/>
+    </div>
   )
 }

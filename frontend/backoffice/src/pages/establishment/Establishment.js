@@ -1,8 +1,6 @@
-import { Box, Flex } from '@chakra-ui/react'
 import Menubar from '../../layout/Menubar'
 import Dashboard from './dashboard/Dashboard'
 import Manage from './manage/Manage'
-// import bg from '../../assets/pub-bg1.jpeg'
 import style from './Establishment.module.css'
 import { ModalProvider } from '../../components/modal/ModalContext'
 import { Route, Routes } from 'react-router-dom'
@@ -11,12 +9,11 @@ import Spots from './manage/spots/Spots'
 
 function Establishment() {
   return (
-    <Flex direction="column" justifyContent="start" align="center" w="100%" h="100vh" maxH="100vh" minW="768px" className={style.Establishment}
-        bgColor="#222" color="#f0f0f0"> {/* backgroundImage={`url(${bg})`} */}
+    <div className={style.Establishment}>
       <ModalProvider>
-        <Flex direction="column" w="100%" h="100%">
+        <div className={style.container}>
           <Menubar/>
-          <Flex w="100%" h="100%" alignItems="start" justifyContent="space-around">
+          <div className={style.content}>
             <Routes>
               <Route path="dashboard" element={<Dashboard/>} index />
               <Route path="manage" element={<Manage/>}>
@@ -24,10 +21,10 @@ function Establishment() {
                 <Route path="spots" element={<Spots/>} />
               </Route>
             </Routes>
-          </Flex>
-        </Flex>
+          </div>
+        </div>
       </ModalProvider>
-    </Flex>
+    </div>
   )
 }
 

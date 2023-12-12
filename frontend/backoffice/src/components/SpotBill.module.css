@@ -1,0 +1,25 @@
+.SpotBill {
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  min-width: 260px;
+  padding: 0 0 4px 0;
+  background-color: #333;
+  color: #ccc;
+  cursor: pointer;
+}
+.username {
+  display: flex;
+  padding: 2px 0 2px 8px;
+  color: #222;
+  font-weight: var(--chakra-fontWeights-bold);
+}
+.info {
+  display: flex;
+  padding: 2px 0 2px 8px;
+}
+.info .row {
+  flex-grow: 1;
+}

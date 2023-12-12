@@ -15,6 +15,7 @@ function Cart() {
   function send() {
     if (!spotState.data) {
       dispatch(requestScan())
+      return;
     }
     setPostingOrder(true)
     dispatch(postBillOrder())

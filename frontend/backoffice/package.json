@@ -30,6 +30,7 @@
     "react-use": "^17.4.0",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
+    "react-number-format": "^4.9.3",
     "sockjs-client": "^1.6.0",
     "tavern-commons": "file:../tavern-commons",
     "web-vitals": "^2.1.4",
